@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    padding: 1rem 3rem;
+}
+
+header .left-logo img{
+    width: 40%;
+}
+
+header .right ul{
+    display: flex;
+    gap: 60px;
+    list-style: none;
+}
+
+header .resp-icon{
+    display: none;
+}
+
+header .right ul a{
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    font-family: 'Lato', sans-serif;
+}
+
+header .right ul a:hover{
+    color: #0287BE;
+    transition: .5s;
+}
+
+header .container-resp{
+    z-index: 333333;
+    position: absolute;
+    top: 0;
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+    padding: 3rem 2rem;
+}
+
+header .resp-menu{
+    text-align: center;
+}
+
+header .resp-menu .resp-icon-close{
+    font-size: 35px;
+    display: flex;
+    text-align: left;
+}
+
+header .resp-menu ul{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+header .resp-menu ul a{
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #333;
+    font-size: 25px;
+    font-family: 'Lato', sans-serif;
+}
+
+header .resp-menu ul a:hover{
+    color: #0287BE;
+    transition: .5s;
+}
+
+header .container-resp{
+    display: none;
+}
+
+@media screen and (max-width: 992px)
+{
+    .container{
+        padding: 1rem;
+    }
+
+    header .left-logo img{
+        width: 60%;
+    }
+
+    header .right ul{
+        gap: 40px;
+    }
+
+    header .right ul a{
+        font-size: 10px;
+    }
+    
+}
+
+@media screen and (max-width: 768px)
+{
+    header .right{
+        display: none;
+    }
+
+    header .left-logo img{
+        width: 30%;
+    }
+
+    header .resp-icon{
+        display: block;
+        font-size: 20px;
+    }
+
+    header .container-resp{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 576px)
+{
+    header .left-logo img{
+        width: 40%;
+    }
+    header .resp-icon{
+        font-size: 30px;
+    }
+
+    header .container-resp{
+        display: none;
+    }
+}

@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+.doctorHead {
+    position: relative;
+    font-family: 'Lato', sans-serif;
+}
+
+.doctorHead img{
+    width: 100%;
+    height: 40vh;
+    object-fit: cover;
+}
+
+.doctorHead .doctorHead-text{
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%,-50%);
+}
+
+.doctorHead h1{
+    text-transform:  uppercase;
+    font-size: 32px;
+    color: #fff;
+    font-weight: 700;
+
+}
+
+.breadcrumb{
+    margin-bottom: 0;
+}
+
+.breadcrumb-item+.breadcrumb-item::before{
+    color: #fff;
+}
+
+.doctorHead .breadcrumb li{
+    color: #fff;
+}
+
+.doctorHead .breadcrumb li a{
+    text-decoration: none;
+    color: #fff;
+}
+
+@media screen and (max-width: 992px)
+{
+    .doctorHead .doctorHead-text{
+        left: 37%;
+    }
+    .doctorHead h1{
+        font-size: 32px;
+    }
+}
+
+
+@media screen and (max-width: 768px)
+{
+    .doctorHead h1{
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 576px)
+{
+    .doctorHead h1{
+        font-size: 20px;
+    }
+}

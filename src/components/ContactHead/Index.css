@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+.contactHead {
+    position: relative;
+    font-family: 'Lato', sans-serif;
+}
+
+.contactHead img{
+    width: 100%;
+    height: 40vh;
+    object-fit: cover;
+}
+
+.contactHead .contactHead-text{
+    position: absolute;
+    top: 50%;
+    left: 13%;
+    transform: translate(-50%,-50%);
+}
+
+.contactHead h1{
+    text-transform:  uppercase;
+    font-size: 32px;
+    color: #fff;
+    font-weight: 700;
+
+}
+
+.breadcrumb{
+    margin-bottom: 0;
+}
+
+.breadcrumb-item+.breadcrumb-item::before{
+    color: #fff;
+}
+
+.contactHead .breadcrumb li{
+    color: #fff;
+}
+
+.contactHead .breadcrumb li a{
+    text-decoration: none;
+    color: #fff;
+}
+
+@media screen and (max-width: 992px)
+{
+    .contactHead h1{
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 768px)
+{
+    .aboutHead h1{
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 576px)
+{
+    .aboutHead h1{
+        font-size: 20px;
+    }
+}

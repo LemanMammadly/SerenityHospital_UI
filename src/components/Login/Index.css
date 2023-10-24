@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+
+.all-login{
+    display: flex;
+    font-family: 'Lato', sans-serif;
+}
+
+.all-login .left-login{
+    background-color: #0D1428;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-login .left-login h2{
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.all-login .left-login form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.all-login .left-login form input{
+    background-color: #0D1428;
+    border: 1px solid rgba(128, 128, 128, 0.347);
+    padding: 20px 150px 20px 10px;
+    color: #fff;
+    outline: none;
+}
+
+.all-login .left-login form input:focus{
+    background-color: #fff;
+    color: #0D1428;
+}
+
+.all-login .left-login button{
+    color: #fff;
+    background-color: #2191BF;
+    border: none;
+    padding: 20px;
+}
+
+.all-login .left-login p{
+    font-size: 15px;
+    color: #777272a3;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.all-login .right-login .img-div{
+    background-size: auto;
+}
+
+
+@media screen and (max-width: 992px)
+{
+    .all-login{
+        flex-direction: column;
+    }
+}

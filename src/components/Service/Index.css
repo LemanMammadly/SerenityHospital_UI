@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-service{
+    padding: 3rem 5rem;
+    font-family: 'Lato', sans-serif;
+}
+
+.all-service{
+    margin: 2rem 0;
+}
+
+.all-service .service h2{
+    text-align: center;
+    margin-bottom: 50px;
+    color: #467481;
+    font-weight: bold;
+}
+
+.all-service .boxes{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.all-service .boxes .box h3{
+    font-size: 18px;
+    line-height: 26px;
+    color: #111;
+}
+
+.all-service .boxes .box p{
+    font-size: 15px;
+    line-height: 24px;
+    color: #55595c;
+    width: 96%;
+}
+
+
+@media screen and (max-width: 768px)
+{
+    .container-service{
+        padding: 3rem;
+    }
+
+    .all-service .service h2{
+        font-size: 25px;
+    }
+
+    .all-service .boxes .box h3{
+        font-size: 15px;
+    }
+
+    .all-service .boxes .box p{
+        width: 100%;
+        font-size: 13px;
+    }
+    
+}

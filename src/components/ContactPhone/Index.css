@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+.container-contactPhone{
+    padding: 3rem 7rem;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+}
+
+
+.container-contactPhone h4{
+    font-size: 32px;
+    color: #111;
+}
+
+.container-contactPhone p{
+    font-size: 15px;
+    color: #55595c;
+}
+
+.container-contactPhone button{
+    color: #fff;
+    background-color: #0287BE;
+    border: none;
+    padding: 15px 50px; 
+    margin-top: 30px;
+}
+
+.container-contactPhone button i{
+    margin-right: 5px;
+}

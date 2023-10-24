@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+footer{
+    background-color: #111111;
+}
+
+.container-footer{
+    padding: 3rem 5rem;
+    font-family: 'Lato', sans-serif;
+}
+
+.container-footer .top-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-footer .top-footer .logo-div-footer img{
+    width: 200px;
+}
+
+.container-footer .top-footer .center-footer h3{
+    color:rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.container-footer .top-footer .center-footer ul{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.container-footer .top-footer .center-footer a{
+    text-decoration: none;
+    color:rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    transition: .5s;
+}
+
+.container-footer .top-footer .center-footer a:hover{
+    color:rgba(255, 255, 255, 0.5);
+}
+
+.container-footer .top-footer .right-footer h3{
+    color:rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.container-footer .top-footer .right-footer ul{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.container-footer .top-footer .right-footer a{
+    text-decoration: none;
+    color:rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    transition: .5s;
+}
+
+.container-footer .top-footer .right-footer a:hover{
+    color:rgba(255, 255, 255, 0.5);
+}
+
+.container-footer .bottom-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-footer .bottom-footer .bottom-footer-left p{
+    color:rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+}
+
+.container-footer .bottom-footer .bottom-footer-right .social-footer{
+    display: flex;
+    gap: 20px;
+    color:rgba(255, 255, 255, 0.5);
+}
+
+.container-footer .bottom-footer .bottom-footer-right .icon-footer{
+    cursor: pointer;
+    transition: .5s;
+}
+
+.container-footer .bottom-footer .bottom-footer-right .icon-footer:hover{
+    color:rgba(255, 255, 255, 0.7);
+}
+
+@media screen and (max-width: 768px)
+{
+    .container-footer .top-footer {
+        text-align: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+}
+
+@media screen and (max-width: 576px)
+{
+    .container-footer .bottom-footer{
+        flex-direction: column;
+        text-align: center;
+    }
+    .container-footer .bottom-footer .bottom-footer-right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
