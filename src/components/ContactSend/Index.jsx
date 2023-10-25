@@ -91,6 +91,15 @@ const Index = () => {
         </div>
       </form>
         </div>
+        <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4059213.171903782!2d-1.5213623875000282!3d6.512145200000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8c384cb9c4ed%3A0xee72f80fb1993836!2sSerenity%20Hospital!5e0!3m2!1sen!2saz!4v1698250273277!5m2!1sen!2saz"
+        width="100%"
+        height="450"
+        style={{border:"0"}}
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
     </section>
   );
 };

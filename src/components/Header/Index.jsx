@@ -45,7 +45,7 @@ const Index = () => {
             <Link key={index} to="/">
               <img
                src={datas.headerLogoUrl}
-                alt="wewere"
+                alt="headerlogo"
                 style={{ width: "40%" }}
               />
             </Link>

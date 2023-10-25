@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Index.css";
+import axios from "axios";
 
 const Index = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://localhost:7227/api/Services")
+      .then((resp) => {
+        setData(resp.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <section>
       <div className="container-service">
@@ -10,34 +24,14 @@ const Index = () => {
             <h2>Our World Class Services</h2>
           </div>
           <div className="boxes col-lg-12 row">
-            <div className="box col-lg-5">
-              <h3>High quality service</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-            <div className="box col-lg-5">
-              <h3>High quality service</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-            <div className="box col-lg-5">
-              <h3>High quality service</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-            <div className="box col-lg-5">
-              <h3>High quality service</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
+            {data.map((datas, index) => (
+              <div key={index} className="box col-lg-5">
+                <h3>{datas.name}</h3>
+                <p>
+                 {datas.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

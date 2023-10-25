@@ -25,7 +25,7 @@ const Index = () => {
           <div className="left-footer">
             {data.map((datas,index) => (
               <div key={index} className="logo-div-footer">
-                <img src={datas.footerLogoUrl} alt="hjhhj" />
+                <img src={datas.footerLogoUrl} alt="footerlogo" />
               </div>
             ))}
           </div>

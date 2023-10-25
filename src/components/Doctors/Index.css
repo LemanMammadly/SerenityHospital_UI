@@ -122,7 +122,6 @@
 
 
 .containers-doctor .doctor-detail{
-    display: none;
     position: absolute;
     background-color: #fff;
     z-index: 333;
