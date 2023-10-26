@@ -6,8 +6,7 @@ import SiderbarSuperAdmin from "../../components/Siderbar/Index"
 
 const Index = () => {
   return (
-    <div className='d-flex'>
-        <SiderbarSuperAdmin/>
+    <div>
         <HomeDashboard/>
     </div>
   )

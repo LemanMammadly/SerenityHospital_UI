@@ -8,6 +8,7 @@ import Login from "./pages/Login/Index.jsx"
 import Appoinment from "./pages/Appoinment/Index.jsx"
 import SuperAdminDashboard from "./Layouts/SuperAdminDashboard"
 import SuperAdminHome from "./userTypes/superAdmin/pages/Home/Index.jsx"
+import SuperAdminSettings from "./userTypes/superAdmin/pages/Settings/Index.jsx"
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route path="/appoinment" element={<Appoinment/>}/>
         </Route>
         <Route path="/superadmin" element={<SuperAdminDashboard/>}>
-          <Route index element={<SuperAdminHome/>}/>
+          {/* <Route index element={<SuperAdminHome/>}/>
+          <Route index element={<SuperAdminSettings/>}/> */}
         </Route>
       </Routes>
     </BrowserRouter>

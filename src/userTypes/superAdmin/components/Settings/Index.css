@@ -1,0 +1,55 @@
+
+.setting-container{
+    padding: 1rem;
+}
+
+.setting-container .setting-top h1{
+    margin-bottom: 30px;
+}
+
+.setting-container .setting-bottom{
+    background-color: #fff;
+    padding: 3rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.setting-container .setting-bottom h4{
+    font-size: 15px;
+    color: #002140;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.setting-container .update-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.setting-container .update-btn button{
+    border: none;
+    background-color: #66BB69;
+    color: #fff;
+    padding: 7px;
+    border-radius: 30px;
+}
+
+@media screen and (max-width: 992px)
+{
+    .setting-container{
+        padding: 0.3rem;
+    }
+
+    .setting-container .setting-bottom{
+        padding: 1rem;
+    }
+}
+
+
+@media screen and (max-width: 576px)
+{
+    .setting-bottom .panel-body .form-group{
+        flex-direction: column;
+        gap: 10px;
+    }
+}

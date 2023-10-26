@@ -1,14 +1,18 @@
-import React, { useState } from "react";
-import HomeDashboard from "../../components/HomeDashboard/Index"
+import React, { useState, useEffect } from "react";
+import Home from "../../pages/Home/Index";
+import Setting from "../../pages/Settings/Index";
 import {
-  DesktopOutlined,
+  SettingOutlined,
   FileOutlined,
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
-const { Header, Content, Sider } = Layout;
+import { Layout, Menu, theme } from "antd";
+import { Content } from "antd/es/layout/layout";
+
+const { Sider } = Layout;
+
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -17,9 +21,10 @@ function getItem(label, key, icon, children) {
     label,
   };
 }
+
 const items = [
   getItem("Dashboard", "1", <PieChartOutlined />),
-  getItem("Option 2", "2", <DesktopOutlined />),
+  getItem("Settings", "2", <SettingOutlined />),
   getItem("User", "sub1", <UserOutlined />, [
     getItem("Tom", "3"),
     getItem("Bill", "4"),
@@ -33,36 +38,39 @@ const items = [
 ];
 
 const Index = () => {
+  const [selectedItem, setSelectedItem] = useState("1");
   const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+  }, [selectedItem]);
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
   return (
-    <Layout
-    className="col-lg-2"
-      style={{
-        minHeight: "100vh",
-      }}
+    <Layout style={{ minHeight: "100vh" }}>
+    <Sider
+      width={240} // Sabit genişliği ayarlayın
+      style={{ backgroundColor: "#fff" }}
+      collapsible
+      collapsed={collapsed}
+      onCollapse={(value) => setCollapsed(value)}
     >
-      <Sider
-        className="col-lg-3"
-        style={{backgroundColor:"#fff"}}
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-      >
-        <div style={{backgroundColor:"#fff"}} className="demo-logo-vertical" />
-        <Menu
-          theme="light"
-          defaultSelectedKeys={["1"]}
-          mode="inline"
-          items={items}
-        />
-      </Sider>
-      {/* <Layout>
-      <HomeDashboard/>
-      </Layout> */}
-    </Layout>
+      <div style={{ backgroundColor: "#fff" }} className="demo-logo-vertical" />
+      <Menu
+        theme="light"
+        selectedKeys={[selectedItem]}
+        onClick={(e) => setSelectedItem(e.key)}
+        mode="inline"
+        items={items}
+      />
+    </Sider>
+    <Content style={{ padding: "24px", minHeight: 280 }}>
+      {selectedItem === "1" && <Home />}
+      {selectedItem === "2" && <Setting />}
+    </Content>
+  </Layout>
   );
 };
 
