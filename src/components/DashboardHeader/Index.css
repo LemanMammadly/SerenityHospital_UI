@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container-dashboard{
+    padding: 1rem 5rem;
+    background-color: #002140;
+}
+
+.all-header-dashboard h2{
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.all-header-dashboard .right-bottom-header{
+    display: flex;
+    gap: 20px;
+    justify-content: end;
+    align-items: center;
+}
+
+
+.all-header-dashboard .right-bottom-header a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+}
+
+.all-header-dashboard .dashboard-hr{
+    width: 1px;
+    height: 10px;
+    color: #fff;
+    background-color: #ffffff;
+    margin: 0px;
+}
+
+@media screen and (max-width: 786px)
+{
+    .all-header-dashboard .left-menu-header i{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 576px)
+{
+    .container-dashboard{
+        padding: 2rem 3rem;
+    }
+
+    .all-header-dashboard h2{
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .all-header-dashboard .right-bottom-header{
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}

@@ -6,6 +6,8 @@ import AboutUs from "./pages/AboutUs/Index.jsx"
 import Contact from "./pages/Contact/Index.jsx"
 import Login from "./pages/Login/Index.jsx"
 import Appoinment from "./pages/Appoinment/Index.jsx"
+import SuperAdminDashboard from "./Layouts/SuperAdminDashboard"
+import SuperAdminHome from "./userTypes/superAdmin/pages/Home/Index.jsx"
 
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
           <Route path="/contact" element={<Contact/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/appoinment" element={<Appoinment/>}/>
+        </Route>
+        <Route path="/superadmin" element={<SuperAdminDashboard/>}>
+          <Route index element={<SuperAdminHome/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
