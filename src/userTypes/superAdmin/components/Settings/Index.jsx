@@ -8,17 +8,19 @@ const Index = () => {
   const [inputs, setInputs] = useState({});
   const [previewHeaderLogo, setPreviewHeaderLogo] = useState("");
   const [previewFooterLogo, setPreviewFooterLogo] = useState("");
+  const [errors, setErrors] = useState({}); 
 
   const nav = useNavigate();
 
   useEffect(() => {
     axios
       .get("https://localhost:7227/api/Settings")
-      .then((res) => setData(res.data))
+      .then((res) => {
+        setData(res.data);
+        setInputs(res.data[0]);
+      })
       .catch((err) => console.log(err));
   }, []);
-
-  console.log(inputs);
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
@@ -29,19 +31,21 @@ const Index = () => {
     formData.append("email", inputs.email);
     formData.append("headerLogoFile", inputs.headerLogoFile);
     formData.append("footerLogoFile", inputs.footerLogoFile);
-
-    try {
-      await axios
-        .put(`https://localhost:7227/api/Settings/Put/${id}`, formData, {
+    const newErrors = validateInputs(inputs);
+    setErrors(newErrors);
+    if (Object.keys(errors).length === 0) {
+      try {
+        await axios.put(`https://localhost:7227/api/Settings/Put/${id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        })
-        .then(() => {
-          nav("/superadmin");
         });
-    } catch (error) {
-      console.error(error);
+        nav("/superadmin");
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.log("Errors:", errors);
     }
   };
 
@@ -57,7 +61,6 @@ const Index = () => {
       } else if (name === "footerLogoFile") {
         setPreviewFooterLogo(preview);
       }
-
       setInputs((prevInputs) => ({
         ...prevInputs,
         [name]: selectedFile,
@@ -68,6 +71,28 @@ const Index = () => {
         [name]: value,
       }));
     }
+  };
+
+  const validateInputs = (values) => {
+    const newErrors = {};
+
+    if (!values.address) {
+      newErrors.address = "Address is required";
+    }
+    if (!values.phone) {
+      newErrors.phone = "Phone is required.";
+    } else if (!/^\d{10}$/.test(values.phone)) {
+      newErrors.phone = "Valid phone number.";
+    }
+
+    if (!values.email) {
+      newErrors.email = "E-mail is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
+      newErrors.email = "Valid email address.";
+    }
+
+    setErrors(newErrors);
+    return newErrors;
   };
 
   return (
@@ -94,7 +119,8 @@ const Index = () => {
                       name="address"
                       required=""
                       onChange={handleChange}
-                    />
+                      />
+                      {errors.address && <span className="error-message text-danger text-sm">{errors.address}</span>}
                   </div>
                 </div>
                 <div class="form-group d-flex align-items-center justify-content-center">
@@ -111,6 +137,7 @@ const Index = () => {
                       required=""
                       onChange={handleChange}
                     />
+                     {errors.phone && <span className="error-message text-danger text-sm">{errors.phone}</span>}
                   </div>
                 </div>
                 <div class="form-group d-flex align-items-center justify-content-center">
@@ -127,6 +154,7 @@ const Index = () => {
                       required=""
                       onChange={handleChange}
                     />
+                       {errors.email && <span className="error-message text-danger text-sm">{errors.email}</span>}
                   </div>
                 </div>
                 <div className="header-logo-img text-center">

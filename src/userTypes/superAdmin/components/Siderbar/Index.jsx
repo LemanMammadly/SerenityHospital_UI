@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Home from "../../pages/Home/Index";
 import Setting from "../../pages/Settings/Index";
+import Service from "../../pages/Service/Index"
 import {
   SettingOutlined,
   FileOutlined,
@@ -12,6 +13,7 @@ import { Layout, Menu, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 
 const { Sider } = Layout;
+
 
 function getItem(label, key, icon, children) {
   return {
@@ -25,11 +27,7 @@ function getItem(label, key, icon, children) {
 const items = [
   getItem("Dashboard", "1", <PieChartOutlined />),
   getItem("Settings", "2", <SettingOutlined />),
-  getItem("User", "sub1", <UserOutlined />, [
-    getItem("Tom", "3"),
-    getItem("Bill", "4"),
-    getItem("Alex", "5"),
-  ]),
+  getItem("Service", "3", <UserOutlined />),
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Team 1", "6"),
     getItem("Team 2", "8"),
@@ -40,6 +38,13 @@ const items = [
 const Index = () => {
   const [selectedItem, setSelectedItem] = useState("1");
   const [collapsed, setCollapsed] = useState(false);
+
+
+
+const handleMenuItemClick = (key) => {
+  setSelectedItem(key);
+};
+
 
   useEffect(() => {
   }, [selectedItem]);
@@ -61,7 +66,7 @@ const Index = () => {
       <Menu
         theme="light"
         selectedKeys={[selectedItem]}
-        onClick={(e) => setSelectedItem(e.key)}
+        onClick={({ key }) => handleMenuItemClick(key)}
         mode="inline"
         items={items}
       />
@@ -69,6 +74,7 @@ const Index = () => {
     <Content style={{ padding: "24px", minHeight: 280 }}>
       {selectedItem === "1" && <Home />}
       {selectedItem === "2" && <Setting />}
+      {selectedItem === "3" && <Service />}
     </Content>
   </Layout>
   );
