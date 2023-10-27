@@ -1,6 +1,7 @@
 
 .setting-container{
-    padding: 1rem;
+    padding: 2rem;
+    background-color: #F1F4F8;
 }
 
 .setting-container .setting-top h1{
@@ -34,10 +35,14 @@
     border-radius: 30px;
 }
 
+.setting-container .left-menu-header{
+    display: none;
+}
+
 @media screen and (max-width: 992px)
 {
     .setting-container{
-        padding: 0.3rem;
+        padding: 3rem;
     }
 
     .setting-container .setting-bottom{
@@ -45,6 +50,18 @@
     }
 }
 
+
+@media screen and (max-width: 768px)
+{
+    .setting-container .left-menu-header{
+        display: block;
+    }
+    .setting-container{
+        display: flex;
+        flex-direction: column;
+        padding: 7rem;
+    }
+}
 
 @media screen and (max-width: 576px)
 {

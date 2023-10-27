@@ -1,0 +1,29 @@
+.all-service-update{
+    padding: 3rem 5rem;
+}
+
+.all-service-update .top-service-update h1{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.all-service-update .update-btn-service{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-service-update .update-btn-service button{
+    border: none;
+    background-color: #002140;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.error-messages{
+    font-size: 14px;
+    color: red;
+}

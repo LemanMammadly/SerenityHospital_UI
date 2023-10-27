@@ -7,7 +7,6 @@ const SuperAdminDashboard = () => {
   return (
     <div>
       <DashboardHeader/>
-      <SiderbarSuperAdmin/>
       <div>
         <Outlet />
       </div>

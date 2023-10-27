@@ -11,6 +11,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
+import { useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;
 
@@ -36,18 +37,25 @@ const items = [
 ];
 
 const Index = () => {
-  const [selectedItem, setSelectedItem] = useState("1");
   const [collapsed, setCollapsed] = useState(false);
+  const nav=useNavigate();
 
 
 
-const handleMenuItemClick = (key) => {
-  setSelectedItem(key);
-};
-
-
-  useEffect(() => {
-  }, [selectedItem]);
+const ChangePage=(key)=>{
+  if(key==="1")
+  {
+    nav("/superadmin")
+  }
+  else if(key==="2")
+  {
+    nav("/superadmin/settings")
+  }
+  else if(key==="3")
+  {
+    nav("/superadmin/service")
+  }
+}
 
   const {
     token: { colorBgContainer },
@@ -56,7 +64,7 @@ const handleMenuItemClick = (key) => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
     <Sider
-      width={240} // Sabit genişliği ayarlayın
+      width={240}
       style={{ backgroundColor: "#fff" }}
       collapsible
       collapsed={collapsed}
@@ -65,17 +73,12 @@ const handleMenuItemClick = (key) => {
       <div style={{ backgroundColor: "#fff" }} className="demo-logo-vertical" />
       <Menu
         theme="light"
-        selectedKeys={[selectedItem]}
-        onClick={({ key }) => handleMenuItemClick(key)}
+        defaultSelectedKeys={["1"]}
+        onClick={(e) => ChangePage(e.key)}
         mode="inline"
         items={items}
       />
     </Sider>
-    <Content style={{ padding: "24px", minHeight: 280 }}>
-      {selectedItem === "1" && <Home />}
-      {selectedItem === "2" && <Setting />}
-      {selectedItem === "3" && <Service />}
-    </Content>
   </Layout>
   );
 };

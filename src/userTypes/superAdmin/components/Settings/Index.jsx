@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Index.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import $ from "jquery"
 
 const Index = () => {
   const [data, setData] = useState([]);
@@ -11,6 +12,14 @@ const Index = () => {
   const [errors, setErrors] = useState({}); 
 
   const nav = useNavigate();
+
+
+  const respOpenMenu = () => {
+    const dashboardMenu = $(".dashboard-menu-header");
+
+    dashboardMenu.fadeIn("slow", () => {});
+    document.body.style.overflow = "hidden";
+  };
 
   useEffect(() => {
     axios
@@ -98,11 +107,18 @@ const Index = () => {
   return (
     <section className="all-settings">
       <div className="setting-container">
-        <div className="setting-top">
+        <div className="setting-top d-flex justify-content-between">
           <h1>System Settings</h1>
+          <div className="left-menu-header">
+              <i
+                onClick={respOpenMenu}
+                class="fa-solid fa-bars"
+                style={{ color: "#333", marginBottom: "20px" }}
+              ></i>
+            </div>
         </div>
         <div className="setting-bottom margin-auto w-100">
-          <h4>General Settings</h4>
+         <h4>General Settings</h4>
           {data.map((datas, index) => (
             <form key={index} onSubmit={(e) => handleSubmit(e, datas.id)}>
               <div class="panel-body d-flex flex-column gap-4">

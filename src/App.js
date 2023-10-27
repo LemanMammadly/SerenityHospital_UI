@@ -9,6 +9,9 @@ import Appoinment from "./pages/Appoinment/Index.jsx"
 import SuperAdminDashboard from "./Layouts/SuperAdminDashboard"
 import SuperAdminHome from "./userTypes/superAdmin/pages/Home/Index.jsx"
 import SuperAdminSettings from "./userTypes/superAdmin/pages/Settings/Index.jsx"
+import SuperAdminService from "./userTypes/superAdmin/pages/Service/Index.jsx"
+import ServiceAddSuperAdmin from "./userTypes/superAdmin/pages/ServiceAdd/Index.jsx"
+import ServiceUpdateSuperAdmin from "./userTypes/superAdmin/pages/ServiceUpdate/Index.jsx"
 
 function App() {
   return (
@@ -24,8 +27,11 @@ function App() {
           <Route path="/appoinment" element={<Appoinment/>}/>
         </Route>
         <Route path="/superadmin" element={<SuperAdminDashboard/>}>
-          {/* <Route index element={<SuperAdminHome/>}/>
-          <Route index element={<SuperAdminSettings/>}/> */}
+          <Route index element={<SuperAdminHome/>}/>
+          <Route path="/superadmin/settings" element={<SuperAdminSettings/>}/>
+          <Route path="/superadmin/service" element={<SuperAdminService/>}/>
+          <Route path="/superadmin/service/create" element={<ServiceAddSuperAdmin/>}/>
+          <Route path="/superadmin/service/update/:id" element={<ServiceUpdateSuperAdmin/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

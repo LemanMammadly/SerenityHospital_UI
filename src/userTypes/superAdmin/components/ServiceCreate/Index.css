@@ -1,0 +1,29 @@
+.all-service-create{
+    padding: 3rem 5rem;
+}
+
+.all-service-create .top-service-create h1{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.all-service-create .add-btn-service{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-service-create .add-btn-service button{
+    border: none;
+    background-color: #002140;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.error-messages{
+    font-size: 14px;
+    color: red;
+}

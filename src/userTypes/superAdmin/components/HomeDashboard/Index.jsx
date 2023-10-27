@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import ResponsiveMenu from "../ResponsiveMenu/Index"
 import "./Index.css";
-import { Link } from "react-router-dom";
-import { PieChartOutlined } from "@ant-design/icons";
+
 import $ from "jquery"
 import axios from "axios";
 
@@ -23,12 +23,6 @@ const Index = () => {
     document.body.style.overflow = "hidden";
   };
 
-  const respCloseMenu = () => {
-    const dashboardMenu = $(".dashboard-menu-header");
-
-    dashboardMenu.fadeOut("slow", () => {});
-    document.body.style.overflow = "auto";
-  };
 
 
   useEffect(()=>{
@@ -171,44 +165,8 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <div className="dashboard-menu-header">
-        <i
-          onClick={respCloseMenu}
-          class="fa-solid fa-xmark"
-          style={{ padding: "20px", fontSize: "25px" }}
-        ></i>
-        <ul>
-          <li>
-            <Link to="#">
-              {" "}
-              <PieChartOutlined /> Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link to="#">
-              {" "}
-              <PieChartOutlined /> Doctor
-            </Link>
-          </li>
-          <li>
-            <Link to="#">
-              {" "}
-              <PieChartOutlined /> Patient
-            </Link>
-          </li>
-          <li>
-            <Link to="#">
-              {" "}
-              <PieChartOutlined /> Department
-            </Link>
-          </li>
-          <li>
-            <Link to="#">
-              {" "}
-              <PieChartOutlined /> Nurse
-            </Link>
-          </li>
-        </ul>
+      <div className="respmenu">
+        <ResponsiveMenu/>
       </div>
     </section>
   );
