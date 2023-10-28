@@ -7,10 +7,12 @@ import { Link } from "react-router-dom";
 
 const Index = () => {
   const [data, setData] = useState([]);
-  const [search,setSearch]=useState("");
-  const [searchResults,setSearchResults]=useState([])
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; 
+  const [errorMessages, setErrorMessages] = useState("");
+  const [exception, setException] = useState("");
+  const itemsPerPage = 10;
 
   const respOpenMenu = () => {
     const dashboardMenu = $(".dashboard-menu-header");
@@ -19,34 +21,83 @@ const Index = () => {
     document.body.style.overflow = "hidden";
   };
 
+  const handleDelete = (id) => {
+    axios
+      .delete(`https://localhost:7227/api/Services/Delete/${id}`)
+      .then((res) => {
+        window.location.reload();
+        console.log("Service deleted successfully");
+      })
+      .catch((e) => {
+        if (e.response && e.response.data && e.response.data.errors) {
+          setErrorMessages(e.response.data.errors);
+        } else {
+          setException(e.response.data.message);
+        }
+      });
+  };
+
+  const handleSoftDelete = (id) => {
+    axios
+      .patch(`https://localhost:7227/api/Services/SoftDelete/${id}`)
+      .then((res) => {
+        window.location.reload();
+        console.log("Service deleted successfully");
+      })
+      .catch((e) => {
+        if (e.response && e.response.data && e.response.data.errors) {
+          setErrorMessages(e.response.data.errors);
+        } else {
+          setException(e.response.data.message);
+        }
+      });
+  };
+
+  const handleRevertDelete = (id) => {
+    axios
+      .patch(`https://localhost:7227/api/Services/ReverteSoftDelete/${id}`)
+      .then((res) => {
+        window.location.reload();
+        console.log("Service reverte successfully");
+      })
+      .catch((e) => {
+        if (e.response && e.response.data && e.response.data.errors) {
+          setErrorMessages(e.response.data.errors);
+        } else {
+          setException(e.response.data.message);
+        }
+      });
+  };
+  
+
+
   useEffect(() => {
     axios
       .get("https://localhost:7227/api/Services")
-      .then((res) =>{
-        setData(res.data)
-        setSearchResults(res.data)
+      .then((res) => {
+        setData(res.data);
+        setSearchResults(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  const seacrhChange=(key)=>{
-    setSearch(key)
-    const filteredResults=data.filter((item)=>
+  const seacrhChange = (key) => {
+    setSearch(key);
+    const filteredResults = data.filter((item) =>
       item.name.toLowerCase().includes(key.toLowerCase())
-    )
-    setSearchResults(filteredResults)
+    );
+    setSearchResults(filteredResults);
     setCurrentPage(1);
-  }
+  };
 
-   const changePage = (page) => {
+  const changePage = (page) => {
     setCurrentPage(page);
   };
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
 
   return (
     <section className="all-services-superadmin">
@@ -61,16 +112,37 @@ const Index = () => {
                 style={{ color: "#333", marginBottom: "20px" }}
               ></i>
             </div>
+            {errorMessages ? (
+              <div className="error-messages">
+                <p className="error-message">{errorMessages.message}</p>
+              </div>
+            ) : (
+              <div className="error-messages">
+                <p className="error-message">{exception}</p>
+              </div>
+            )}
           </div>
           <div className="left-right-service-superadmin d-flex gap-3 align-items-center">
-            <Link to="/superadmin/service/create" style={{textDecoration:"none", backgroundColor:"#0B58CA", color:"#fff", padding:"5px",fontSize:"13px" ,borderRadius:"5px"}}>Create</Link>
+            <Link
+              to="/superadmin/service/create"
+              style={{
+                textDecoration: "none",
+                backgroundColor: "#0B58CA",
+                color: "#fff",
+                padding: "5px",
+                fontSize: "13px",
+                borderRadius: "5px",
+              }}
+            >
+              Create
+            </Link>
             <div className="search-input">
               <input
                 className="form form-control w-100"
                 type="text"
                 placeholder="Search"
                 value={search}
-                onChange={(e)=>seacrhChange(e.target.value)}
+                onChange={(e) => seacrhChange(e.target.value)}
               />
             </div>
           </div>
@@ -93,24 +165,66 @@ const Index = () => {
               </tr>
             </thead>
             <tbody>
-            {searchResults.slice(startIndex, endIndex).map((datas, index) => (
+              {searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
                   <th scope="row">{datas.id}</th>
                   <td>{datas.name}</td>
                   <td>{datas.description.slice(0, 10)}...</td>
-                  <td>{new Date(datas.serviceBeginning).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</td>
-                  <td>{new Date(datas.serviceEnding).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</td>
+                  <td>
+                    {new Date(datas.serviceBeginning).toLocaleTimeString(
+                      "en-US",
+                      { hour: "2-digit", minute: "2-digit" }
+                    )}
+                  </td>
+                  <td>
+                    {new Date(datas.serviceEnding).toLocaleTimeString("en-US", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </td>
                   <td>{datas.minPrice}</td>
                   <td>{datas.maxPrice}</td>
-                  <td>{datas.isDeleted ===false ? 'Active' : 'Deleted'}</td>
+                  <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                   <td>
-                    <Link to={`/superadmin/service/update/${datas.id}`} style={{textDecoration:"none", backgroundColor:"#0B58CA", color:"#fff", padding:"5px",fontSize:"13px" ,borderRadius:"5px"}} className="bg-success text-white">Edit</Link>
+                    <Link
+                      to={`/superadmin/service/update/${datas.id}`}
+                      style={{
+                        textDecoration: "none",
+                        backgroundColor: "#0B58CA",
+                        color: "#fff",
+                        padding: "5px",
+                        fontSize: "13px",
+                        borderRadius: "5px",
+                      }}
+                      className="bg-success text-white"
+                    >
+                      Edit
+                    </Link>
                   </td>
                   <td>
-                    <Button className="bg-warning text-white">Soft</Button>
+                    {datas.isDeleted === true ? (
+                      <Button
+                        onClick={() => handleRevertDelete(datas.id)}
+                        className="bg-secondary text-white"
+                      >
+                        Reverte
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => handleSoftDelete(datas.id)}
+                        className="bg-warning text-white"
+                      >
+                        Soft
+                      </Button>
+                    )}
                   </td>
                   <td>
-                    <Button className="bg-danger text-white">Delete</Button>
+                    <Button
+                      onClick={() => handleDelete(datas.id)}
+                      className="bg-danger text-white"
+                    >
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -118,21 +232,28 @@ const Index = () => {
           </table>
           <div className="pagination">
             <div className="pag">
-            <Button
-              onClick={() => changePage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </Button>
-            <span className="pagNum" style={{ fontSize: "15px", marginLeft:"10px",marginRight:"10px"}}>
-              {currentPage}
-            </span>
-            <Button
-              onClick={() => changePage(currentPage + 1)}
-              disabled={endIndex >= searchResults.length}
-            >
-              Next
-            </Button>
+              <Button
+                onClick={() => changePage(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <span
+                className="pagNum"
+                style={{
+                  fontSize: "15px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                {currentPage}
+              </span>
+              <Button
+                onClick={() => changePage(currentPage + 1)}
+                disabled={endIndex >= searchResults.length}
+              >
+                Next
+              </Button>
             </div>
           </div>
         </div>

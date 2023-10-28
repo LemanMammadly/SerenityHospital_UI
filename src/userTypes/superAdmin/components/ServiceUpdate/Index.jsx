@@ -11,13 +11,17 @@ const Index = () => {
   const [inputs, setInputs] = useState({});
   const [data, setData] = useState({});
   const [departmentsall, setDepartmentsall] = useState([]);
+  const [selectedDepartments, setSelectedDepartments] = useState([]);
+  const [errorMessages, setErrorMessages] = useState([]);
+  const [exception, setException] = useState("");
 
   useEffect(() => {
     axios
       .get(`https://localhost:7227/api/Services/${id}`)
-      .then((res) =>{
-        setData(res.data)
-        setInputs(res.data)
+      .then((res) => {
+        setData(res.data);
+        setInputs(res.data);
+        setSelectedDepartments(res.data.departments || []);
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -31,34 +35,45 @@ const Index = () => {
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
-    const newValue = type === 'checkbox' ? e.target.checked : value;
-  
+    const newValue = type === "checkbox" ? e.target.checked : value;
+
     setInputs((prev) => ({
       ...prev,
       [name]: newValue,
     }));
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    if (name === "departmentIds") {
+      const selectedDepartments = Array.from(e.target.selectedOptions).map(
+        (option) => Number(option.value)
+      );
+
+      setSelectedDepartments(selectedDepartments);
+    }
   };
-  
-  
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
-
+    console.log(inputs);
+    
     const dataValue = {
       name: inputs.name,
-      description: inputs.desc,
-      serviceBeginning: inputs.serviceBegin,
-      serviceEnding: inputs.serviceEnd,
-      minPrice: inputs.minp,
-      maxPrice: inputs.maxp,
-      departments: inputs.depIds,
+      description: inputs.description,
+      serviceBeginning: inputs.serviceBeginning,
+      serviceEnding: inputs.serviceEnding,
+      minPrice: inputs.minPrice,
+      maxPrice: inputs.maxPrice,
+      departmentIds: selectedDepartments,
     };
 
-    console.log(inputs);
+   
     console.log(dataValue);
 
-    await
-    axios
+    await axios
       .put(`https://localhost:7227/api/Services/Put/${id}`, dataValue, {
         headers: {
           "Content-Type": "application/json",
@@ -66,9 +81,15 @@ const Index = () => {
       })
       .then((res) => console.log(res.data))
       .catch((e) => {
-        console.log(e);
+        if (e.response && e.response.data && e.response.data.errors) {
+          setErrorMessages(e.response.data.errors);
+        } else {
+          setException(e.response.data.message);
+        }
       });
   };
+
+
 
   return (
     <section>
@@ -105,6 +126,15 @@ const Index = () => {
                     required=""
                     placeholder="Name"
                   />
+                  {errorMessages.Name ? (
+                    <div className="error-messages">
+                      <p className="error-message">{errorMessages.Name}</p>
+                    </div>
+                  ) : (
+                    <div className="error-messages">
+                      <p className="error-message">{exception}</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group d-flex align-items-center justify-content-center">
@@ -118,10 +148,21 @@ const Index = () => {
                     defaultValue={data.description}
                     onChange={handleChange}
                     className="form-control"
-                    name="desc"
+                    name="description"
                     placeholder="Description"
                     required=""
                   />
+                  {errorMessages.Description ? (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {errorMessages.Description}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="error-messages">
+                      <p className="error-message">{exception}</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group d-flex align-items-center justify-content-center">
@@ -129,12 +170,27 @@ const Index = () => {
                 <div className="col-sm-5">
                   <DatePicker
                     showTime
-                    name="serviceBegin"
+                    name="serviceBeginning"
                     format="YYYY-MM-DD HH:mm:ss"
                     placeholder="Select Date and Time"
                     defaultValue={data.serviceBeginning}
-                    onChange={(date, dateString) => handleChange({ target: { name: 'serviceBegin', value: dateString } })}
+                    onChange={(date, dateString) =>
+                      handleChange({
+                        target: { name: "serviceBeginning", value: dateString },
+                      })
+                    }
                   />
+                  {errorMessages.ServiceBeginning ? (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {errorMessages.ServiceBeginning}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="error-messages">
+                      <p className="error-message">{exception}</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group d-flex align-items-center justify-content-center">
@@ -142,12 +198,27 @@ const Index = () => {
                 <div className="col-sm-5">
                   <DatePicker
                     showTime
-                    name="serviceEnd"
+                    name="serviceEnding"
                     format="YYYY-MM-DD HH:mm:ss"
                     placeholder="Select Date and Time"
                     defaultValue={data.serviceEnding}
-                    onChange={(date, dateString) => handleChange({ target: { name: 'serviceEnd', value: dateString } })}
+                    onChange={(date, dateString) =>
+                      handleChange({
+                        target: { name: "serviceEnding", value: dateString },
+                      })
+                    }
                   />
+                  {errorMessages.ServiceEnding ? (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {errorMessages.ServiceEnding}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="error-messages">
+                      <p className="error-message">{exception}</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group d-flex align-items-center justify-content-center">
@@ -161,10 +232,21 @@ const Index = () => {
                     defaultValue={data.minPrice}
                     onChange={handleChange}
                     className="form-control"
-                    name="minp"
+                    name="minPrice"
                     placeholder="Minimum Price"
                     required=""
                   />
+                  {errorMessages.MinPrice ? (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {errorMessages.MinPrice}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="error-messages">
+                      <p className="error-message">{exception}</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group d-flex align-items-center justify-content-center">
@@ -178,10 +260,21 @@ const Index = () => {
                     defaultValue={data.maxPrice}
                     onChange={handleChange}
                     className="form-control"
-                    name="maxp"
+                    name="maxPrice"
                     placeholder="Maximum Price"
                     required=""
                   />
+                  {errorMessages.MaxPrice ? (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {errorMessages.MaxPrice}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="error-messages">
+                      <p className="error-message">{exception}</p>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="form-group d-flex align-items-center justify-content-center">
@@ -210,9 +303,10 @@ const Index = () => {
                     id="depIds"
                     className="form-control"
                     multiple
-                    name="depIds"
+                    name="departmentIds"
                     required=""
-                    value={data.selectedDepartmentId}
+                    value={selectedDepartments}
+                    onChange={handleChange}
                   >
                     {departmentsall.map((department) => (
                       <option key={department.id} value={department.id}>
@@ -220,6 +314,17 @@ const Index = () => {
                       </option>
                     ))}
                   </select>
+                  {errorMessages.DepartmentIds ? (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {errorMessages.DepartmentIds}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="error-messages">
+                      <p className="error-message">{exception}</p>
+                    </div>
+                  )}
                 </div>
               </div>
 

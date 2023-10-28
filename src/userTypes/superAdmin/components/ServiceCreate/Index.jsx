@@ -3,7 +3,6 @@ import "./Index.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { DatePicker } from "antd";
-import { error } from "jquery";
 
 const Index = () => {
   const [inputs, setInputs] = useState({});
