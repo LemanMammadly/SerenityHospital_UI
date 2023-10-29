@@ -24,7 +24,7 @@ const Index = () => {
             <h2>Our World Class Services</h2>
           </div>
           <div className="boxes col-lg-12 row">
-            {data.map((datas, index) => (
+            {data.filter((datas) => datas.isDeleted === false).map((datas, index) => (
               <div key={index} className="box col-lg-5">
                 <h3>{datas.name}</h3>
                 <p>

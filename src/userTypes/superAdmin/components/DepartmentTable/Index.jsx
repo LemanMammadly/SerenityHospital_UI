@@ -1,15 +1,15 @@
-import { Button } from "antd";
+import React, { useEffect, useState } from "react";
 import "./Index.css";
+import { Button } from "antd";
+import { Link } from "react-router-dom";
 import $ from "jquery";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 const Index = () => {
-  const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
   const [errorMessages, setErrorMessages] = useState("");
   const [exception, setException] = useState("");
   const itemsPerPage = 10;
@@ -23,10 +23,10 @@ const Index = () => {
 
   const handleDelete = (id) => {
     axios
-      .delete(`https://localhost:7227/api/Services/Delete/${id}`)
+      .delete(`https://localhost:7227/api/Departments/${id}`)
       .then((res) => {
         window.location.reload();
-        console.log("Service deleted successfully");
+        console.log("Department deleted successfully");
       })
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
@@ -39,7 +39,7 @@ const Index = () => {
 
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Services/SoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/Departments/SoftDelete/${id}`)
       .then((res) => {
         window.location.reload();
         console.log("Service deleted successfully");
@@ -55,7 +55,7 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Services/ReverteSoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/Departments/RevertSoftDelete/${id}`)
       .then((res) => {
         window.location.reload();
         console.log("Service reverted successfully");
@@ -70,10 +70,9 @@ const Index = () => {
   };
   
 
-
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/Services")
+      .get("https://localhost:7227/api/Departments")
       .then((res) => {
         setData(res.data);
         setSearchResults(res.data);
@@ -100,11 +99,11 @@ const Index = () => {
   const endIndex = startIndex + itemsPerPage;
 
   return (
-    <section className="all-services-superadmin">
-      <div className="container-service-superadmin">
-        <div className="top-service-superadmin d-flex justify-content-between align-items-center">
-          <div className="left-top-service-superadmin">
-            <h1>Service</h1>
+    <section className="all-departments-superadmin">
+      <div className="container-departments-superadmin">
+        <div className="top-departments-superadmin d-flex justify-content-between align-items-center">
+          <div className="left-top-departments-superadmin">
+            <h1>Departments</h1>
             <div className="left-menu-header">
               <i
                 onClick={respOpenMenu}
@@ -122,9 +121,9 @@ const Index = () => {
               </div>
             )}
           </div>
-          <div className="left-right-service-superadmin d-flex gap-3 align-items-center">
+          <div className="left-right-departments-superadmin d-flex gap-3 align-items-center">
             <Link
-              to="/superadmin/service/create"
+              to="/superadmin/department/create"
               style={{
                 textDecoration: "none",
                 backgroundColor: "#0B58CA",
@@ -147,17 +146,15 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div className="bottom-service-superadmin">
+        <div className="bottom-departments-superadmin">
           <table class="table">
             <thead>
               <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
-                <th scope="col">Service Begin</th>
-                <th scope="col">Service End</th>
-                <th scope="col">Min Price</th>
-                <th scope="col">Max Price</th>
+                <th scope="col">Icon</th>
+                <th scope="col">Service Id</th>
                 <th scope="col">Is Deleted</th>
                 <th scope="col" colSpan={3}>
                   Options
@@ -171,23 +168,20 @@ const Index = () => {
                   <td>{datas.name}</td>
                   <td>{datas.description.slice(0, 10)}...</td>
                   <td>
-                    {new Date(datas.serviceBeginning).toLocaleTimeString(
-                      "en-US",
-                      { hour: "2-digit", minute: "2-digit" }
-                    )}
+                    <img style={{ width: "50px" }} src={datas.iconUrl} alt="" />
                   </td>
-                  <td>
-                    {new Date(datas.serviceEnding).toLocaleTimeString("en-US", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </td>
-                  <td>{datas.minPrice}</td>
-                  <td>{datas.maxPrice}</td>
-                  <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                   <td>
                     <Link
-                      to={`/superadmin/service/update/${datas.id}`}
+                      style={{ textDecoration: "none", color: "#333" }}
+                      to={`/superadmin/service`}
+                    >
+                      {datas.serviceId}
+                    </Link>
+                  </td>
+                  <td>{datas.isDeleted ? "Delete" : "Active"}</td>
+                  <td>
+                    <Link
+                      to={`/superadmin/department/update/${datas.id}`}
                       style={{
                         textDecoration: "none",
                         backgroundColor: "#0B58CA",

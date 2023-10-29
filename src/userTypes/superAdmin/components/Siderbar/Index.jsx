@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Home from "../../pages/Home/Index";
-import Setting from "../../pages/Settings/Index";
-import Service from "../../pages/Service/Index"
+import React, { useState } from "react";
 import {
   SettingOutlined,
-  FileOutlined,
   PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
+  ApartmentOutlined,
+  BuildOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { Content } from "antd/es/layout/layout";
 import { useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;
@@ -28,12 +23,9 @@ function getItem(label, key, icon, children) {
 const items = [
   getItem("Dashboard", "1", <PieChartOutlined />),
   getItem("Settings", "2", <SettingOutlined />),
-  getItem("Service", "3", <UserOutlined />),
-  getItem("Team", "sub2", <TeamOutlined />, [
-    getItem("Team 1", "6"),
-    getItem("Team 2", "8"),
-  ]),
-  getItem("Files", "9", <FileOutlined />),
+  getItem("Service", "3", <BuildOutlined />),
+  getItem("Department", "4", <ApartmentOutlined />),
+  getItem("Files", "9", <ApartmentOutlined />),
 ];
 
 const Index = () => {
@@ -54,6 +46,10 @@ const ChangePage=(key)=>{
   else if(key==="3")
   {
     nav("/superadmin/service")
+  }
+  else if(key==="4")
+  {
+    nav("/superadmin/department")
   }
 }
 

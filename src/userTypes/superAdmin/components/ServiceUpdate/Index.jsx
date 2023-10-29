@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
 import { DatePicker } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "select2";
 import "select2/dist/css/select2.css";
 import axios from "axios";
+import $ from "jquery";
 
 const Index = () => {
   const { id } = useParams();
@@ -14,6 +15,10 @@ const Index = () => {
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
+
+  const nav = useNavigate();
+
+  $(".js-example-basic-single").select2();
 
   useEffect(() => {
     axios
@@ -59,7 +64,7 @@ const Index = () => {
   const handleSubmit = async (e, id) => {
     e.preventDefault();
     console.log(inputs);
-    
+
     const dataValue = {
       name: inputs.name,
       description: inputs.description,
@@ -70,7 +75,6 @@ const Index = () => {
       departmentIds: selectedDepartments,
     };
 
-   
     console.log(dataValue);
 
     await axios
@@ -79,7 +83,7 @@ const Index = () => {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => console.log(res.data))
+      .then((res) => nav("/superadmin"))
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
           setErrorMessages(e.response.data.errors);
@@ -88,8 +92,6 @@ const Index = () => {
         }
       });
   };
-
-
 
   return (
     <section>
@@ -238,9 +240,7 @@ const Index = () => {
                   />
                   {errorMessages.MinPrice ? (
                     <div className="error-messages">
-                      <p className="error-message">
-                        {errorMessages.MinPrice}
-                      </p>
+                      <p className="error-message">{errorMessages.MinPrice}</p>
                     </div>
                   ) : (
                     <div className="error-messages">
@@ -266,9 +266,7 @@ const Index = () => {
                   />
                   {errorMessages.MaxPrice ? (
                     <div className="error-messages">
-                      <p className="error-message">
-                        {errorMessages.MaxPrice}
-                      </p>
+                      <p className="error-message">{errorMessages.MaxPrice}</p>
                     </div>
                   ) : (
                     <div className="error-messages">
@@ -283,32 +281,37 @@ const Index = () => {
                 </label>
                 <div className="col-sm-5">
                   <div>
-                    Your Departments:
+                    Departments:
                     {data.departments && data.departments.length > 0 ? (
                       <div>
                         {data.departments.map((department) => (
                           <div
                             key={department.id}
-                            className="department-span mx-3"
+                            className="department-span mx-3 my-3"
+                            style={{
+                              backgroundColor: "#002140",
+                              color: "#fff",
+                              padding: "10px",borderRadius:"10px"
+                            }}
                           >
                             {department.name}
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <div>No departments selected</div>
+                      <div>No Departments</div>
                     )}
                   </div>
                   <select
                     id="depIds"
-                    className="form-control"
+                    className="form-control js-example-basic-single"
                     multiple
                     name="departmentIds"
                     required=""
                     value={selectedDepartments}
                     onChange={handleChange}
                   >
-                    {departmentsall.map((department) => (
+                    {departmentsall.filter((dep)=>dep.isDeleted===false).map((department) => (
                       <option key={department.id} value={department.id}>
                         {department.name}
                       </option>
@@ -327,7 +330,6 @@ const Index = () => {
                   )}
                 </div>
               </div>
-
               <div className="update-btn-service">
                 <button type="submit">
                   Update <i className="fa-solid fa-check"></i>

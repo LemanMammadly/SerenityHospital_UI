@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { DatePicker } from "antd";
 
@@ -8,6 +8,10 @@ const Index = () => {
   const [inputs, setInputs] = useState({});
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
+
+
+
+  const nav = useNavigate();
 
   const handleChange = (name, value) => {
     setInputs((prev) => ({
@@ -35,6 +39,7 @@ const Index = () => {
 
     axios
       .post("https://localhost:7227/api/Services", dataValue)
+      nav("/superadmin")
       .then((res) => console.log(res.data))
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {

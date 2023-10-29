@@ -12,6 +12,9 @@ import SuperAdminSettings from "./userTypes/superAdmin/pages/Settings/Index.jsx"
 import SuperAdminService from "./userTypes/superAdmin/pages/Service/Index.jsx"
 import ServiceAddSuperAdmin from "./userTypes/superAdmin/pages/ServiceAdd/Index.jsx"
 import ServiceUpdateSuperAdmin from "./userTypes/superAdmin/pages/ServiceUpdate/Index.jsx"
+import SuperAdminDepartment from "./userTypes/superAdmin/pages/Department/Index.jsx"
+import DepartmentAddSuperAdmin from "./userTypes/superAdmin/pages/DepartmentAdd/Index.jsx"
+import DepartmentUpdateSuperAdmin from "./userTypes/superAdmin/pages/DepartmentUpdate/Index.jsx"
 
 function App() {
   return (
@@ -32,6 +35,9 @@ function App() {
           <Route path="/superadmin/service" element={<SuperAdminService/>}/>
           <Route path="/superadmin/service/create" element={<ServiceAddSuperAdmin/>}/>
           <Route path="/superadmin/service/update/:id" element={<ServiceUpdateSuperAdmin/>}/>
+          <Route path="/superadmin/department" element={<SuperAdminDepartment/>}/>
+          <Route path="/superadmin/department/create" element={<DepartmentAddSuperAdmin/>}/>
+          <Route path="/superadmin/department/update/:id" element={<DepartmentUpdateSuperAdmin/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

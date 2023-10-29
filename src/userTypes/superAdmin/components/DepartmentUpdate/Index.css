@@ -1,8 +1,8 @@
-.all-service-update{
+.all-department-update{
     padding: 3rem 5rem;
 }
 
-.all-service-update .top-service-update h1{
+.all-department-update .top-department-update h1{
     font-weight: bold;
     font-size: 25px;
     text-align: center;
@@ -11,13 +11,13 @@
 
 
 
-.all-service-update .update-btn-service{
+.all-department-update .update-btn-department{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.all-service-update .update-btn-service button{
+.all-department-update .update-btn-department button{
     border: none;
     background-color: #002140;
     padding: 10px;
