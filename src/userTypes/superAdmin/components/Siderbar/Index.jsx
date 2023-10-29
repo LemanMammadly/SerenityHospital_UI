@@ -4,6 +4,8 @@ import {
   PieChartOutlined,
   ApartmentOutlined,
   BuildOutlined,
+  ApiOutlined,
+  TeamOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +27,8 @@ const items = [
   getItem("Settings", "2", <SettingOutlined />),
   getItem("Service", "3", <BuildOutlined />),
   getItem("Department", "4", <ApartmentOutlined />),
-  getItem("Files", "9", <ApartmentOutlined />),
+  getItem("Position", "5",<ApiOutlined />),
+  getItem("Doctor", "6",< TeamOutlined />),
 ];
 
 const Index = () => {
@@ -50,6 +53,14 @@ const ChangePage=(key)=>{
   else if(key==="4")
   {
     nav("/superadmin/department")
+  }
+  else if(key ==="5")
+  {
+    nav("/superadmin/position")
+  }
+  else if(key ==="6")
+  {
+    nav("/superadmin/doctor")
   }
 }
 

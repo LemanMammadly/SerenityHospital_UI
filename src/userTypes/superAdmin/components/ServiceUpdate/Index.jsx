@@ -39,32 +39,33 @@ const Index = () => {
   }, [id]);
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
+    const { name, value, type, options } = e.target;
     const newValue = type === "checkbox" ? e.target.checked : value;
-
+  
     setInputs((prev) => ({
       ...prev,
       [name]: newValue,
     }));
-
+  
     setErrorMessages((prev) => ({
       ...prev,
       [name]: null,
     }));
-
+  
     if (name === "departmentIds") {
-      const selectedDepartments = Array.from(e.target.selectedOptions).map(
-        (option) => Number(option.value)
-      );
-
+      const selectedDepartments = Array.from(options)
+        .filter((option) => option.selected && option.value !== "")
+        .map((option) => Number(option.value));
+  
       setSelectedDepartments(selectedDepartments);
     }
   };
-
+  
   const handleSubmit = async (e, id) => {
     e.preventDefault();
-    console.log(inputs);
-
+  
+    const filteredDepartmentIds = selectedDepartments.filter((id) => id != null);
+  
     const dataValue = {
       name: inputs.name,
       description: inputs.description,
@@ -72,11 +73,9 @@ const Index = () => {
       serviceEnding: inputs.serviceEnding,
       minPrice: inputs.minPrice,
       maxPrice: inputs.maxPrice,
-      departmentIds: selectedDepartments,
+      departmentIds: filteredDepartmentIds,
     };
-
-    console.log(dataValue);
-
+  
     await axios
       .put(`https://localhost:7227/api/Services/Put/${id}`, dataValue, {
         headers: {
@@ -92,7 +91,7 @@ const Index = () => {
         }
       });
   };
-
+  
   return (
     <section>
       <div className="all-service-update">
@@ -130,11 +129,15 @@ const Index = () => {
                   />
                   {errorMessages.Name ? (
                     <div className="error-messages">
-                      <p className="error-message">{errorMessages.Name}</p>
+                      <p className="error-message">
+                        {errorMessages.Name}
+                      </p>
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception}</p>
+                      <p className="error-message">
+                        {exception.includes("name") ? exception : ""}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -162,7 +165,9 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception}</p>
+                      <p className="error-message">
+                        {exception.includes("description") ? exception : ""}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -190,7 +195,9 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception}</p>
+                      <p className="error-message">
+                        {exception.includes("servicebegin") ? exception : ""}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -210,7 +217,7 @@ const Index = () => {
                       })
                     }
                   />
-                  {errorMessages.ServiceEnding ? (
+                   {errorMessages.ServiceEnding ? (
                     <div className="error-messages">
                       <p className="error-message">
                         {errorMessages.ServiceEnding}
@@ -218,7 +225,9 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception}</p>
+                      <p className="error-message">
+                        {exception.includes("serviceend") ? exception : ""}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -238,13 +247,17 @@ const Index = () => {
                     placeholder="Minimum Price"
                     required=""
                   />
-                  {errorMessages.MinPrice ? (
+                   {errorMessages.MinPrice ? (
                     <div className="error-messages">
-                      <p className="error-message">{errorMessages.MinPrice}</p>
+                      <p className="error-message">
+                        {errorMessages.MinPrice}
+                      </p>
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception}</p>
+                      <p className="error-message">
+                        {exception.includes("minprice") ? exception : ""}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -264,58 +277,66 @@ const Index = () => {
                     placeholder="Maximum Price"
                     required=""
                   />
-                  {errorMessages.MaxPrice ? (
+                   {errorMessages.MaxPrice ? (
                     <div className="error-messages">
-                      <p className="error-message">{errorMessages.MaxPrice}</p>
+                      <p className="error-message">
+                        {errorMessages.MaxPrice}
+                      </p>
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception}</p>
+                      <p className="error-message">
+                        {exception.includes("maxprice") ? exception : ""}
+                      </p>
                     </div>
                   )}
                 </div>
               </div>
+                <div className="w-50 m-auto">
+                  Departments:
+                  {data.departments && data.departments.length > 0 ? (
+                    <div>
+                      {data.departments.map((department) => (
+                        <div
+                          key={department.id}
+                          className="department-span mx-5 my-2"
+                          style={{
+                            backgroundColor: "#E2E6EA",
+                            color: "#333",
+                            padding: "10px",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          {department.name}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div>No Departments</div>
+                  )}
+                </div>
               <div className="form-group d-flex align-items-center justify-content-center">
-                <label htmlFor="depIds" className="col-sm-3 control-label">
+                <label htmlFor="depId" className="col-sm-3 control-label">
                   Departments
                 </label>
                 <div className="col-sm-5">
-                  <div>
-                    Departments:
-                    {data.departments && data.departments.length > 0 ? (
-                      <div>
-                        {data.departments.map((department) => (
-                          <div
-                            key={department.id}
-                            className="department-span mx-3 my-3"
-                            style={{
-                              backgroundColor: "#002140",
-                              color: "#fff",
-                              padding: "10px",borderRadius:"10px"
-                            }}
-                          >
-                            {department.name}
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div>No Departments</div>
-                    )}
-                  </div>
                   <select
-                    id="depIds"
-                    className="form-control js-example-basic-single"
-                    multiple
+                    id="depId"
+                    className="form-control"
+                    onChange={handleChange}
                     name="departmentIds"
+                    multiple={true}
                     required=""
                     value={selectedDepartments}
-                    onChange={handleChange}
                   >
-                    {departmentsall.filter((dep)=>dep.isDeleted===false).map((department) => (
-                      <option key={department.id} value={department.id}>
-                        {department.name}
-                      </option>
-                    ))}
+                    <option value="">Select Departments: </option>
+                    {departmentsall
+                      .filter((data) => data.isDeleted === false)
+                      .map((deps) => (
+                        <option key={deps.id} value={deps.id}>
+                          {deps.name}
+                        </option>
+                      ))}
                   </select>
                   {errorMessages.DepartmentIds ? (
                     <div className="error-messages">
@@ -325,7 +346,9 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception}</p>
+                      <p className="error-message">
+                        {exception.includes("Department") ? exception : ""}
+                      </p>
                     </div>
                   )}
                 </div>

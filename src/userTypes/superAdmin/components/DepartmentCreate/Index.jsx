@@ -70,7 +70,7 @@ const Index = () => {
           "Content-Type": "multipart/form-data",
         },
     })
-      .then((res) =>  nav("/superadmin"))
+      .then((res) =>  nav("/superadmin/department"))
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
           setErrorMessages(e.response.data.errors);
@@ -196,9 +196,9 @@ const Index = () => {
                     value={selectedServices}
                   >
                     <option value="">Select Service: </option>
-                    {service.map((services) => (
+                    {service.filter((ser)=>ser.isDeleted===false).map((services) => (
                       <option key={services.id} value={services.id}>
-                        {services.id}
+                        {services.name}
                       </option>
                     ))}
                   </select>

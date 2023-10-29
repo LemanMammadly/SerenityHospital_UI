@@ -1,0 +1,30 @@
+.all-position-update{
+    padding: 3rem 5rem;
+}
+
+.all-position-update .top-position-update h1{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+
+.all-position-update .update-btn-position{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-position-update .update-btn-position button{
+    border: none;
+    background-color: #002140;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.error-messages{
+    font-size: 14px;
+    color: red;
+}

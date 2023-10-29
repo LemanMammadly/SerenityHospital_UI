@@ -1,0 +1,29 @@
+.all-position-create{
+    padding: 3rem 5rem;
+}
+
+.all-position-create .top-position-create h1{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.all-position-create .add-btn-position{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-position-create .add-btn-position button{
+    border: none;
+    background-color: #002140;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.error-messages{
+    font-size: 14px;
+    color: red;
+}

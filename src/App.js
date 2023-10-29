@@ -15,6 +15,15 @@ import ServiceUpdateSuperAdmin from "./userTypes/superAdmin/pages/ServiceUpdate/
 import SuperAdminDepartment from "./userTypes/superAdmin/pages/Department/Index.jsx"
 import DepartmentAddSuperAdmin from "./userTypes/superAdmin/pages/DepartmentAdd/Index.jsx"
 import DepartmentUpdateSuperAdmin from "./userTypes/superAdmin/pages/DepartmentUpdate/Index.jsx"
+import PositionPageSuperAdmin from "./userTypes/superAdmin/pages/PositionPage/Index.jsx"
+import PositionCreateSuperAdmin from "./userTypes/superAdmin/pages/PositionCreate/Index.jsx"
+import PositionUpdateSuperAdmin from "./userTypes/superAdmin/pages/PositionUpdate/Index.jsx"
+import SuperAdminDoctor from "./userTypes/superAdmin/pages/DoctorPage/Index.jsx"
+import SuperAdminDoctorCreate from "./userTypes/superAdmin/pages/DoctorCreate/Index.jsx"
+import SuperAdminDoctorAddRole from "./userTypes/superAdmin/pages/DoctorAddRole/Index.jsx"
+import SuperAdminDoctorRemoveRole from "./userTypes/superAdmin/pages/DoctorRemoveRole/Index.jsx"
+import SuperAdminDoctorAddRoom from "./userTypes/superAdmin/pages/AddRoomDoctor/Index.jsx"
+import SuperAdminDoctorUpdate from "./userTypes/superAdmin/pages/DoctorUpdate/Index.jsx"
 
 function App() {
   return (
@@ -38,6 +47,15 @@ function App() {
           <Route path="/superadmin/department" element={<SuperAdminDepartment/>}/>
           <Route path="/superadmin/department/create" element={<DepartmentAddSuperAdmin/>}/>
           <Route path="/superadmin/department/update/:id" element={<DepartmentUpdateSuperAdmin/>}/>
+          <Route path="/superadmin/position" element={<PositionPageSuperAdmin/>}/>
+          <Route path="/superadmin/position/create" element={<PositionCreateSuperAdmin/>}/>
+          <Route path="/superadmin/position/update/:id" element={<PositionUpdateSuperAdmin/>}/>
+          <Route path="/superadmin/doctor" element={<SuperAdminDoctor/>}/>
+          <Route path="/superadmin/doctor/create" element={<SuperAdminDoctorCreate/>}/>
+          <Route path="/superadmin/doctor/addrole/:username" element={<SuperAdminDoctorAddRole/>}/>
+          <Route path="/superadmin/doctor/removerole/:username" element={<SuperAdminDoctorRemoveRole/>}/>
+          <Route path="/superadmin/doctor/addroom/:id" element={<SuperAdminDoctorAddRoom/>}/>
+          <Route path="/superadmin/doctor/update/:id" element={<SuperAdminDoctorUpdate/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
