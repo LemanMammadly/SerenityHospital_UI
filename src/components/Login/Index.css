@@ -26,7 +26,6 @@
 .all-login .left-login form{
     display: flex;
     flex-direction: column;
-    gap: 30px;
 }
 
 .all-login .left-login form input{
