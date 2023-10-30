@@ -203,8 +203,8 @@ const Index = () => {
                       ? "Leave"
                       : "Other"}
                   </td>
-                  <td>{datas.position.name}</td>
-                  <td>{datas.department.name}</td>
+                  <td>{datas.position && datas.position.name}</td>
+                  <td>{datas.department && datas.department.name}</td>
                   <td
                     style={{
                       whiteSpace: "nowrap",
@@ -271,7 +271,6 @@ const Index = () => {
                         fontSize: "13px",
                         borderRadius: "5px",
                       }}
-                      disabled={datas.roles.length === 0}
                     >
                       <i class="fa-solid fa-house-medical"></i>
                     </Button>

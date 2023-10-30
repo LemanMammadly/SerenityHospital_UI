@@ -26,7 +26,7 @@ const Index = () => {
       .then((res) => {
         setData(res.data);
         setInputs(res.data);
-        setSelectedDepartments(res.data.departments || []);
+        setSelectedDepartments(res.data.departments.map((dat) => dat.id));
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -34,7 +34,9 @@ const Index = () => {
   useEffect(() => {
     axios
       .get(`https://localhost:7227/api/Departments/`)
-      .then((res) => setDepartmentsall(res.data))
+      .then((res) =>{
+        setDepartmentsall(res.data)
+      })
       .catch((err) => console.log(err));
   }, [id]);
 
@@ -82,7 +84,7 @@ const Index = () => {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => nav("/superadmin"))
+      .then((res) => nav("/superadmin/service"))
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
           setErrorMessages(e.response.data.errors);

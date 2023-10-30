@@ -48,6 +48,10 @@ const Index = () => {
       .then((res) => {
         setData(res.data);
         setInputs(res.data);
+        setSelectGender(res.data.gender)
+        setSelectStatus(res.data.status)
+        setSelectDepartment(res.data.department.id)
+        setSelectPosition(res.data.position.id)
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -70,8 +74,7 @@ const Index = () => {
       type === "text" ||
       type === "tel" ||
       type === "email" ||
-      type === "number" ||
-      type === "password"
+      type === "number"
     ) {
       setInputs((prevInputs) => ({
         ...prevInputs,
@@ -96,21 +99,37 @@ const Index = () => {
     }
   };
 
-  console.log(data);
+  console.log(inputs);
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append("name", inputs.name);
+    formData.append("surname", inputs.surname);
+    formData.append("email", inputs.email);
+    formData.append("userName", inputs.userName);
+    formData.append("description", inputs.description);
+    formData.append("salary", inputs.salary);
+    formData.append("age", inputs.age);
+    formData.append("gender", selectGender);
+    formData.append("status", selectStatus);
+    formData.append("startDate", inputs.startDate);
+    formData.append("imageFile", inputs.imageFile);
+    formData.append("positionId", selectPosition);
+    formData.append("departmentId", selectDepartment);
 
     await axios
-      .put(`https://localhost:7227/api/Positions/${id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => nav("/superadmin/position"))
+      .put(
+        `https://localhost:7227/api/DoctorAuths/PutByAdmin?id=${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => nav("/superadmin/doctor"))
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
           setErrorMessages(e.response.data.errors);
@@ -261,36 +280,6 @@ const Index = () => {
                 </div>
               </div>
               <div className="form-group d-flex align-items-center justify-content-center">
-                <label htmlFor="pass" className="col-sm-3 control-label">
-                  Password
-                </label>
-                <div className="col-sm-5">
-                  <input
-                    id="pass"
-                    type="password"
-                    className="form-control"
-                    defaultValue={data.password}
-                    onChange={handleChange}
-                    name="password"
-                    required=""
-                    placeholder="Password"
-                  />
-                  {errorMessages.Password ? (
-                    <div className="error-messages">
-                      <p className="error-message">{errorMessages.Password}</p>
-                    </div>
-                  ) : (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {exception && exception.includes("password")
-                          ? exception
-                          : ""}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="form-group d-flex align-items-center justify-content-center">
                 <label htmlFor="desc" className="col-sm-3 control-label">
                   Description
                 </label>
@@ -428,20 +417,20 @@ const Index = () => {
                     required=""
                     value={selectStatus}
                   >
-                    <option value="">Select Gender: </option>
+                    <option value="">Select Status: </option>
                     <option value={1}>Active</option>
                     <option value={2}>OnLeave</option>
                     <option value={3}>Leave</option>
                     <option value={4}>Other</option>
                   </select>
-                  {errorMessages.Gender ? (
+                  {errorMessages.Status ? (
                     <div className="error-messages">
-                      <p className="error-message">{errorMessages.Gender}</p>
+                      <p className="error-message">{errorMessages.Status}</p>
                     </div>
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("gender")
+                        {exception && exception.includes("Appoinment")
                           ? exception
                           : ""}
                       </p>
@@ -455,15 +444,20 @@ const Index = () => {
                 </label>
                 <div className="col-sm-5">
                   <DatePicker
+                    name="startDate"
                     showTime
                     format="YYYY-MM-DD HH:mm:ss"
                     placeholder="Select Date and Time"
-                    onChange={(value) => handleChange("startDate", value)}
+                    onChange={(date, dateString) =>
+                      handleChange({
+                        target: { name: "startDate", value: dateString },
+                      })
+                    }
                   />
-                  {errorMessages.ServiceBeginning && (
+                  {errorMessages.StartDate && (
                     <div className="error-messages">
                       <p className="error-message">
-                        {errorMessages.ServiceBeginning[0]}
+                        {errorMessages.StartDate[0]}
                       </p>
                     </div>
                   )}
@@ -523,7 +517,6 @@ const Index = () => {
                     className="form-control"
                     onChange={handleChange}
                     name="positionId"
-                    required=""
                     value={selectPosition}
                   >
                     <option value="">Select Position: </option>
@@ -570,7 +563,6 @@ const Index = () => {
                     className="form-control"
                     onChange={handleChange}
                     name="departmentId"
-                    required=""
                     value={selectDepartment}
                   >
                     <option value="">Select Department: </option>
