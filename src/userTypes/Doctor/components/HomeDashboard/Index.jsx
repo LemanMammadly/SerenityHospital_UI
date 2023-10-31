@@ -23,7 +23,6 @@ const Index = () => {
     changeDate(val);
   }
 
-
   useEffect(() => {
     axios
       .get(
@@ -42,8 +41,8 @@ const Index = () => {
   }, []);
 
   const tileContent = ({ date, view }) => {
-    const uniqueAppointments = [...new Set(appoinmentsdate)]; 
-  
+    const uniqueAppointments = [...new Set(appoinmentsdate)];
+
     const isAppointmentDate = uniqueAppointments.some((appDate) => {
       const app = new Date(appDate);
       return (
@@ -52,16 +51,15 @@ const Index = () => {
         app.getFullYear() === date.getFullYear()
       );
     });
-  
+
     if (isAppointmentDate) {
       return (
         <div className="appointment-date">
-          {<GiPin style={{color:"red", width:"40px"}}/> }
+          {<GiPin style={{ color: "red", width: "40px" }} />}
         </div>
       );
     }
   };
-  
 
   return (
     <div className="all-doctor-home">
@@ -81,7 +79,7 @@ const Index = () => {
             <div className="top-soon-appoinments-doctor-home d-flex justify-content-between">
               <div className="topleft-app-soon">Soon Appoinments</div>
               <div className="topright-app-soon">
-                <Link to="#">All Appoinments</Link>
+                <Link to="/doctor/appoinments">All Appoinments</Link>
               </div>
             </div>
             <div className="bottom-soon-appoinments-doctor-home">
@@ -95,46 +93,52 @@ const Index = () => {
                     data.appoinments.filter(
                       (app) => app.appoinmentDate > dateNow
                     )
-                  ).map((app) => (
-                    <div className="appoinment-soon-box d-flex flex-column gap-3">
-                      <div className="left-soon-appoinment-box d-flex justify-content-between">
-                        <p className="date-appsoon">
-                          <i
-                            style={{ color: "#69B1FF" }}
-                            class="fa-solid fa-calendar-days mx-1"
-                          ></i>{" "}
-                          <span>
-                            {app.appoinmentDate &&
-                              app.appoinmentDate.split("T")[0]}
-                          </span>{" "}
-                          |{" "}
-                          <i
-                            style={{ color: "#FF6575" }}
-                            class="fa-regular fa-clock mx-1"
-                          ></i>{" "}
-                          <span>
-                            {app.appoinmentDate &&
-                              app.appoinmentDate.split("T")[1].substring(0, 5)}
-                          </span>
-                        </p>
-                        <p
-                          style={{
-                            textAlign: "center",
-                            color: "#A098AD",
-                            fontSize: "15px",
-                          }}
-                        >
-                          Duration :{" "}
-                          <span style={{ color: "#6DB3FF" ,fontSize:"15px" }}>
-                            {app.duration && app.duration} minute
-                          </span>
-                        </p>
+                  )
+                    .slice(0, 2)
+                    .map((app) => (
+                      <div className="appoinment-soon-box d-flex flex-column gap-3">
+                        <div className="left-soon-appoinment-box d-flex justify-content-between">
+                          <p className="date-appsoon">
+                            <i
+                              style={{ color: "#69B1FF" }}
+                              class="fa-solid fa-calendar-days mx-1"
+                            ></i>{" "}
+                            <span>
+                              {app.appoinmentDate &&
+                                app.appoinmentDate.split("T")[0]}
+                            </span>{" "}
+                            |{" "}
+                            <i
+                              style={{ color: "#FF6575" }}
+                              class="fa-regular fa-clock mx-1"
+                            ></i>{" "}
+                            <span>
+                              {app.appoinmentDate &&
+                                app.appoinmentDate
+                                  .split("T")[1]
+                                  .substring(0, 5)}
+                            </span>
+                          </p>
+                          <p
+                            style={{
+                              textAlign: "center",
+                              color: "#A098AD",
+                              fontSize: "15px",
+                            }}
+                          >
+                            Duration :{" "}
+                            <span
+                              style={{ color: "#6DB3FF", fontSize: "15px" }}
+                            >
+                              {app.duration && app.duration} minute
+                            </span>
+                          </p>
+                        </div>
+                        <div className="right-soon-appoinment-box">
+                          <p>{app.problemDesc}</p>
+                        </div>
                       </div>
-                      <div className="right-soon-appoinment-box">
-                        <p>{app.problemDesc}</p>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
               </div>
             </div>
           </div>

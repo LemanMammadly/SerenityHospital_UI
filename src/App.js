@@ -26,9 +26,21 @@ import SuperAdminDoctorAddRoom from "./userTypes/superAdmin/pages/AddRoomDoctor/
 import SuperAdminDoctorUpdate from "./userTypes/superAdmin/pages/DoctorUpdate/Index.jsx";
 import DoctorDashboard from "./Layouts/DoctorDashboard";
 import DoctorHome from "./userTypes/Doctor/pages/Home/Index.jsx";
+import { format } from "date-fns";
+import DoctorAppoinments from './userTypes/Doctor/pages/Appoinments/Index.jsx'
+import DoctorAppoinmentCreate from './userTypes/Doctor/pages/AppoinmentCreate/Index.jsx'
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
+
+  const currentDate = new Date();
+  const dates = format(currentDate, "yyyy-MM-dd");
+  const time = format(currentDate, "HH:mm:ss");
+  const dateNow = `${dates}T${time}`;
+
+  if(dateNow > user && user.expires){
+    localStorage.clear();
+  }
 
   return (
     <div>
@@ -108,6 +120,8 @@ function App() {
             </Route>
             <Route path="/doctor"  element={user && user.roles[0] === "Doctor" ? <DoctorDashboard /> : <Navigate to="/login" />} >
               <Route index element={<DoctorHome />} />
+              <Route path="/doctor/appoinments" element={<DoctorAppoinments />} />
+              <Route path="/doctor/appoinments/create" element={<DoctorAppoinmentCreate />} />
             </Route>
         </Routes>
       </BrowserRouter>

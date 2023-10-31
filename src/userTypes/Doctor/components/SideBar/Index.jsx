@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import {
-  SettingOutlined,
+  ScheduleOutlined,
   PieChartOutlined,
-  ApartmentOutlined,
-  BuildOutlined,
-  ApiOutlined,
-  TeamOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -24,11 +20,7 @@ function getItem(label, key, icon, children) {
 
 const items = [
   getItem("Dashboard", "1", <PieChartOutlined />),
-  getItem("Settings", "2", <SettingOutlined />),
-  getItem("Service", "3", <BuildOutlined />),
-  getItem("Department", "4", <ApartmentOutlined />),
-  getItem("Position", "5",<ApiOutlined />),
-  getItem("Doctor", "6",< TeamOutlined />),
+  getItem("Appoinments", "2", <ScheduleOutlined  />),
 ];
 
 const Index = () => {
@@ -44,23 +36,7 @@ const ChangePage=(key)=>{
   }
   else if(key==="2")
   {
-    nav("/superadmin/settings")
-  }
-  else if(key==="3")
-  {
-    nav("/superadmin/service")
-  }
-  else if(key==="4")
-  {
-    nav("/superadmin/department")
-  }
-  else if(key ==="5")
-  {
-    nav("/superadmin/position")
-  }
-  else if(key ==="6")
-  {
-    nav("/superadmin/doctor")
+    nav("/doctor/appoinments")
   }
 }
 

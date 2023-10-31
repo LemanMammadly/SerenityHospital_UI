@@ -30,9 +30,11 @@ const Index = () => {
       })
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
+          console.log(e.response.data.errors);
           setErrorMessages(e.response.data.errors);
         } else {
           setException(e.response.data.message);
+          console.log(e.response.data.errors);
         }
       });
   };
@@ -46,9 +48,11 @@ const Index = () => {
       })
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
+          console.log(e.response.data.errors);
           setErrorMessages(e.response.data.errors);
         } else {
           setException(e.response.data.message);
+          console.log(e.response.data.errors);
         }
       });
   };
@@ -62,9 +66,11 @@ const Index = () => {
       })
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
+          console.log(e.response.data.errors);
           setErrorMessages(e.response.data.errors);
         } else {
           setException(e.response.data.message);
+          console.log(e.response.data.errors);
         }
       });
   };

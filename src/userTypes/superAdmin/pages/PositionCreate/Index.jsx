@@ -45,7 +45,6 @@ const Index = () => {
       });
   };
 
-
   return (
     <section>
       <div className="all-position-create">

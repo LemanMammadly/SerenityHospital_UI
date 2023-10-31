@@ -1,0 +1,86 @@
+.all-app-doctor{
+    background-color: #F1F4F8;
+    height: 100vh;
+}
+.all-app-doctor .container-app-doctor{
+    padding: 3rem;
+}
+
+.all-app-doctor .top-app-doctor h1{
+    margin-bottom: 30px;
+}
+
+.all-app-doctor .left-menu-header{
+    display: none;
+}
+
+
+.all-app-doctor .pagination{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.all-app-doctor .pagination .icon-app-doctor{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 992px)
+{
+
+    .all-app-doctor .container-app-doctor{
+        padding: 1rem;
+    }
+    .all-app-doctor .table th{
+        font-size: 10px;
+    }
+
+    .all-app-doctor .table td{
+        font-size: 10px;
+    }
+
+    .all-app-doctor .bottom-app-doctor{
+        width: 100% ;
+    }
+}
+
+@media screen and (max-width: 768px)
+{
+    .all-app-doctor .container-app-doctor{
+        padding: 1rem;
+    }
+    .all-app-doctor .table th{
+        font-size: 10px;
+    }
+
+    .all-position-superadmin .table td{
+        font-size: 10px;
+    }
+
+    .all-position-superadmin{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .all-position-superadmin .container-position-superadmin{
+        overflow-x: scroll !important;
+        width: 80%;
+    }
+
+    .all-position-superadmin .bottom-position-superadmin{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: scroll;
+    }
+
+    .all-position-superadmin .pagination .pagNum{
+        font-size: 10px !important;
+    }
+    .all-position-superadmin .pagination{
+        font-size: 10px !important;
+    }
+}

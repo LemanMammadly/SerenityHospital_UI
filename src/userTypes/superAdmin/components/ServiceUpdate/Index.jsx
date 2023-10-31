@@ -38,7 +38,7 @@ const Index = () => {
         setDepartmentsall(res.data)
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, options } = e.target;

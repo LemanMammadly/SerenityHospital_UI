@@ -86,6 +86,28 @@ const Index = () => {
           <h2>
             Serenity Hospital <br /> Management System
           </h2>
+          <div className="form-group d-flex align-items-center justify-content-center w-100 mb-4">
+            <label
+              htmlFor="user"
+              className="col-sm-3 control-label text-white mx-5"
+            >
+              Login As:
+            </label>
+            <div className="col-sm-5">
+              <select
+                id="user"
+                className="form-control"
+                onChange={handleChange}
+                name="user"
+                value={selectUser}
+              >
+                <option value="">Select User:</option>
+                <option value="admin">Admin</option>
+                <option value="doctor">Doctor</option>
+                <option value="patient">Patient</option>
+              </select>
+            </div>
+          </div>
           <form method="POST" onSubmit={(e) => handleSubmit(e)}>
             <input
               type="text"
@@ -124,28 +146,6 @@ const Index = () => {
             <button type="submit">Login</button>
           </form>
           <p>Forgot Your Password?</p>
-          <div className="form-group d-flex align-items-center justify-content-center w-100 mt-3">
-            <label
-              htmlFor="user"
-              className="col-sm-3 control-label text-white mx-5"
-            >
-              Login As:
-            </label>
-            <div className="col-sm-5">
-              <select
-                id="user"
-                className="form-control"
-                onChange={handleChange}
-                name="user"
-                value={selectUser}
-              >
-                <option value="">Select User:</option>
-                <option value="admin">Admin</option>
-                <option value="doctor">Doctor</option>
-                <option value="patient">Patient</option>
-              </select>
-            </div>
-          </div>
         </div>
         <div className="right-login col-lg-6">
           <div className="img-div">
