@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import "./Index.css";
-import $ from "jquery";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { Button } from "antd";
-import { format } from "date-fns";
+import React, { useEffect, useState } from 'react'
+import "./Index.css"
+import { Button } from 'antd'
+import { Link } from 'react-router-dom'
+import { format } from 'date-fns'
+import axios from 'axios'
+import $ from 'jquery'
 
 const Index = () => {
   const [data, setData] = useState([]);
@@ -15,19 +15,13 @@ const Index = () => {
   const [exception, setException] = useState("");
   const itemsPerPage = 10;
 
-
-  const currentDate = new Date();
-  const dates = format(currentDate, "yyyy-MM-dd");
-  const time = format(currentDate, "HH:mm:ss");
-  const dateNow = `${dates}T${time}`;
-
-
   const formatDateTime = (dateTime) => {
     const parsedDate = new Date(dateTime);
     return format(parsedDate, "HH:mm dd-MM-yyyy");
   };
 
   const user = JSON.parse(localStorage.getItem("user"));
+  const username=user.username;
 
   const respOpenMenu = () => {
     const dashboardMenu = $(".dashboard-menu-header");
@@ -39,11 +33,14 @@ const Index = () => {
   useEffect(() => {
     axios
       .get(
-        `https://localhost:7227/api/DoctorAuths/GetByName?userName=${user.username}`
+        `https://localhost:7227/api/Appoinments`
       )
       .then((res) => {
-        setData(res.data.appoinments);
-        setSearchResults(res.data.appoinments);
+        console.log(res.data);
+        const appoinments=res.data;
+        var doctorAppoinments=appoinments.filter((app)=>app.appoinmentAsDoctor&& app.appoinmentAsDoctor.userName===username)
+        setData(doctorAppoinments);
+        setSearchResults(doctorAppoinments);
       })
       .catch((err) => {
         console.log(err);
@@ -56,8 +53,8 @@ const Index = () => {
     setSearch(key);
     const filteredResults = data.filter(
       (item) =>
-        item.patient.name &&
-        item.patient.name.toLowerCase().includes(key.toLowerCase())
+        item.appoinmentAsDoctor.name &&
+        item.appoinmentAsDoctor.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
@@ -80,7 +77,6 @@ const Index = () => {
       return 2; 
     }
   };
-
   return (
     <section className="all-app-doctor">
       <div className="container-app-doctor">
@@ -105,6 +101,19 @@ const Index = () => {
             )}
           </div>
           <div className="left-right-app-doctor d-flex gap-3 align-items-center">
+            <Link
+              to="/doctor/appoinments/create"
+              style={{
+                textDecoration: "none",
+                backgroundColor: "#0B58CA",
+                color: "#fff",
+                padding: "5px",
+                fontSize: "13px",
+                borderRadius: "5px",
+              }}
+            >
+              Create Appoinment As Patient
+            </Link>
             <div className="search-input">
               <input
                 className="form form-control w-100"
@@ -139,14 +148,14 @@ const Index = () => {
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                     }}>
-                    {datas.patient.name} {datas.patient.surname}
+                    {datas.appoinmentAsDoctor && datas.appoinmentAsDoctor.name} {datas.appoinmentAsDoctor && datas.appoinmentAsDoctor.surname}
                   </td>
                   <td   style={{
                       whiteSpace: "nowrap",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                     }}>
-                    {datas.doctor.name} {datas.doctor.surname}
+                    {datas.doctor.name && datas.doctor.name} {datas.doctor.surname}
                   </td>
                   <td
                     style={{
@@ -194,7 +203,7 @@ const Index = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

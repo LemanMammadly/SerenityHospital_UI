@@ -1,0 +1,42 @@
+.all-doc-profile{
+    background-color: #F1F4F8;
+    height: 100vh;
+}
+
+.all-doc-profile .all-doc-profile-container{
+    padding: 3rem;
+}
+
+.all-doc-profile .all-doc-profile-container .top-doc-profile h3{
+    color: #002140;
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.all-doc-profile .left-bot-doc-profile{
+    border: 1px solid #00000037;
+    background-color:  #E1E3E5;
+    padding: 10px;
+}
+
+.all-doc-profile .bottom-doc-profile .left-desc-doc-bottom h3{
+    font-size: 25px;
+    padding: 5px;
+    margin:10px 0 0 0;
+}
+
+.all-doc-profile .bottom-doc-profile .left-desc-doc-bottom p{
+    color:#666666;
+    font-size: 14px;
+    padding: 10px;
+}
+
+
+.all-doc-profile .upt-prof-btn-doctor a{
+    text-decoration: none;
+    color: #fff;
+    background-color: #002140;
+    padding: 10px;
+    border-radius: 10px;
+}

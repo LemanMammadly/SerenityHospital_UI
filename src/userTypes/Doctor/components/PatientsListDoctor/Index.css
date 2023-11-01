@@ -1,0 +1,86 @@
+.all-pat-doc{
+    background-color: #F1F4F8;
+    height: 100vh;
+}
+.all-pat-doc .container-pat-doc{
+    padding: 3rem;
+}
+
+.all-pat-doc .top-pat-doc h1{
+    margin-bottom: 30px;
+}
+
+.all-pat-doc .left-menu-header{
+    display: none;
+}
+
+
+.all-pat-doc .pagination{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.all-pat-doc .pagination .icon-pat-doc{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 992px)
+{
+
+    .all-pat-doc .container-pat-doc{
+        padding: 1rem;
+    }
+    .all-pat-doc .table th{
+        font-size: 10px;
+    }
+
+    .all-pat-doc .table td{
+        font-size: 10px;
+    }
+
+    .all-pat-doc .bottom-pat-doc{
+        width: 100% ;
+    }
+}
+
+@media screen and (max-width: 768px)
+{
+    .all-pat-doc .container-pat-doc{
+        padding: 1rem;
+    }
+    .all-pat-doc .table th{
+        font-size: 10px;
+    }
+
+    .all-pat-doc .table td{
+        font-size: 10px;
+    }
+
+    .all-pat-doc{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .all-pat-doc .container-pat-doc{
+        overflow-x: scroll !important;
+        width: 80%;
+    }
+
+    .all-pat-doc .bottom-pat-doc{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: scroll;
+    }
+
+    .all-pat-doc .pagination .pagNum{
+        font-size: 10px !important;
+    }
+    .all-pat-docn .pagination{
+        font-size: 10px !important;
+    }
+}

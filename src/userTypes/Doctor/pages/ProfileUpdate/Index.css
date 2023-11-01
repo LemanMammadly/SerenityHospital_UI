@@ -1,0 +1,30 @@
+.all-doctor-update{
+    padding: 3rem 5rem;
+}
+
+.all-doctor-update .top-doctor-update h1{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+
+.all-doctor-update .update-btn-doctor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-doctor-update .update-btn-doctor button{
+    border: none;
+    background-color: #002140;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.error-messages{
+    font-size: 14px;
+    color: red;
+}

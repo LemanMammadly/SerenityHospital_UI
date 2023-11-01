@@ -1,8 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Index.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Index = () => {
+
+  const [logout,setLogout]=useState(false);
+
+  const user=JSON.parse(localStorage.getItem("user"));
+
+  let endpoint = "";
+
+  if (user.roles[0] === "Admin") {
+    endpoint = "AdminAuths";
+  } else if (user.roles[0] === "Patient") {
+    endpoint = "PatientAuths";
+  } else if (user.roles[0] === "Doctor") {
+    endpoint = "DoctorAuths";
+  }
+
+
+  function handleLogout() {
+    setLogout(true);
+  }
+
+    useEffect(()=>{
+      if(logout)
+      {
+        axios
+      .post(`https://localhost:7227/api/${endpoint}/Logout`, {
+        headers: {
+          "Authorization": `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res)=>{
+        if (res.status === 200) {
+          localStorage.removeItem("user");
+        } else {
+          console.error("Logout failed with status code:", res.status);
+        }
+      })
+      .catch((error) => {
+        console.error("Error during logout:", error);
+      });
+      }
+    }, [logout, endpoint, user.token])
+
   return (
     <header>
       <div className="container-dashboard">
@@ -16,7 +60,7 @@ const Index = () => {
                 <i class="fa-solid fa-earth-americas mx-2"></i>Website
               </Link>
               <hr className="dashboard-hr" />
-              <Link to="/login">
+              <Link onClick={handleLogout}>
                 Logout<i class="fa-solid fa-arrow-right-from-bracket mx-2"></i>
               </Link>
             </div>

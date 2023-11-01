@@ -1,0 +1,30 @@
+.all-rec-update{
+    padding: 3rem 5rem;
+}
+
+.all-rec-update .top-rec-update h1{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+
+.all-rec-update .update-btn-rec{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-rec-update .update-btn-rec button{
+    border: none;
+    background-color: #002140;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.error-messages{
+    font-size: 14px;
+    color: red;
+}

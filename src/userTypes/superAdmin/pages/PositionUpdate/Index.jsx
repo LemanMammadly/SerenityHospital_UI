@@ -72,7 +72,7 @@ const Index = () => {
           Super Admin / Positions
         </Link>
         <div className="top-position-update">
-          <h1>Update Department</h1>
+          <h1>Update Position</h1>
         </div>
         <div className="bottom-position-update">
           <form method="POST" onSubmit={(e) => handleSubmit(e, data.id)}>

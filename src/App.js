@@ -29,6 +29,13 @@ import DoctorHome from "./userTypes/Doctor/pages/Home/Index.jsx";
 import { format } from "date-fns";
 import DoctorAppoinments from './userTypes/Doctor/pages/Appoinments/Index.jsx'
 import DoctorAppoinmentCreate from './userTypes/Doctor/pages/AppoinmentCreate/Index.jsx'
+import DoctorAppoinmentAsPatient from './userTypes/Doctor/pages/AppoinmentAsPatient/Index.jsx'
+import DoctorsPatients from './userTypes/Doctor/pages/DoctorsPatients/Index.jsx'
+import Recipes from "./userTypes/Doctor/pages/Recipes/Index.jsx"
+import RecipeCreate from "./userTypes/Doctor/pages/RecipeCreate/Index.jsx"
+import RecipeUpdate from "./userTypes/Doctor/pages/RecipeUpdate/Index.jsx"
+import ProfileDoctor from "./userTypes/Doctor/pages/Profile/Index.jsx"
+import ProfileUpdateDoctor from "./userTypes/Doctor/pages/ProfileUpdate/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -39,7 +46,7 @@ function App() {
   const dateNow = `${dates}T${time}`;
 
   if(dateNow > user && user.expires){
-    localStorage.clear();
+    localStorage.removeItem("user");
   }
 
   return (
@@ -122,6 +129,13 @@ function App() {
               <Route index element={<DoctorHome />} />
               <Route path="/doctor/appoinments" element={<DoctorAppoinments />} />
               <Route path="/doctor/appoinments/create" element={<DoctorAppoinmentCreate />} />
+              <Route path="/doctor/appoinmetsaspatient" element={<DoctorAppoinmentAsPatient />} />
+              <Route path="/doctor/doctorspatient" element={<DoctorsPatients />} />
+              <Route path="/doctor/recipes" element={<Recipes />} />
+              <Route path="/doctor/recipes/create" element={<RecipeCreate />} />
+              <Route path="/doctor/recipes/update/:id" element={<RecipeUpdate />} />
+              <Route path="/doctor/profile" element={<ProfileDoctor />} />
+              <Route path="/doctor/profile/update" element={<ProfileUpdateDoctor />} />
             </Route>
         </Routes>
       </BrowserRouter>
