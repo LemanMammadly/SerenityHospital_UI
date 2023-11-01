@@ -28,15 +28,16 @@ const Index = () => {
       if(logout)
       {
         axios
-      .post(`https://localhost:7227/api/${endpoint}/Logout`, {
+      .post(`https://localhost:7227/api/${endpoint}/Logout`,{}, {
         headers: {
-          "Authorization": `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "application/json",
         },
       })
       .then((res)=>{
-        if (res.status === 200) {
+        if (res.status === 204) {
           localStorage.removeItem("user");
+            window.location.href = "/login";
         } else {
           console.error("Logout failed with status code:", res.status);
         }

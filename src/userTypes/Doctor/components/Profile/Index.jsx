@@ -32,7 +32,7 @@ const Index = () => {
           <Link to={`/doctor/profile/update`}>Update Profile</Link>
           </div>
         </div>
-        <div className="bottom-doc-profile d-flex justify-content-between">
+        <div className="bottom-doc-profile d-flex justify-content-between align-items-center">
           <div className="left-bot-doc-profile col-lg-3">
             <div className="left-image-doc-top">
               <img
@@ -44,7 +44,7 @@ const Index = () => {
             <div className="left-desc-doc-bottom">
               <h3>Dr. {data.name} {data.surname}</h3>
               <p>
-                {data.description}
+                {data.description} 
               </p>
             </div>
           </div>

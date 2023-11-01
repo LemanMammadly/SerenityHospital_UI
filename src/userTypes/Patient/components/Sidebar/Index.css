@@ -1,0 +1,12 @@
+:where(.css-dev-only-do-not-override-xu9wm8).ant-layout .ant-layout-sider-trigger {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    height: 48px;
+    color: #002140;
+    line-height: 48px;
+    text-align: center;
+    background: #002140;
+    cursor: pointer;
+    transition: all 0.2s;
+}
