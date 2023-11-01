@@ -1,110 +1,108 @@
-import React, { useEffect, useState } from "react";
-import "./Index.css";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { DatePicker } from "antd";
+import React, { useEffect, useState } from 'react'
+import "./Index.css"
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { DatePicker } from 'antd';
 
 const Index = () => {
-  const [inputs, setInputs] = useState({
-    departmentId: "",
-    doctorId: "",
-    problemDesc: "",
-    appoinmentDate: "",
-  });
-  const [errorMessages, setErrorMessages] = useState([]);
-  const [exception, setException] = useState("");
-  const [departmentsall, setDepartmentsall] = useState([]);
-  const [doctors, setDoctors] = useState([]);
-  const [selectdoctors, setSelectdoctors] = useState("");
-  const [selectedDepartments, setSelectedDepartments] = useState([]);
-  const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
-
-  const nav = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userToken=user.token
-
-  console.log(userToken);
-
-  const handleChange = (e) => {
-    const { name, value, type } = e.target;
-    const newValue = type === "checkbox" ? e.target.checked : value;
-  
-    setInputs((prev) => ({
-      ...prev,
-      [name]: newValue,
-    }));
-  
-    setErrorMessages((prev) => ({
-      ...prev,
-      [name]: null,
-    }));
-    if (name === "departmentId") {
-      setSelectedDepartments(value);
-      setIsDoctorSelectDisabled(false);
-    }
-
-    if (name === "doctorId") {
-      setSelectdoctors(value);
-    }
-
-    console.log(inputs);
-  };
-
-  useEffect(() => {
-    axios
-      .get(`https://localhost:7227/api/Departments/`)
-      .then((res) => {
-        setDepartmentsall(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(`https://localhost:7227/api/DoctorAuths/`)
-      .then((res) => {
-        const allDoctors = res.data;
-
-        const filteredDoctors = allDoctors.filter(
-          (doctor) => doctor.department.id === parseInt(selectedDepartments, 10)
-        );
-
-        setDoctors(filteredDoctors);
-      })
-      .catch((err) => console.log(err));
-  }, [selectedDepartments]);
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("departmentId", selectedDepartments);
-    formData.append("doctorId", selectdoctors);
-    formData.append("problemDesc", inputs.problemDesc);
-    formData.append("appoinmentDate", inputs.appoinmentDate);
-    axios
-      .post("https://localhost:7227/api/Appoinments", formData, {
-        headers: {
-          "Authorization": `Bearer ${userToken}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => nav("/doctor/appoinmetsaspatient"))
-      .catch((e) => {
-        if (e.response && e.response.data && e.response.data.errors) {
-          setErrorMessages(e.response.data.errors);
-        } else {
-          setException(e.response.data.message);
-        }
+    const [inputs, setInputs] = useState({
+        departmentId: "",
+        doctorId: "",
+        problemDesc: "",
+        appoinmentDate: "",
       });
-  };
+      const [errorMessages, setErrorMessages] = useState([]);
+      const [exception, setException] = useState("");
+      const [departmentsall, setDepartmentsall] = useState([]);
+      const [doctors, setDoctors] = useState([]);
+      const [selectdoctors, setSelectdoctors] = useState("");
+      const [selectedDepartments, setSelectedDepartments] = useState([]);
+      const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
+    
+      const nav = useNavigate();
+      const user = JSON.parse(localStorage.getItem("user"));
+      const userToken=user.token
 
+    
+      const handleChange = (e) => {
+        const { name, value, type } = e.target;
+        const newValue = type === "checkbox" ? e.target.checked : value;
+      
+        setInputs((prev) => ({
+          ...prev,
+          [name]: newValue,
+        }));
+      
+        setErrorMessages((prev) => ({
+          ...prev,
+          [name]: null,
+        }));
+        if (name === "departmentId") {
+          setSelectedDepartments(value);
+          setIsDoctorSelectDisabled(false);
+        }
+    
+        if (name === "doctorId") {
+          setSelectdoctors(value);
+        }
+    
+        console.log(inputs);
+      };
+    
+      useEffect(() => {
+        axios
+          .get(`https://localhost:7227/api/Departments/`)
+          .then((res) => {
+            setDepartmentsall(res.data);
+          })
+          .catch((err) => console.log(err));
+      }, []);
+    
+      useEffect(() => {
+        axios
+          .get(`https://localhost:7227/api/DoctorAuths/`)
+          .then((res) => {
+            const allDoctors = res.data;
+    
+            const filteredDoctors = allDoctors.filter(
+              (doctor) => doctor.department.id === parseInt(selectedDepartments, 10)
+            );
+    
+            setDoctors(filteredDoctors);
+          })
+          .catch((err) => console.log(err));
+      }, [selectedDepartments]);
+    
+    
+      const handleSubmit = (e) => {
+        e.preventDefault();
+    
+        const formData = new FormData();
+        formData.append("departmentId", selectedDepartments);
+        formData.append("doctorId", selectdoctors);
+        formData.append("problemDesc", inputs.problemDesc);
+        formData.append("appoinmentDate", inputs.appoinmentDate);
+        axios
+          .post("https://localhost:7227/api/Appoinments", formData, {
+            headers: {
+              "Authorization": `Bearer ${userToken}`,
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => nav("/patient/appoinments"))
+          .catch((e) => {
+            if (e.response && e.response.data && e.response.data.errors) {
+              setErrorMessages(e.response.data.errors);
+            } else {
+              setException(e.response.data.message);
+            }
+          });
+      };
   return (
     <section>
       <div className="all-app-create">
         <Link
-          to="/doctor/appoinments"
+          to="/patient/appoinments"
           className="back-to-superadmin"
           style={{ textDecoration: "none", color: "#333" }}
         >
@@ -112,10 +110,10 @@ const Index = () => {
             className="fa-solid fa-chevron-left"
             style={{ marginRight: "10px" }}
           ></i>
-          Doctor / Appoinments
+          Patient / Appoinments
         </Link>
         <div className="top-app-create">
-          <h1>Add Appoinment As Patient</h1>
+          <h1>Add Appoinment</h1>
         </div>
         <div className="bottom-app-create">
           <form method="POST" onSubmit={(e) => handleSubmit(e)}>
@@ -173,7 +171,7 @@ const Index = () => {
                   >
                     <option value="">Select Doctor: </option>
                     {doctors
-                      .filter((data) => data.isDeleted === false && data.userName !== user.username)
+                      .filter((data) => data.isDeleted === false)
                       .map((doc) => (
                         <option key={doc.id} value={doc.id}>
                           {doc.name} {doc.surname}
@@ -276,7 +274,7 @@ const Index = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

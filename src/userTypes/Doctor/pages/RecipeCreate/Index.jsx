@@ -52,10 +52,11 @@ const Index = () => {
     axios
       .get(`https://localhost:7227/api/Appoinments`)
       .then((res) => {
-        setAppoinments(res.data);
+        setAppoinments(res.data.filter(((app)=>app.doctor.userName===username)));
       })
       .catch((err) => console.log(err));
   }, []);
+
 
   useEffect(() => {
     axios
@@ -65,6 +66,7 @@ const Index = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
 
   useEffect(() => {
     axios
@@ -181,7 +183,7 @@ const Index = () => {
                   >
                     <option value="">Select Doctor: </option>
                     {doctor
-                      .filter((data) => data.isDeleted === false)
+                      .filter((data) => data.isDeleted === false && data.userName===username)
                       .map((doc) => (
                         <option key={doc.id} value={doc.id}>
                           {doc.userName}

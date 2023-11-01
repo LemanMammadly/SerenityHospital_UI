@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   ScheduleOutlined,
   PieChartOutlined,
-  SolutionOutlined,
+  FolderOpenOutlined,
   TeamOutlined,
   FileTextOutlined,
   UserOutlined
@@ -26,16 +26,14 @@ const items = [
   getItem("Dashboard", "1", <PieChartOutlined />),
   getItem("Appoinments", "2", <ScheduleOutlined  />),
   getItem("Recipes", "3",<FileTextOutlined />),
-  getItem("Appoinments As Patient", "3", <SolutionOutlined />),
-  getItem("Patients", "4", <TeamOutlined />),
+  getItem("Doctors", "4", <TeamOutlined />),
+  getItem("History", "5", <FolderOpenOutlined />),
   getItem("Profile", "6",<UserOutlined />),
 ];
 
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
   const nav=useNavigate();
-
-
 
 const ChangePage=(key)=>{
   if(key==="1")
@@ -66,6 +64,7 @@ const ChangePage=(key)=>{
       onCollapse={(value) => setCollapsed(value)}
     >
       <div style={{ backgroundColor: "#fff" }} className="demo-logo-vertical" />
+      <div className="mx-4 my-3" style={{fontWeight:"bold",color:"#808DA1"}}><i class="fa-solid fa-hospital-user"></i> Patient Dashboard</div>
       <Menu
         theme="light"
         defaultSelectedKeys={["1"]}

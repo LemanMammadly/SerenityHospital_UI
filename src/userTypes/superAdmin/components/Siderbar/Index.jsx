@@ -78,6 +78,7 @@ const ChangePage=(key)=>{
       onCollapse={(value) => setCollapsed(value)}
     >
       <div style={{ backgroundColor: "#fff" }} className="demo-logo-vertical" />
+      <div className="mx-4 my-3" style={{fontWeight:"bold",color:"#808DA1"}}><i class="fa-solid fa-unlock"></i> Admin Dashboard</div>
       <Menu
         theme="light"
         defaultSelectedKeys={["1"]}

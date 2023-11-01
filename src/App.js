@@ -40,6 +40,7 @@ import PatientDashboard from "./Layouts/PatientDashboard"
 import HomePatient from "./userTypes/Patient/pages/Home/Index.jsx"
 import PatientAppoinments from "./userTypes/Patient/pages/Appoinments/Index.jsx"
 import RecipeListPatient from "./userTypes/Patient/pages/Recipes/Index.jsx"
+import AppoinmentCreate from "./userTypes/Patient/pages/AppoinmentCreate/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -144,6 +145,7 @@ function App() {
             <Route path="/patient" element={user && user.roles[0]==="Patient" ? <PatientDashboard/> : <Navigate to="/login"/>}>
               <Route index element={<HomePatient/>}/>
               <Route path="/patient/appoinments" element={<PatientAppoinments/>}/>
+              <Route path="/patient/appoinments/create" element={<AppoinmentCreate/>}/>
               <Route path="/patient/recipes" element={<RecipeListPatient/>}/>
             </Route>
         </Routes>

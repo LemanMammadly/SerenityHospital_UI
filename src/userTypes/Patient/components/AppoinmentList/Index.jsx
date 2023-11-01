@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import axios from 'axios';
 import $ from "jquery";
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
     const [data, setData] = useState([]);
@@ -103,6 +104,19 @@ const Index = () => {
             )}
           </div>
           <div className="left-right-app-doctor d-flex gap-3 align-items-center">
+          <Link
+              to="/patient/appoinments/create"
+              style={{
+                textDecoration: "none",
+                backgroundColor: "#0B58CA",
+                color: "#fff",
+                padding: "5px",
+                fontSize: "13px",
+                borderRadius: "5px",
+              }}
+            >
+              Create
+            </Link>
             <div className="search-input">
               <input
                 className="form form-control w-100"
