@@ -5,6 +5,7 @@ import {
   ApartmentOutlined,
   BuildOutlined,
   ApiOutlined,
+  ScheduleOutlined,
   TeamOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
@@ -29,6 +30,7 @@ const items = [
   getItem("Department", "4", <ApartmentOutlined />),
   getItem("Position", "5",<ApiOutlined />),
   getItem("Doctor", "6",< TeamOutlined />),
+  getItem("Appoinments", "7",< ScheduleOutlined />),
 ];
 
 const Index = () => {
@@ -61,6 +63,10 @@ const ChangePage=(key)=>{
   else if(key ==="6")
   {
     nav("/superadmin/doctor")
+  }
+  else if(key ==="7")
+  {
+    nav("/superadmin/appoinments")
   }
 }
 

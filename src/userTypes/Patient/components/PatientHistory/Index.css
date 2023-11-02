@@ -1,74 +1,74 @@
-.all-recip-doc{
+.all-recip-pat{
     background-color: #F1F4F8;
     height: 100vh;
 }
-.all-recip-doc .container-recip-doc{
+.all-recip-pat .container-recip-pat{
     padding: 3rem;
 }
 
-.all-recip-doc .top-recip-doc h1{
+.all-recip-pat .top-recip-pat h1{
     margin-bottom: 30px;
 }
 
-.all-recip-doc .left-menu-header{
+.all-recip-pat .left-menu-header{
     display: none;
 }
 
 
-.all-recip-doc .pagination{
+.all-recip-pat .pagination{
     display: flex;
     align-items: center;
     justify-content: end;
 }
 
-.all-recip-doc .pagination .icon-super-admin{
+.all-recip-pat .pagination .icon-super-admin{
     cursor: pointer;
 }
 
 @media screen and (max-width: 992px)
 {
 
-    .all-recip-doc .container-recip-doc{
+    .all-recip-pat .container-recip-pat{
         padding: 1rem;
     }
-    .all-recip-doc .table th{
+    .all-recip-pat .table th{
         font-size: 10px;
     }
 
-    .all-recip-doc .table td{
+    .all-recip-pat .table td{
         font-size: 10px;
     }
 
-    .all-recip-doc .bottom-recip-doc{
+    .all-recip-pat .bottom-recip-pat{
         width: 100% ;
     }
 }
 
 @media screen and (max-width: 768px)
 {
-    .all-recip-doc .container-recip-doc{
+    .all-recip-pat .container-recip-pat{
         padding: 1rem;
     }
-    .all-recip-doc .table th{
+    .all-recip-pat .table th{
         font-size: 10px;
     }
 
-    .all-recip-doc .table td{
+    .all-recip-pat .table td{
         font-size: 10px;
     }
 
-    .all-recip-doc{
+    .all-recip-pat{
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .all-recip-doc .container-recip-doc{
+    .all-recip-pat .container-recip-pat{
         overflow-x: scroll !important;
         width: 80%;
     }
 
-    .all-recip-doc .bottom-recip-doc{
+    .all-recip-pat .bottom-recip-pat{
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -77,10 +77,10 @@
         overflow-x: scroll;
     }
 
-    .all-recip-doc .pagination .pagNum{
+    .all-recip-pat .pagination .pagNum{
         font-size: 10px !important;
     }
-    .all-recip-doc .pagination{
+    .all-recip-pat .pagination{
         font-size: 10px !important;
     }
 }

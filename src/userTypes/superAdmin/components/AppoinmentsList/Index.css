@@ -1,74 +1,73 @@
-.all-recip-doc{
+.all-app-admin{
     background-color: #F1F4F8;
-    height: 100vh;
 }
-.all-recip-doc .container-recip-doc{
+.all-app-admin .container-app-admin{
     padding: 3rem;
 }
 
-.all-recip-doc .top-recip-doc h1{
+.all-app-admin .top-app-admin h1{
     margin-bottom: 30px;
 }
 
-.all-recip-doc .left-menu-header{
+.all-app-admin .left-menu-header{
     display: none;
 }
 
 
-.all-recip-doc .pagination{
+.all-app-admin .pagination{
     display: flex;
     align-items: center;
     justify-content: end;
 }
 
-.all-recip-doc .pagination .icon-super-admin{
+.all-app-admin .pagination .icon-app-admin{
     cursor: pointer;
 }
 
 @media screen and (max-width: 992px)
 {
 
-    .all-recip-doc .container-recip-doc{
+    .all-app-admin .container-app-admin{
         padding: 1rem;
     }
-    .all-recip-doc .table th{
+    .all-app-admin .table th{
         font-size: 10px;
     }
 
-    .all-recip-doc .table td{
+    .all-app-admin .table td{
         font-size: 10px;
     }
 
-    .all-recip-doc .bottom-recip-doc{
+    .all-app-admin .bottom-app-admin{
         width: 100% ;
     }
 }
 
 @media screen and (max-width: 768px)
 {
-    .all-recip-doc .container-recip-doc{
+    .all-app-admin .container-app-admin{
         padding: 1rem;
     }
-    .all-recip-doc .table th{
+    .all-app-admin .table th{
         font-size: 10px;
     }
 
-    .all-recip-doc .table td{
+    .all-position-superadmin .table td{
         font-size: 10px;
     }
 
-    .all-recip-doc{
+    .all-position-superadmin{
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .all-recip-doc .container-recip-doc{
+    .all-position-superadmin .container-position-superadmin{
         overflow-x: scroll !important;
         width: 80%;
     }
 
-    .all-recip-doc .bottom-recip-doc{
+    .all-position-superadmin .bottom-position-superadmin{
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -77,10 +76,10 @@
         overflow-x: scroll;
     }
 
-    .all-recip-doc .pagination .pagNum{
+    .all-position-superadmin .pagination .pagNum{
         font-size: 10px !important;
     }
-    .all-recip-doc .pagination{
+    .all-position-superadmin .pagination{
         font-size: 10px !important;
     }
 }

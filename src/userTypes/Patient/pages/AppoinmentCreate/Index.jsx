@@ -46,7 +46,6 @@ const Index = () => {
           setSelectdoctors(value);
         }
     
-        console.log(inputs);
       };
     
       useEffect(() => {

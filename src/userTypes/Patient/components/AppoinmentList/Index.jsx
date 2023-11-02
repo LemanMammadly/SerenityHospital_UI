@@ -50,7 +50,6 @@ const Index = () => {
         });
     }, []);
   
-    console.log(data);
   
     const seacrhChange = (key) => {
       setSearch(key);

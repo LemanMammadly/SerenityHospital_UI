@@ -1,74 +1,79 @@
-.all-recip-doc{
+.all-doctor-pat{
     background-color: #F1F4F8;
     height: 100vh;
 }
-.all-recip-doc .container-recip-doc{
+.all-doctor-pat .container-doctor-pat{
     padding: 3rem;
 }
 
-.all-recip-doc .top-recip-doc h1{
+.all-doctor-pat .top-doctor-pat h1{
     margin-bottom: 30px;
 }
 
-.all-recip-doc .left-menu-header{
+.all-doctor-pat .left-menu-header{
     display: none;
 }
 
 
-.all-recip-doc .pagination{
+.all-doctor-pat .pagination{
     display: flex;
     align-items: center;
     justify-content: end;
 }
 
-.all-recip-doc .pagination .icon-super-admin{
+button:disabled {
+    opacity: 0.6;
+  }
+
+.all-doctor-pat .pagination .icon-super-admin{
     cursor: pointer;
 }
+
 
 @media screen and (max-width: 992px)
 {
 
-    .all-recip-doc .container-recip-doc{
+    .all-doctor-pat .container-doctor-pat{
         padding: 1rem;
     }
-    .all-recip-doc .table th{
+    .all-doctor-pat .table th{
         font-size: 10px;
     }
 
-    .all-recip-doc .table td{
+    .all-doctor-pat .table td{
         font-size: 10px;
     }
 
-    .all-recip-doc .bottom-recip-doc{
+    .all-doctor-pat .bottom-doctor-pat{
         width: 100% ;
     }
 }
 
 @media screen and (max-width: 768px)
 {
-    .all-recip-doc .container-recip-doc{
+    .all-doctor-pat .container-doctor-pat{
         padding: 1rem;
     }
-    .all-recip-doc .table th{
+    .all-doctor-pat .table th{
         font-size: 10px;
     }
 
-    .all-recip-doc .table td{
+    .all-doctor-pat .table td{
         font-size: 10px;
     }
 
-    .all-recip-doc{
+    .all-doctor-pat{
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .all-recip-doc .container-recip-doc{
+    .all-doctor-pat .container-doctor-pat{
         overflow-x: scroll !important;
         width: 80%;
     }
 
-    .all-recip-doc .bottom-recip-doc{
+    .all-doctor-pat .bottom-doctor-pat{
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -77,10 +82,10 @@
         overflow-x: scroll;
     }
 
-    .all-recip-doc .pagination .pagNum{
+    .all-doctor-pat .pagination .pagNum{
         font-size: 10px !important;
     }
-    .all-recip-doc .pagination{
+    .all-doctor-pat .pagination{
         font-size: 10px !important;
     }
 }

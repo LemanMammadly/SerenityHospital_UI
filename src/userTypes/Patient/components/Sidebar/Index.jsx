@@ -48,6 +48,14 @@ const ChangePage=(key)=>{
   {
     nav("/patient/recipes")
   }
+  if(key==="4")
+  {
+    nav("/patient/doctors")
+  }
+  if(key==="5")
+  {
+    nav("/patient/history")
+  }
 }
 
   const {
