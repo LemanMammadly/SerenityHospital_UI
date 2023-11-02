@@ -178,7 +178,7 @@ const Index = () => {
                   <td>{datas.number}</td>
                   <td>{datas.doctorRoomStatus===1 ?  "Available" : datas.doctorRoomStatus===2 ?  "Occupied" : "Out Of Service" }</td>
                   <td>{datas && datas.department && datas.department.name}</td>
-                  <td>{datas.doctor ? datas.doctor.name : "NULL"} {datas.doctor ? datas.doctor.surname : ""}</td>
+                  <td>{datas.doctor && datas.doctor.name } {datas.doctor && datas.doctor.surname}</td>
                   <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                   <td>
                     <Link

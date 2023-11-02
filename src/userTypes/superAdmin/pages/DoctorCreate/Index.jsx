@@ -23,9 +23,9 @@ const Index = () => {
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
   const [positions, setPositions] = useState([]);
-  const [departments, setDepartments] = useState([]);
   const [selectGender, setSelectGender] = useState("");
   const [selectPosition, setSelectPosition] = useState("");
+  const [departments, setDepartments] = useState([]);
   const [selectDepartment, setSelectDepartment] = useState("");
 
   const nav = useNavigate();

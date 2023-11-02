@@ -11,17 +11,16 @@ const Index = () => {
   const [data, setData] = useState({});
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
+  const [doctors, setDoctors] = useState([]);
+  const [selectdoctors, setSelectDoctors] = useState("");
   const [departmentsall, setDepartmentsall] = useState([]);
   const [selectedDepartments, setSelectedDepartments] = useState("");
   const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
-  const [doctors, setDoctors] = useState([]);
-  const [selectdoctors, setSelectDoctors] = useState("");
   const [patients, setPatients] = useState([]);
   const [selectPatients, setSelectPatients] = useState("");
   const [patientAsDoctor, setPatientAsDoctor] = useState([]);
   const [selectPatientAsDoctor, setSelectPatientAsDoctor] = useState("");
-  const [isDoctorAsPatientSelectDisabled, setIsDoctorAsPatientSelectDisabled] =
-    useState(false);
+  const [isDoctorAsPatientSelectDisabled, setIsDoctorAsPatientSelectDisabled] =useState(false);
 
   const nav = useNavigate();
 

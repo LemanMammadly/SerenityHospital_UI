@@ -9,13 +9,13 @@ const Index = () => {
   const [inputs, setInputs] = useState({});
   const [data, setData] = useState({});
   const [positions, setPositions] = useState([]);
-  const [departments, setDepartments] = useState([]);
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
   const [prevImageUrl, setPrevImageUrl] = useState("");
   const [selectGender, setSelectGender] = useState("");
   const [selectStatus, setSelectStatus] = useState("");
   const [selectPosition, setSelectPosition] = useState("");
+  const [departments, setDepartments] = useState([]);
   const [selectDepartment, setSelectDepartment] = useState("");
 
   const nav = useNavigate();
