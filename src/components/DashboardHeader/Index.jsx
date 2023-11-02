@@ -11,11 +11,11 @@ const Index = () => {
 
   let endpoint = "";
 
-  if (user.roles[0] === "Admin") {
+  if (user && user.roles && user.roles[0] === "Admin") {
     endpoint = "AdminAuths";
-  } else if (user.roles[0] === "Patient") {
+  } else if (user &&  user.roles && user.roles[0] === "Patient") {
     endpoint = "PatientAuths";
-  } else if (user.roles[0] === "Doctor") {
+  } else if (user &&  user.roles && user.roles[0] === "Doctor") {
     endpoint = "DoctorAuths";
   }
 
@@ -30,7 +30,7 @@ const Index = () => {
         axios
       .post(`https://localhost:7227/api/${endpoint}/Logout`,{}, {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user && user.token && user.token}`,
           "Content-Type": "application/json",
         },
       })
@@ -46,7 +46,7 @@ const Index = () => {
         console.error("Error during logout:", error);
       });
       }
-    }, [logout, endpoint, user.token])
+    }, [logout, endpoint, user && user.token && user.token])
 
   return (
     <header>

@@ -44,19 +44,29 @@ import AppoinmentCreate from "./userTypes/Patient/pages/AppoinmentCreate/Index.j
 import PatientDoctors from "./userTypes/Patient/pages/Doctors/Index.jsx";
 import PatientHistory from "./userTypes/Patient/pages/History/Index.jsx";
 import SuperAdminAppoinments from "./userTypes/superAdmin/pages/Appoinments/Index.jsx";
-import SuperAdminUpdateAppoinments from "./userTypes/superAdmin/pages/AppoinmentUpdate/Index.jsx"
+import SuperAdminUpdateAppoinments from "./userTypes/superAdmin/pages/AppoinmentUpdate/Index.jsx";
+import PatientProfile from "./userTypes/Patient/pages/Profile/Index.jsx";
+import PatientProfileUpdate from "./userTypes/Patient/pages/ProfileUpdate/Index.jsx";
+import SuperAdminPatientList from "./userTypes/superAdmin/pages/PatientList/Index.jsx";
+import SuperAdminPatientCreate from "./userTypes/superAdmin/pages/PatientCreate/Index.jsx";
+import SuperAdminPatientUpdate from "./userTypes/superAdmin/pages/PatientUpdate/Index.jsx";
+import SuperAdminPatientAddRole from "./userTypes/superAdmin/pages/PatientAddRole/Index.jsx"
+import SuperAdminPatientRemoveRole from "./userTypes/superAdmin/pages/PatientRemoveRole/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
-
-  const currentDate = new Date();
-  const dates = format(currentDate, "yyyy-MM-dd");
-  const time = format(currentDate, "HH:mm:ss");
-  const dateNow = `${dates}T${time}`;
-
-  if (dateNow > user && user.expires) {
-    localStorage.removeItem("user");
+  function Expires(user) {
+    const currentDate = new Date();
+    const dates = format(currentDate, "yyyy-MM-dd");
+    const time = format(currentDate, "HH:mm:ss");
+    const dateNow = `${dates}T${time}`;
+    if (user) {
+      if (user.expires <= dateNow) {
+        localStorage.removeItem("user");
+      }
+    }
   }
+  Expires(user);
 
   return (
     <div>
@@ -73,7 +83,7 @@ function App() {
           <Route
             path="/superadmin"
             element={
-              user && user.roles[0] === "Admin" ? (
+              user && user.roles && user.roles[0] === "Admin" ? (
                 <SuperAdminDashboard />
               ) : (
                 <Navigate to="/login" />
@@ -147,11 +157,31 @@ function App() {
               path="/superadmin/appoinments/update/:id"
               element={<SuperAdminUpdateAppoinments />}
             />
+            <Route
+              path="/superadmin/patients"
+              element={<SuperAdminPatientList />}
+            />
+            <Route
+              path="/superadmin/patients/create"
+              element={<SuperAdminPatientCreate />}
+            />
+            <Route
+              path="/superadmin/patients/update/:id"
+              element={<SuperAdminPatientUpdate />}
+            />
+            <Route
+              path="/superadmin/patients/addrole/:username"
+              element={<SuperAdminPatientAddRole />}
+            />
+            <Route
+              path="/superadmin/patients/removerole/:username"
+              element={<SuperAdminPatientRemoveRole />}
+            />            
           </Route>
           <Route
             path="/doctor"
             element={
-              user && user.roles[0] === "Doctor" ? (
+              user && user.roles && user.roles[0] === "Doctor" ? (
                 <DoctorDashboard />
               ) : (
                 <Navigate to="/login" />
@@ -187,7 +217,7 @@ function App() {
           <Route
             path="/patient"
             element={
-              user && user.roles[0] === "Patient" ? (
+              user && user.roles && user.roles[0] === "Patient" ? (
                 <PatientDashboard />
               ) : (
                 <Navigate to="/login" />
@@ -206,6 +236,11 @@ function App() {
             <Route path="/patient/recipes" element={<RecipeListPatient />} />
             <Route path="/patient/doctors" element={<PatientDoctors />} />
             <Route path="/patient/history" element={<PatientHistory />} />
+            <Route path="/patient/profile" element={<PatientProfile />} />
+            <Route
+              path="/patient/profile/update"
+              element={<PatientProfileUpdate />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

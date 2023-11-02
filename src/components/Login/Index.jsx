@@ -52,15 +52,21 @@ const Index = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          localStorage.setItem("user", JSON.stringify(res.data));
           const user = res.data;
           console.log(user);
-          if (user && user.roles[0] && user.roles[0].includes("Doctor")) {
+          if (user && user.roles && user.roles[0] && user.roles[0].includes("Doctor")) {
             window.location.href = "/doctor";
-          } else if(user && user.roles[0] && user.roles[0].includes("Admin")) {
+            localStorage.setItem("user", JSON.stringify(res.data));
+          } else if (user && user.roles && user.roles[0] && user.roles[0].includes("Admin")) {
             window.location.href = "/superadmin";
-          } else if(user && user.roles[0] && user.roles[0].includes("Patient")){
+            localStorage.setItem("user", JSON.stringify(res.data));
+          } else if (
+            user && user.roles &&
+            user.roles[0] &&
+            user.roles[0].includes("Patient")
+          ) {
             window.location.href = "/patient";
+            localStorage.setItem("user", JSON.stringify(res.data));
           }
         }
       })

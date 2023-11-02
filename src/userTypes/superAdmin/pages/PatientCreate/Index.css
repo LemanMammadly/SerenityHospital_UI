@@ -1,0 +1,29 @@
+.all-pat-create{
+    padding: 3rem 5rem;
+}
+
+.all-pat-create .top-pat-create h1{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.all-pat-create .add-btn-pat{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.all-pat-create .add-btn-pat button{
+    border: none;
+    background-color: #002140;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.error-messages{
+    font-size: 14px;
+    color: red;
+}

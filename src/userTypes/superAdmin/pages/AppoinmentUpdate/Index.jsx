@@ -69,11 +69,11 @@ const Index = () => {
       .then((res) => {
         setData(res.data);
         setInputs(res.data);
-        setSelectedDepartments(res.data.doctor.department.id);
-        setSelectDoctors(res.data.doctor.id);
-        setSelectPatients(res.data.patient && res.data.patient.id);
+        setSelectedDepartments(res.data.doctor.department.name);
+        setSelectDoctors(res.data.doctor.name);
+        setSelectPatients(res.data.patient && res.data.patient.name);
         setSelectPatientAsDoctor(
-          res.data.appoinmentAsDoctor && res.data.appoinmentAsDoctor.id
+          res.data.appoinmentAsDoctor && res.data.appoinmentAsDoctor.name
         );
       })
       .catch((err) => console.log(err));
@@ -160,12 +160,12 @@ const Index = () => {
         <div className="bottom-doctor-update">
           <form method="POST" onSubmit={(e) => handleSubmit(e, data.id)}>
             <div className="panel-body d-flex flex-column gap-4">
-              {selectedDepartments}
               <div className="form-group d-flex align-items-center justify-content-center">
                 <label htmlFor="depId" className="col-sm-3 control-label">
                   Departments
                 </label>
                 <div className="col-sm-5">
+                  <p>Appoinment's Department : <span>{selectedDepartments}</span></p>
                   <select
                     id="depId"
                     className="form-control"
@@ -197,12 +197,12 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <span>{selectdoctors}</span>
               <div className="form-group d-flex align-items-center justify-content-center">
                 <label htmlFor="doctorId" className="col-sm-3 control-label">
                   Doctors
                 </label>
                 <div className="col-sm-5">
+                  <p>Appoinment's Doctor : <span>{selectdoctors}</span></p>  
                   <select
                     id="doctorId"
                     className="form-control"
@@ -238,6 +238,7 @@ const Index = () => {
                   Patients
                 </label>
                 <div className="col-sm-5">
+                  <p>Appoinment's Patient : <span>{selectPatients}</span></p>
                   <select
                     id="patientId"
                     className="form-control"
@@ -266,15 +267,15 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <span>{selectPatientAsDoctor}</span>
               <div className="form-group d-flex align-items-center justify-content-center">
                 <label
                   htmlFor="appoinmentAsDoctorId"
                   className="col-sm-3 control-label"
-                >
+                  >
                   Doctor as Patient
                 </label>
                 <div className="col-sm-5">
+                  <p>Appoinment's Patient As Doctor : <span>{selectPatientAsDoctor}</span></p>
                   <select
                     id="appoinmentAsDoctorId"
                     className="form-control"

@@ -75,7 +75,7 @@ const Index = () => {
         Super Admin / Doctor
       </Link>
       <div className="top-addrole-create">
-        <h1>Add Role</h1>
+        <h1>Remove Role</h1>
       </div>
       <div className="bottom-addrole-create">
         <form method="POST" onSubmit={(e) => handleSubmit(e)}>

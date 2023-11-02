@@ -56,6 +56,10 @@ const ChangePage=(key)=>{
   {
     nav("/patient/history")
   }
+  if(key==="6")
+  {
+    nav("/patient/profile")
+  }
 }
 
   const {
