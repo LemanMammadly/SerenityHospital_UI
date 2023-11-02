@@ -4,6 +4,7 @@ import { Button } from "antd";
 import { Link } from "react-router-dom";
 import $ from "jquery";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Index = () => {
   const [search, setSearch] = useState("");
@@ -22,21 +23,34 @@ const Index = () => {
   };
 
   const handleDelete = (id) => {
-    axios
-      .delete(`https://localhost:7227/api/Departments/${id}`)
-      .then((res) => {
-        window.location.reload();
-        console.log("Department deleted successfully");
-      })
-      .catch((e) => {
-        if (e.response && e.response.data && e.response.data.errors) {
-          console.log(e.response.data.errors);
-          setErrorMessages(e.response.data.errors);
-        } else {
-          setException(e.response.data.message);
-          console.log(e.response.data.errors);
-        }
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`https://localhost:7227/api/Departments/${id}`)
+          .then((res) => {
+            window.location.reload();
+            console.log("Department deleted successfully");
+          })
+          .catch((e) => {
+            if (e.response && e.response.data && e.response.data.errors) {
+              console.log(e.response.data.errors);
+              setErrorMessages(e.response.data.errors);
+            } else {
+              setException(e.response.data.message);
+              console.log(e.response.data.errors);
+            }
+          });
+      }
+    });
   };
 
   const handleSoftDelete = (id) => {
@@ -74,7 +88,6 @@ const Index = () => {
         }
       });
   };
-  
 
   useEffect(() => {
     axios

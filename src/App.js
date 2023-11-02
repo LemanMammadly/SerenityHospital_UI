@@ -52,6 +52,7 @@ import SuperAdminPatientCreate from "./userTypes/superAdmin/pages/PatientCreate/
 import SuperAdminPatientUpdate from "./userTypes/superAdmin/pages/PatientUpdate/Index.jsx";
 import SuperAdminPatientAddRole from "./userTypes/superAdmin/pages/PatientAddRole/Index.jsx"
 import SuperAdminPatientRemoveRole from "./userTypes/superAdmin/pages/PatientRemoveRole/Index.jsx"
+import SuperAdminPatientAddRoom from "./userTypes/superAdmin/pages/AddRoomPatient/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -176,7 +177,11 @@ function App() {
             <Route
               path="/superadmin/patients/removerole/:username"
               element={<SuperAdminPatientRemoveRole />}
-            />            
+            />   
+            <Route
+              path="/superadmin/patients/addroompatient/:id"
+              element={<SuperAdminPatientAddRoom />}
+            />                     
           </Route>
           <Route
             path="/doctor"

@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import axios from "axios";
 import $ from "jquery";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Index = () => {
   const [data, setData] = useState([]);
@@ -46,28 +47,37 @@ const Index = () => {
 
   console.log(data);
 
-
   const handleDelete = (id) => {
-    axios
-      .delete(`https://localhost:7227/api/Appoinments/${id}`)
-      .then((res) => {
-        window.location.reload();
-        console.log("Appoinment deleted successfully");
-      })
-      .catch((e) => {
-        if (e.response && e.response.data && e.response.data.errors) {
-          console.log(e.response.data.errors);
-          setErrorMessages(e.response.data.errors);
-        } else {
-          setException(e.response.data.message);
-          console.log(e.response.data.errors);
-        }
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`https://localhost:7227/api/Appoinments/${id}`)
+          .then((res) => {
+            window.location.reload();
+            console.log("Appoinment deleted successfully");
+          })
+          .catch((e) => {
+            if (e.response && e.response.data && e.response.data.errors) {
+              setErrorMessages(e.response.data.errors);
+            } else {
+              setException(e.response.data.message);
+            }
+          });
+      }
+    });
   };
-
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Appoinments/${id}`)
+      .patch(`https://localhost:7227/api/Appoinments/SoftDelete/${id}`)
       .then((res) => {
         window.location.reload();
         console.log("Appoinment deleted successfully");
@@ -85,7 +95,7 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Departments/RevertSoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/Appoinments/ReverteSoftDelete/${id}`)
       .then((res) => {
         window.location.reload();
         console.log("Service reverted successfully");
@@ -219,7 +229,7 @@ const Index = () => {
                       }}
                     >
                       {datas.patient && datas.patient.name}{" "}
-                      {datas.patient && datas.patient.surname} {" "}
+                      {datas.patient && datas.patient.surname}{" "}
                       {datas.appoinmentAsDoctor &&
                         datas.appoinmentAsDoctor.name}
                       {datas.appoinmentAsDoctor &&
@@ -269,46 +279,46 @@ const Index = () => {
                     </td>
                     <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                     <td>
-                    <Link
-                      to={`/superadmin/appoinments/update/${datas.id}`}
-                      style={{
-                        textDecoration: "none",
-                        backgroundColor: "#0B58CA",
-                        color: "#fff",
-                        padding: "5px",
-                        fontSize: "13px",
-                        borderRadius: "5px",
-                      }}
-                      className="bg-success text-white"
-                    >
-                      Edit
-                    </Link>
-                  </td>
-                  <td>
-                    {datas.isDeleted === true ? (
-                      <Button
-                        onClick={() => handleRevertDelete(datas.id)}
-                        className="bg-secondary text-white"
+                      <Link
+                        to={`/superadmin/appoinments/update/${datas.id}`}
+                        style={{
+                          textDecoration: "none",
+                          backgroundColor: "#0B58CA",
+                          color: "#fff",
+                          padding: "5px",
+                          fontSize: "13px",
+                          borderRadius: "5px",
+                        }}
+                        className="bg-success text-white"
                       >
-                        Reverte
-                      </Button>
-                    ) : (
+                        Edit
+                      </Link>
+                    </td>
+                    <td>
+                      {datas.isDeleted === true ? (
+                        <Button
+                          onClick={() => handleRevertDelete(datas.id)}
+                          className="bg-secondary text-white"
+                        >
+                          Reverte
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => handleSoftDelete(datas.id)}
+                          className="bg-warning text-white"
+                        >
+                          Soft
+                        </Button>
+                      )}
+                    </td>
+                    <td>
                       <Button
-                        onClick={() => handleSoftDelete(datas.id)}
-                        className="bg-warning text-white"
+                        onClick={() => handleDelete(datas.id)}
+                        className="bg-danger text-white"
                       >
-                        Soft
+                        Delete
                       </Button>
-                    )}
-                  </td>
-                  <td>
-                    <Button
-                      onClick={() => handleDelete(datas.id)}
-                      className="bg-danger text-white"
-                    >
-                      Delete
-                    </Button>
-                  </td>
+                    </td>
                   </tr>
                 ))}
             </tbody>
