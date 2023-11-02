@@ -1,0 +1,86 @@
+.all-docroom-superadmin{
+    background-color: #F1F4F8;
+    height: 100vh;
+}
+.all-docroom-superadmin .container-docroom-superadmin{
+    padding: 3rem;
+}
+
+.all-docroom-superadmin .top-docroom-superadmin h1{
+    margin-bottom: 30px;
+}
+
+.all-docroom-superadmin .left-menu-header{
+    display: none;
+}
+
+
+.all-docroom-superadmin .pagination{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.all-docroom-superadmin .pagination .icon-super-admin{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 992px)
+{
+
+    .all-docroom-superadmin .container-docroom-superadmin{
+        padding: 1rem;
+    }
+    .all-docroom-superadmin .table th{
+        font-size: 10px;
+    }
+
+    .all-docroom-superadmin .table td{
+        font-size: 10px;
+    }
+
+    .all-docroom-superadmin .bottom-docroom-superadmin{
+        width: 100% ;
+    }
+}
+
+@media screen and (max-width: 768px)
+{
+    .all-docroom-superadmin .container-docroom-superadmin{
+        padding: 1rem;
+    }
+    .all-docroom-superadmin .table th{
+        font-size: 10px;
+    }
+
+    .all-docroom-superadmin .table td{
+        font-size: 10px;
+    }
+
+    .all-docroom-superadmin{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .all-docroom-superadmin .container-docroom-superadmin{
+        overflow-x: scroll !important;
+        width: 80%;
+    }
+
+    .all-docroom-superadmin .bottom-docroom-superadmin{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: scroll;
+    }
+
+    .all-docroom-superadmin .pagination .pagNum{
+        font-size: 10px !important;
+    }
+    .all-docroom-superadmin .pagination{
+        font-size: 10px !important;
+    }
+}
