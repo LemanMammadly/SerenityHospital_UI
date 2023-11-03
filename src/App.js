@@ -63,7 +63,8 @@ import SuperAdminNurse from "./userTypes/superAdmin/pages/Nurse/Index.jsx";
 import SuperAdminNurseCreate from "./userTypes/superAdmin/pages/NurseCreate/Index.jsx";
 import SuperAdminNurseUpdate from "./userTypes/superAdmin/pages/NurseUpdate/Index.jsx";
 import SuperAdminNurseAddRole from "./userTypes/superAdmin/pages/NurseAddRole/Index.jsx";
-import SuperAdminNurseRemoveRole from "./userTypes/superAdmin/pages/NurseRemoveRole/Index.jsx"
+import SuperAdminNurseRemoveRole from "./userTypes/superAdmin/pages/NurseRemoveRole/Index.jsx";
+import SuperAdminPatientHistory from "./userTypes/superAdmin/pages/PatientHistory/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -233,6 +234,10 @@ function App() {
             <Route
               path="/superadmin/nurse/removerole/:username"
               element={<SuperAdminNurseRemoveRole />}
+            />
+            <Route
+              path="/superadmin/patienthistory"
+              element={<SuperAdminPatientHistory />}
             />
           </Route>
           <Route

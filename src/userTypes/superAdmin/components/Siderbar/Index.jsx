@@ -10,6 +10,7 @@ import {
   UsergroupAddOutlined,
   SelectOutlined,
   UserSwitchOutlined,
+  HistoryOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -38,6 +39,7 @@ const items = [
   getItem("Doctor Rooms", "9",<SelectOutlined />),
   getItem("Patient Rooms", "10",<UserSwitchOutlined />),
   getItem("Nurse", "11",<TeamOutlined />),
+  getItem("Patient History", "12",<HistoryOutlined />),
 ];
 
 const Index = () => {
@@ -90,6 +92,10 @@ const ChangePage=(key)=>{
   else if(key ==="11")
   {
     nav("/superadmin/nurse")
+  }
+  else if(key ==="12")
+  {
+    nav("/superadmin/patienthistory")
   }
 }
 
