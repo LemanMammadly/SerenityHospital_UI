@@ -19,7 +19,11 @@ const Index = () => {
   
     useEffect(() => {
       axios
-        .get(`https://localhost:7227/api/Recipes/${id}`)
+        .get(`https://localhost:7227/api/Recipes/${id}`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then((res) => {
           setData(res.data);
           setInputs(res.data)

@@ -38,7 +38,11 @@ const Index = () => {
     useEffect(() => {
         axios
           .get(
-            `https://localhost:7227/api/PatientAuths/GetByName?userName=${username}`
+            `https://localhost:7227/api/PatientAuths/GetByName?userName=${username}`, {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
           )
           .then((res) => {
             setData(res.data.patientHistories);

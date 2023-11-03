@@ -50,7 +50,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7227/api/Appoinments`)
+      .get(`https://localhost:7227/api/Appoinments`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setAppoinments(res.data.filter(((app)=>app.doctor.userName===username)));
       })
@@ -70,7 +74,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/PatientAuths")
+      .get("https://localhost:7227/api/PatientAuths", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         const allPatients = res.data;
         const filteredPatients = allPatients.filter(

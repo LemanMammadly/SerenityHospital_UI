@@ -61,7 +61,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7227/api/DoctorAuths/`)
+      .get(`https://localhost:7227/api/DoctorAuths/`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         const allDoctors = res.data;
 

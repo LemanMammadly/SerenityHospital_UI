@@ -49,6 +49,8 @@ const Index = () => {
           console.log(err);
         });
     }, []);
+
+    console.log(data);
   
   
     const seacrhChange = (key) => {
@@ -138,7 +140,11 @@ const Index = () => {
                 <th scope="col">Date</th>
                 <th scope="col">Duration</th>
                 <th scope="col">Status</th>
-                <th scope="col">Is Deleted</th>
+                <th  style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }} scope="col">Is Deleted</th>
               </tr>
             </thead>
             <tbody>
@@ -168,9 +174,17 @@ const Index = () => {
                   >
                     {datas.problemDesc}
                   </td>
-                  <td>{formatDateTime(datas.appoinmentDate)}</td>
-                  <td>{datas.duration} minute</td>
-                  <td>{isAppoinmentPending(datas.appoinmentDate) === 1 ? <i title="approved" style={{color:"red",cursor:"pointer"}} class="fa-regular fa-clock"></i> : <i title="completed" style={{color:"blue",cursor:"pointer"}} class="fa-solid fa-check"></i>}</td>
+                  <td  style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}>{formatDateTime(datas.appoinmentDate)}</td>
+                  <td  style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}>{datas.duration} minute</td>
+                  <td>{datas.status}</td>
                   <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                 </tr>
               ))}

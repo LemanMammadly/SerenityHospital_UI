@@ -22,9 +22,15 @@ const Index = () => {
     document.body.style.overflow = "hidden";
   };
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/PatientRooms")
+      .get("https://localhost:7227/api/PatientRooms", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setData(res.data);
         setSearchResults(res.data);
@@ -47,7 +53,11 @@ const Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://localhost:7227/api/PatientRooms/${id}`)
+          .delete(`https://localhost:7227/api/PatientRooms/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
           .then((res) => {
             window.location.reload();
           })
@@ -64,7 +74,12 @@ const Index = () => {
 
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/PatientRooms/SoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/PatientRooms/SoftDelete/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         window.location.reload();
       })
@@ -79,7 +94,12 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/PatientRooms/RevertSoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/PatientRooms/RevertSoftDelete/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         window.location.reload();
       })

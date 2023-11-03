@@ -1,4 +1,4 @@
-.all-doctor-home {
+/* .all-doctor-home {
   padding: 2rem;
   background-color: #f1f4f8;
   height: 100vh;
@@ -75,4 +75,21 @@
 
 .react-calendar__tile{
   border: 1px solid #333;
+} */
+
+.all-calendar-div{
+  background-color: #F1F4F8;
+}
+
+.rbc-calendar {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+}
+
+.rbc-month-view {
+  background-color: white;
+  border: 1px solid #ddd;
+}
+.rbc-calendar {
+  min-height: 100vh;
 }

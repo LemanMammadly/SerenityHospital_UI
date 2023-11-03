@@ -17,6 +17,8 @@ const Index = () => {
 
   const nav = useNavigate();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     axios
       .get(`https://localhost:7227/api/Departments/`)
@@ -43,7 +45,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7227/api/DoctorRooms/${id}`)
+      .get(`https://localhost:7227/api/DoctorRooms/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setData(res.data);
         setInputs(res.data);
@@ -84,6 +90,7 @@ const Index = () => {
     await axios
       .put(`https://localhost:7227/api/DoctorRooms/${id}`, formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -139,7 +146,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Number") ? exception : ""}
+                        {exception && exception.includes("Number") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -175,7 +182,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Department") ? exception : ""}
+                        {exception && exception.includes("Department") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -210,7 +217,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Doctor") ? exception : ""}
+                        {exception &&  exception.includes("Doctor") ? exception : ""}
                       </p>
                     </div>
                   )}

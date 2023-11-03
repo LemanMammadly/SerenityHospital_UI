@@ -87,12 +87,16 @@ const Index = () => {
   };
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Appoinments/SoftDelete/${id}`, {}, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .patch(
+        `https://localhost:7227/api/Appoinments/SoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         window.location.reload();
         console.log("Appoinment deleted successfully");
@@ -110,12 +114,16 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Appoinments/ReverteSoftDelete/${id}`, {}, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .patch(
+        `https://localhost:7227/api/Appoinments/ReverteSoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         window.location.reload();
         console.log("Service reverted successfully");
@@ -282,20 +290,25 @@ const Index = () => {
                     >
                       {datas.duration} minute
                     </td>
-                    <td>
-                      {isAppoinmentPending(datas.appoinmentDate) === 1 ? (
-                        <i
-                          title="approved"
-                          style={{ color: "red", cursor: "pointer" }}
-                          class="fa-regular fa-clock"
-                        ></i>
-                      ) : (
-                        <i
-                          title="completed"
-                          style={{ color: "blue", cursor: "pointer" }}
-                          class="fa-solid fa-check"
-                        ></i>
-                      )}
+                    <td
+                      style={{
+                        color:
+                          datas.status === 1
+                            ? "green"
+                            : datas.status === 3
+                            ? "#1C79FF"
+                            : datas.status === 4
+                            ? "red"
+                            : "black",
+                      }}
+                    >
+                      {datas.status === 1
+                        ? "Approved"
+                        : datas.status === 3
+                        ? "Pending"
+                        : datas.status === 4
+                        ? "Rejected"
+                        : "Unknown"}
                     </td>
                     <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                     <td>

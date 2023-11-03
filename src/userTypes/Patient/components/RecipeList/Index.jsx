@@ -36,7 +36,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/Recipes")
+      .get("https://localhost:7227/api/Recipes", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         const recipes = res.data;
         const filteredRecipes = recipes.filter(

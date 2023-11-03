@@ -14,6 +14,8 @@ const Index = () => {
 
   const nav = useNavigate();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
 
@@ -70,6 +72,7 @@ const Index = () => {
     axios
       .post("https://localhost:7227/api/PatientRooms", formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })

@@ -20,6 +20,8 @@ const Index = () => {
 
   $(".js-example-basic-single").select2();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const nav = useNavigate();
 
   useEffect(() => {
@@ -33,7 +35,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7227/api/PatientRooms/${id}`)
+      .get(`https://localhost:7227/api/PatientRooms/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setData(res.data);
         setInputs(res.data);
@@ -49,7 +55,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7227/api/PatientAuths/`)
+      .get(`https://localhost:7227/api/PatientAuths/`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setPatientsAll(res.data);
       })
@@ -120,6 +130,7 @@ const Index = () => {
     await axios
       .put(`https://localhost:7227/api/PatientRooms/${id}`, formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -410,7 +421,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Capacity") ? exception : ""}
+                        {exception.includes("Capacity") || exception.includes("PatientRoomnot") ? exception : ""}
                       </p>
                     </div>
                   )}

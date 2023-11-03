@@ -12,6 +12,8 @@ const Index = () => {
 
   const nav = useNavigate();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
@@ -47,6 +49,7 @@ const Index = () => {
     axios
       .post("https://localhost:7227/api/DoctorRooms", formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -101,7 +104,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Number") ? exception : ""}
+                        {exception && exception.includes("Number") ? exception : ""}
                       </p>
                     </div>
                   )}

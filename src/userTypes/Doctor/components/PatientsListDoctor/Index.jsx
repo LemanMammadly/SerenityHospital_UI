@@ -27,7 +27,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/PatientAuths")
+      .get("https://localhost:7227/api/PatientAuths", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         const allPatients = res.data;
         const filteredPatients = allPatients.filter(
