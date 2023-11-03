@@ -113,7 +113,7 @@ const Index = () => {
                 ) : (
                   <div className="error-messages">
                     <p className="error-message">
-                      {exception && exception.includes("role")
+                      {exception && exception.includes("Role")
                         ? exception
                         : ""}
                     </p>

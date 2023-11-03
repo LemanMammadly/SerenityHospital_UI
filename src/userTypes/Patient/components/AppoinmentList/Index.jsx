@@ -1,86 +1,83 @@
-import React, { useEffect, useState } from 'react'
-import "./Index.css"
-import { format } from 'date-fns';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import "./Index.css";
+import { format } from "date-fns";
+import axios from "axios";
 import $ from "jquery";
-import { Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 const Index = () => {
-    const [data, setData] = useState([]);
-    const [search, setSearch] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [errorMessages, setErrorMessages] = useState("");
-    const [exception, setException] = useState("");
-    const itemsPerPage = 10;
-  
-  
-    const currentDate = new Date();
-    const dates = format(currentDate, "yyyy-MM-dd");
-    const time = format(currentDate, "HH:mm:ss");
-    const dateNow = `${dates}T${time}`;
-  
-  
-    const formatDateTime = (dateTime) => {
-      const parsedDate = new Date(dateTime);
-      return format(parsedDate, "HH:mm dd-MM-yyyy");
-    };
-  
-    const user = JSON.parse(localStorage.getItem("user"));
-  
-    const respOpenMenu = () => {
-      const dashboardMenu = $(".dashboard-menu-header");
-  
-      dashboardMenu.fadeIn("slow", () => {});
-      document.body.style.overflow = "hidden";
-    };
-  
-    useEffect(() => {
-      axios
-        .get(
-          `https://localhost:7227/api/PatientAuths/GetByName?userName=${user.username}`
-        )
-        .then((res) => {
-          setData(res.data.appoinments);
-          setSearchResults(res.data.appoinments);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, []);
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [errorMessages, setErrorMessages] = useState("");
+  const [exception, setException] = useState("");
+  const itemsPerPage = 10;
 
-    console.log(data);
-  
-  
-    const seacrhChange = (key) => {
-      setSearch(key);
-      const filteredResults = data.filter(
-        (item) =>
-          item.doctor.name &&
-          item.doctor.name.toLowerCase().includes(key.toLowerCase())
-      );
-      setSearchResults(filteredResults);
-      setCurrentPage(1);
-    };
-  
-    const changePage = (page) => {
-      setCurrentPage(page);
-    };
-  
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-  
-    const isAppoinmentPending = (appoinmentDate) => {
-      const now = new Date(); 
-      const appoinmentDateTime = new Date(appoinmentDate);
-    
-      if (now < appoinmentDateTime) {
-        return 1; 
-      } else {
-        return 2; 
-      }
-    };
+  const currentDate = new Date();
+  const dates = format(currentDate, "yyyy-MM-dd");
+  const time = format(currentDate, "HH:mm:ss");
+  const dateNow = `${dates}T${time}`;
+
+  const formatDateTime = (dateTime) => {
+    const parsedDate = new Date(dateTime);
+    return format(parsedDate, "HH:mm dd-MM-yyyy");
+  };
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const respOpenMenu = () => {
+    const dashboardMenu = $(".dashboard-menu-header");
+
+    dashboardMenu.fadeIn("slow", () => {});
+    document.body.style.overflow = "hidden";
+  };
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://localhost:7227/api/PatientAuths/GetByName?userName=${user.username}`
+      )
+      .then((res) => {
+        setData(res.data.appoinments);
+        setSearchResults(res.data.appoinments);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  console.log(data);
+
+  const seacrhChange = (key) => {
+    setSearch(key);
+    const filteredResults = data.filter(
+      (item) =>
+        item.doctor.name &&
+        item.doctor.name.toLowerCase().includes(key.toLowerCase())
+    );
+    setSearchResults(filteredResults);
+    setCurrentPage(1);
+  };
+
+  const changePage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const isAppoinmentPending = (appoinmentDate) => {
+    const now = new Date();
+    const appoinmentDateTime = new Date(appoinmentDate);
+
+    if (now < appoinmentDateTime) {
+      return 1;
+    } else {
+      return 2;
+    }
+  };
   return (
     <section className="all-app-doctor">
       <div className="container-app-doctor">
@@ -105,7 +102,7 @@ const Index = () => {
             )}
           </div>
           <div className="left-right-app-doctor d-flex gap-3 align-items-center">
-          <Link
+            <Link
               to="/patient/appoinments/create"
               style={{
                 textDecoration: "none",
@@ -129,7 +126,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div className="bottom-app-doctor"  style={{ overflowX: "scroll" }}>
+        <div className="bottom-app-doctor" style={{ overflowX: "scroll" }}>
           <table class="table">
             <thead>
               <tr>
@@ -140,54 +137,90 @@ const Index = () => {
                 <th scope="col">Date</th>
                 <th scope="col">Duration</th>
                 <th scope="col">Status</th>
-                <th  style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }} scope="col">Is Deleted</th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Is Deleted
+                </th>
               </tr>
             </thead>
             <tbody>
-              {searchResults.slice(startIndex, endIndex).sort((a, b) => new Date(b.appoinmentDate) - new Date(a.appoinmentDate)).map((datas, index) => (
-                <tr key={index}>
-                  <th scope="row">{datas.id}</th>
-                  <td   style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}>
-                    {datas.patient.name} {datas.patient.surname}
-                  </td>
-                  <td   style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}>
-                    {datas.doctor.name} {datas.doctor.surname}
-                  </td>
-                  <td
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {datas.problemDesc}
-                  </td>
-                  <td  style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}>{formatDateTime(datas.appoinmentDate)}</td>
-                  <td  style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}>{datas.duration} minute</td>
-                  <td>{datas.status}</td>
-                  <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
-                </tr>
-              ))}
+              {searchResults
+                .slice(startIndex, endIndex)
+                .sort(
+                  (a, b) =>
+                    new Date(b.appoinmentDate) - new Date(a.appoinmentDate)
+                )
+                .map((datas, index) => (
+                  <tr key={index}>
+                    <th scope="row">{datas.id}</th>
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {datas.patient.name} {datas.patient.surname}
+                    </td>
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {datas.doctor.name} {datas.doctor.surname}
+                    </td>
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {datas.problemDesc}
+                    </td>
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {formatDateTime(datas.appoinmentDate)}
+                    </td>
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {datas.duration} minute
+                    </td>
+                    <td
+                      style={{
+                        color:
+                          datas.status === "Approved"
+                            ? "green"
+                            : datas.status === "Pending"
+                            ? "#1C79FF"
+                            : datas.status === "Rejected"
+                            ? "red"
+                            : "black",
+                      }}
+                    >
+                      {datas.status}
+                    </td>
+                    <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
           <div className="pagination my-3">
@@ -219,7 +252,7 @@ const Index = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

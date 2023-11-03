@@ -1,78 +1,78 @@
-import React, { useEffect, useState } from "react";
-import "./Index.css";
-import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import "./Index.css"
+import axios from 'axios';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const Index = () => {
-  const { username } = useParams();
-  const [selectRole, setSelectRole] = useState("");
-  const [role, setRole] = useState([]);
-  const [errorMessages, setErrorMessages] = useState([]);
-  const [exception, setException] = useState("");
+    const { username } = useParams();
+    const [selectRole, setSelectRole] = useState("");
+    const [role, setRole] = useState([]);
+    const [errorMessages, setErrorMessages] = useState([]);
+    const [exception, setException] = useState("");
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  const nav = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setErrorMessages((prev) => ({
-      ...prev,
-      [name]: null,
-    }));
-
-    if (name === "roleName") {
-      setSelectRole(value);
-    }
-  };
-
-  useEffect(() => {
-    axios
-      .get("https://localhost:7227/api/Roles", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((resp) => {
-        setRole(resp.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("userName", username);
-    formData.append("roleName", selectRole);
-
-    axios
-      .post("https://localhost:7227/api/PatientAuths/RemoveRole", formData, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => nav("/superadmin/patients"))
-      .catch((e) => {
-        if (e.response && e.response.data && e.response.data.errors) {
-          setErrorMessages(e.response.data.errors);
-        } else {
-          setException(e.response.data.message);
-        }
-      });
-
-    console.log(formData);
-  };
-
+    const user = JSON.parse(localStorage.getItem("user"));
+  
+    const nav = useNavigate();
+  
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+  
+      setErrorMessages((prev) => ({
+        ...prev,
+        [name]: null,
+      }));
+  
+      if (name === "roleName") {
+        setSelectRole(value);
+      }
+    };
+  
+    useEffect(() => {
+      axios
+        .get("https://localhost:7227/api/Roles", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then((resp) => {
+          setRole(resp.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, []);
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+  
+      const formData = new FormData();
+      formData.append("userName", username);
+      formData.append("roleName",selectRole)
+  
+      axios
+        .post("https://localhost:7227/api/NurseAuths/AddRole", formData, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => nav("/superadmin/nurse"))
+        .catch((e) => {
+          if (e.response && e.response.data && e.response.data.errors) {
+            setErrorMessages(e.response.data.errors);
+          } else {
+            setException(e.response.data.message);
+          }
+        });
+  
+        console.log(formData);
+    };
+  
   return (
     <section>
       <div className="all-addrole-create">
         <Link
-          to="/superadmin/patients"
+          to="/superadmin/nurse"
           className="back-to-superadmin"
           style={{ textDecoration: "none", color: "#333" }}
         >
@@ -80,10 +80,10 @@ const Index = () => {
             className="fa-solid fa-chevron-left"
             style={{ marginRight: "10px" }}
           ></i>
-          Super Admin / Patients
+          Super Admin / Nurse
         </Link>
         <div className="top-addrole-create">
-          <h1>Remove Role</h1>
+          <h1>Add Role</h1>
         </div>
         <div className="bottom-addrole-create">
           <form method="POST" onSubmit={(e) => handleSubmit(e)}>
@@ -114,7 +114,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Role")
+                        {exception && exception.includes("role")
                           ? exception
                           : ""}
                       </p>
@@ -124,7 +124,7 @@ const Index = () => {
               </div>
               <div className="add-btn-addrole">
                 <button type="submit">
-                  Remove <i className="fa-solid fa-check"></i>
+                  Add <i className="fa-solid fa-check"></i>
                 </button>
               </div>
             </div>
@@ -132,7 +132,7 @@ const Index = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

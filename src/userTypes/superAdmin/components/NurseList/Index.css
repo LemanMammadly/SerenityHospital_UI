@@ -1,0 +1,91 @@
+.all-nurse-superadmin{
+    background-color: #F1F4F8;
+    height: 100vh;
+}
+.all-nurse-superadmin .container-nurse-superadmin{
+    padding: 3rem;
+}
+
+.all-nurse-superadmin .top-nurse-superadmin h1{
+    margin-bottom: 30px;
+}
+
+.all-nurse-superadmin .left-menu-header{
+    display: none;
+}
+
+
+.all-nurse-superadmin .pagination{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+button:disabled {
+    opacity: 0.6;
+  }
+
+.all-nurse-superadmin .pagination .icon-super-admin{
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 992px)
+{
+
+    .all-nurse-superadmin .container-nurse-superadmin{
+        padding: 1rem;
+    }
+    .all-nurse-superadmin .table th{
+        font-size: 10px;
+    }
+
+    .all-nurse-superadmin .table td{
+        font-size: 10px;
+    }
+
+    .all-nurse-superadmin .bottom-nurse-superadmin{
+        width: 100% ;
+    }
+}
+
+@media screen and (max-width: 768px)
+{
+    .all-nurse-superadmin .container-nurse-superadmin{
+        padding: 1rem;
+    }
+    .all-nurse-superadmin .table th{
+        font-size: 10px;
+    }
+
+    .all-nurse-superadmin .table td{
+        font-size: 10px;
+    }
+
+    .all-nurse-superadmin{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .all-nurse-superadmin .container-nurse-superadmin{
+        overflow-x: scroll !important;
+        width: 80%;
+    }
+
+    .all-nurse-superadmin .bottom-nurse-superadmin{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow-x: scroll;
+    }
+
+    .all-nurse-superadmin .pagination .pagNum{
+        font-size: 10px !important;
+    }
+    .all-nurse-superadmin .pagination{
+        font-size: 10px !important;
+    }
+}

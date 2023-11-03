@@ -1,37 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
+import { DatePicker } from "antd";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { DatePicker } from "antd";
 
 const Index = () => {
   const { id } = useParams();
   const [inputs, setInputs] = useState({});
   const [data, setData] = useState({});
-  const [positions, setPositions] = useState([]);
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
   const [prevImageUrl, setPrevImageUrl] = useState("");
   const [selectGender, setSelectGender] = useState("");
   const [selectStatus, setSelectStatus] = useState("");
-  const [selectPosition, setSelectPosition] = useState("");
   const [departments, setDepartments] = useState([]);
   const [selectDepartment, setSelectDepartment] = useState("");
 
   const user = JSON.parse(localStorage.getItem("user"));
 
   const nav = useNavigate();
-
-  useEffect(() => {
-    axios
-      .get("https://localhost:7227/api/Positions")
-      .then((resp) => {
-        setPositions(resp.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   useEffect(() => {
     axios
@@ -46,17 +33,18 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7227/api/DoctorAuths/${id}`)
+      .get(`https://localhost:7227/api/NurseAuths/${id}`)
       .then((res) => {
         setData(res.data);
         setInputs(res.data);
-        setSelectGender(res.data.gender)
-        setSelectStatus(res.data.status)
-        setSelectDepartment(res.data.department.id)
-        setSelectPosition(res.data.position.id)
+        setSelectGender(res.data.gender);
+        setSelectStatus(res.data.status);
+        setSelectDepartment(res.data.department.id);
       })
       .catch((err) => console.log(err));
   }, [id]);
+
+  console.log(data);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -92,16 +80,11 @@ const Index = () => {
       setSelectStatus(value);
     }
 
-    if (name === "positionId") {
-      setSelectPosition(value);
-    }
-
     if (name === "departmentId") {
       setSelectDepartment(value);
     }
   };
 
-  console.log(inputs);
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
@@ -111,19 +94,18 @@ const Index = () => {
     formData.append("surname", inputs.surname);
     formData.append("email", inputs.email);
     formData.append("userName", inputs.userName);
-    formData.append("description", inputs.description);
     formData.append("salary", inputs.salary);
     formData.append("age", inputs.age);
     formData.append("gender", selectGender);
     formData.append("status", selectStatus);
-    formData.append("startDate", inputs.startDate);
     formData.append("imageFile", inputs.imageFile);
-    formData.append("positionId", selectPosition);
+    formData.append("startWork", inputs.startWork);
+    formData.append("endWork", inputs.endWork);
     formData.append("departmentId", selectDepartment);
 
     await axios
       .put(
-        `https://localhost:7227/api/DoctorAuths/PutByAdmin?id=${id}`,
+        `https://localhost:7227/api/NurseAuths/PutByAdmin/${id}`,
         formData,
         {
           headers: {
@@ -132,7 +114,7 @@ const Index = () => {
           },
         }
       )
-      .then((res) => nav("/superadmin/doctor"))
+      .then((res) => nav("/superadmin/nurse"))
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
           setErrorMessages(e.response.data.errors);
@@ -144,9 +126,9 @@ const Index = () => {
 
   return (
     <section>
-      <div className="all-doctor-update">
+      <div className="all-doctor-create">
         <Link
-          to="/superadmin/doctor"
+          to="/superadmin/nurse"
           className="back-to-superadmin"
           style={{ textDecoration: "none", color: "#333" }}
         >
@@ -154,12 +136,12 @@ const Index = () => {
             className="fa-solid fa-chevron-left"
             style={{ marginRight: "10px" }}
           ></i>
-          Super Admin / Doctors
+          Super Admin / Nurse
         </Link>
-        <div className="top-doctor-update">
-          <h1>Update Doctor</h1>
+        <div className="top-doctor-create">
+          <h1>Update Nurse</h1>
         </div>
-        <div className="bottom-doctor-update">
+        <div className="bottom-doctor-create">
           <form method="POST" onSubmit={(e) => handleSubmit(e, data.id)}>
             <div className="panel-body d-flex flex-column gap-4">
               <div className="form-group d-flex align-items-center justify-content-center">
@@ -283,30 +265,32 @@ const Index = () => {
                 </div>
               </div>
               <div className="form-group d-flex align-items-center justify-content-center">
-                <label htmlFor="desc" className="col-sm-3 control-label">
-                  Description
+                <label htmlFor="status" className="col-sm-3 control-label">
+                  Status
                 </label>
                 <div className="col-sm-5">
-                  <input
-                    id="desc"
-                    type="text"
+                  <select
+                    id="status"
                     className="form-control"
-                    defaultValue={data.description}
                     onChange={handleChange}
-                    name="description"
+                    name="status"
                     required=""
-                    placeholder="Description"
-                  />
-                  {errorMessages.Description ? (
+                    value={selectStatus}
+                  >
+                    <option value="">Select Status: </option>
+                    <option value={1}>Active</option>
+                    <option value={2}>OnLeave</option>
+                    <option value={3}>Leave</option>
+                    <option value={4}>Other</option>
+                  </select>
+                  {errorMessages.Status ? (
                     <div className="error-messages">
-                      <p className="error-message">
-                        {errorMessages.Description}
-                      </p>
+                      <p className="error-message">{errorMessages.Status}</p>
                     </div>
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("description")
+                        {exception && exception.includes("status")
                           ? exception
                           : ""}
                       </p>
@@ -408,59 +392,46 @@ const Index = () => {
                 </div>
               </div>
               <div className="form-group d-flex align-items-center justify-content-center">
-                <label htmlFor="status" className="col-sm-3 control-label">
-                  Status
-                </label>
-                <div className="col-sm-5">
-                  <select
-                    id="status"
-                    className="form-control"
-                    onChange={handleChange}
-                    name="status"
-                    required=""
-                    value={selectStatus}
-                  >
-                    <option value="">Select Status: </option>
-                    <option value={1}>Active</option>
-                    <option value={2}>OnLeave</option>
-                    <option value={3}>Leave</option>
-                    <option value={4}>Other</option>
-                  </select>
-                  {errorMessages.Status ? (
-                    <div className="error-messages">
-                      <p className="error-message">{errorMessages.Status}</p>
-                    </div>
-                  ) : (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {exception && exception.includes("status")
-                          ? exception
-                          : ""}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="form-group d-flex align-items-center justify-content-center">
-                <label className="col-sm-3 control-label">
-                  Doctor Start Date
-                </label>
+                <label className="col-sm-3 control-label">Start Work</label>
                 <div className="col-sm-5">
                   <DatePicker
-                    name="startDate"
+                    name="startWork"
                     showTime
                     format="YYYY-MM-DD HH:mm:ss"
                     placeholder="Select Date and Time"
                     onChange={(date, dateString) =>
                       handleChange({
-                        target: { name: "startDate", value: dateString },
+                        target: { name: "startWork", value: dateString },
                       })
                     }
                   />
                   {errorMessages.StartDate && (
                     <div className="error-messages">
                       <p className="error-message">
-                        {errorMessages.StartDate[0]}
+                        {errorMessages.StartWork}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="form-group d-flex align-items-center justify-content-center">
+                <label className="col-sm-3 control-label">End Work</label>
+                <div className="col-sm-5">
+                  <DatePicker
+                    name="endWork"
+                    showTime
+                    format="YYYY-MM-DD HH:mm:ss"
+                    placeholder="Select Date and Time"
+                    onChange={(date, dateString) =>
+                      handleChange({
+                        target: { name: "endWork", value: dateString },
+                      })
+                    }
+                  />
+                  {errorMessages.EndWork && (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {errorMessages.EndWork}
                       </p>
                     </div>
                   )}
@@ -502,60 +473,6 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <div className="w-25 m-auto bg-secondary text-white p-2">
-                Position:
-                {data.position && (
-                  <div>
-                    <div>{data.position.name}</div>
-                  </div>
-                )}
-              </div>
-              <div className="form-group d-flex align-items-center justify-content-center">
-                <label htmlFor="position" className="col-sm-3 control-label">
-                  Position
-                </label>
-                <div className="col-sm-5">
-                  <select
-                    id="position"
-                    className="form-control"
-                    onChange={handleChange}
-                    name="positionId"
-                    value={selectPosition}
-                  >
-                    <option value="">Select Position: </option>
-                    {positions
-                      .filter((pos) => pos.isDeleted === false)
-                      .map((pos, index) => (
-                        <option key={index} value={pos.id}>
-                          {pos.name}
-                        </option>
-                      ))}
-                  </select>
-                  {errorMessages.PositionId ? (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {errorMessages.PositionId}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {exception && exception.includes("position")
-                          ? exception
-                          : ""}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="w-25 m-auto bg-secondary text-white p-2">
-                Department:
-                {data.department && (
-                  <div>
-                    <div>{data.department.name}</div>
-                  </div>
-                )}
-              </div>
               <div className="form-group d-flex align-items-center justify-content-center">
                 <label htmlFor="department" className="col-sm-3 control-label">
                   Department
@@ -566,6 +483,7 @@ const Index = () => {
                     className="form-control"
                     onChange={handleChange}
                     name="departmentId"
+                    required=""
                     value={selectDepartment}
                   >
                     <option value="">Select Department: </option>
@@ -594,9 +512,22 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <div className="update-btn-doctor">
+              <div className="add-btn-doctor d-flex flex-column">
+                {errorMessages.Name ? (
+                  <div className="error-messages">
+                    <p className="error-message">
+                      {errorMessages.DepartmentId}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="error-messages">
+                    <p className="error-message">
+                      {exception && exception.includes("null") ? exception : ""}
+                    </p>
+                  </div>
+                )}
                 <button type="submit">
-                  Update <i className="fa-solid fa-check"></i>
+                  Create <i className="fa-solid fa-check"></i>
                 </button>
               </div>
             </div>

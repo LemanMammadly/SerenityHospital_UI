@@ -28,7 +28,7 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/DoctorAuths")
+      .get("https://localhost:7227/api/NurseAuths")
       .then((res) => {
         setData(res.data);
         setSearchResults(res.data);
@@ -51,14 +51,14 @@ const Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://localhost:7227/api/DoctorAuths/${id}`, {
+          .delete(`https://localhost:7227/api/NurseAuths/${id}`, {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
           })
           .then((res) => {
             window.location.reload();
-            console.log("Doctor deleted successfully");
+            console.log("Nurse deleted successfully");
           })
           .catch((e) => {
             if (e.response && e.response.data && e.response.data.errors) {
@@ -86,13 +86,12 @@ const Index = () => {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
   return (
-    <section className="all-doctor-superadmin">
-      <div className="container-doctor-superadmin">
-        <div className="top-doctor-superadmin d-flex justify-content-between align-items-center">
-          <div className="left-top-doctor-superadmin">
-            <h1>Doctors</h1>
+    <section className="all-nurse-superadmin">
+      <div className="container-nurse-superadmin">
+        <div className="top-nurse-superadmin d-flex justify-content-between align-items-center">
+          <div className="left-top-nurse-superadmin">
+            <h1>Nurses</h1>
             <div className="left-menu-header">
               <i
                 onClick={respOpenMenu}
@@ -106,13 +105,13 @@ const Index = () => {
               </div>
             ) : (
               <div className="error-messages">
-                <p className="error-message">{exception}</p>
+                <p className="error-message">{exception && exception}</p>
               </div>
             )}
           </div>
           <div className="left-right-doctor-superadmin d-flex gap-3 align-items-center">
             <Link
-              to="/superadmin/doctor/create"
+              to="/superadmin/nurse/create"
               style={{
                 textDecoration: "none",
                 backgroundColor: "#0B58CA",
@@ -137,7 +136,7 @@ const Index = () => {
         </div>
         <div
           style={{ overflowX: "scroll" }}
-          className="bottom-doctor-superadmin"
+          className="bottom-nurse-superadmin"
         >
           <table className="table">
             <thead>
@@ -146,33 +145,31 @@ const Index = () => {
                 <th scope="col">Name</th>
                 <th scope="col">Surname</th>
                 <th scope="col">Username</th>
-                <th scope="col">Gender</th>
                 <th scope="col">Age</th>
                 <th scope="col">Email</th>
                 <th scope="col">Image</th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Start Work
+                </th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  End Work
+                </th>
                 <th scope="col">Status</th>
-                <th scope="col">Position</th>
                 <th scope="col">Department</th>
-                <th
-                  style={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  scope="col"
-                >
-                  Start Date
-                </th>
-                <th
-                  style={{
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  scope="col"
-                >
-                  End Date
-                </th>
                 <th scope="col">Roles</th>
                 <th scope="col" colSpan={5}>
                   Options
@@ -194,7 +191,6 @@ const Index = () => {
                   <td>{datas.name}</td>
                   <td>{datas.surname}</td>
                   <td>{datas.userName}</td>
-                  <td>{datas.gender === 2 ? "Male" : "Female"}</td>
                   <td>{datas.age}</td>
                   <td>{datas.email}</td>
                   <td>
@@ -203,6 +199,24 @@ const Index = () => {
                       style={{ width: "30px" }}
                       alt=""
                     />
+                  </td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {datas.startWork && datas.startWork.substring(11, 16)}
+                  </td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {datas.endWork && datas.endWork.substring(11, 16)}
                   </td>
                   <td>
                     {datas.status === 1
@@ -213,31 +227,13 @@ const Index = () => {
                       ? "Leave"
                       : "Other"}
                   </td>
-                  <td>{datas.position && datas.position.name}</td>
                   <td>{datas.department && datas.department.name}</td>
-                  <td
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {datas.startDate.split("T")[0]}
-                  </td>
-                  <td
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {datas.endDate && datas.endDate.split("T")[0]}
-                  </td>
+
                   <td>{datas.roles}</td>
                   <td>
                     <Button
                       onClick={() =>
-                        nav(`/superadmin/doctor/addrole/${datas.userName}`)
+                        nav(`/superadmin/nurse/addrole/${datas.userName}`)
                       }
                       style={{
                         backgroundColor: "#0B58CA",
@@ -254,7 +250,7 @@ const Index = () => {
                   <td>
                     <Button
                       onClick={() =>
-                        nav(`/superadmin/doctor/removerole/${datas.userName}`)
+                        nav(`/superadmin/nurse/removerole/${datas.userName}`)
                       }
                       style={{
                         backgroundColor: "#0B58CA",
@@ -269,25 +265,8 @@ const Index = () => {
                     </Button>
                   </td>
                   <td>
-                    <Button
-                      onClick={() =>
-                        nav(`/superadmin/doctor/addroom/${datas.id}`)
-                      }
-                      style={{
-                        backgroundColor: "#0B58CA",
-                        color: "#fff",
-                        padding: "5px",
-                        fontSize: "13px",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      <i class="fa-solid fa-house-medical"></i>
-                    </Button>
-                  </td>
-
-                  <td>
                     <Link
-                      to={`/superadmin/doctor/update/${datas.id}`}
+                      to={`/superadmin/nurse/update/${datas.id}`}
                       style={{
                         textDecoration: "none",
                         backgroundColor: "#0B58CA",
