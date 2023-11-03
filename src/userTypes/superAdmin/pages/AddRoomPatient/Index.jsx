@@ -11,6 +11,8 @@ const Index = () => {
     const [exception, setException] = useState("");
   
     const nav = useNavigate();
+
+    const user = JSON.parse(localStorage.getItem("user"));
   
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -27,7 +29,11 @@ const Index = () => {
   
     useEffect(() => {
       axios
-        .get("https://localhost:7227/api/PatientRooms")
+        .get("https://localhost:7227/api/PatientRooms", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then((resp) => {
           setRoom(resp.data);
         })
@@ -46,6 +52,7 @@ const Index = () => {
       axios
         .post("https://localhost:7227/api/PatientAuths/AddPatientRoom", formData, {
           headers: {
+            Authorization: `Bearer ${user.token}`,
             "Content-Type": "multipart/form-data",
           },
         })

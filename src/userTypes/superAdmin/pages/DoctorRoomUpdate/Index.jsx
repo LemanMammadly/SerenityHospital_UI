@@ -10,9 +10,10 @@ const Index = () => {
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
   const [doctors, setDoctors] = useState([]);
-  const [selectdoctors, setSelectDoctors] = useState("");
+  const [selectdoctors, setSelectDoctors] = useState(null);
   const [departmentsall, setDepartmentsall] = useState([]);
   const [selectedDepartments, setSelectedDepartments] = useState("");
+  const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
 
   const nav = useNavigate();
 
@@ -31,10 +32,14 @@ const Index = () => {
       .then((res) => {
         const allDoctors = res.data;
 
-        setDoctors(allDoctors);
+        const filteredDoctors = allDoctors.filter(
+          (doctor) => doctor.department.id === parseInt(selectedDepartments, 10)
+        );
+
+        setDoctors(filteredDoctors);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [selectedDepartments]);
 
   useEffect(() => {
     axios
@@ -51,7 +56,7 @@ const Index = () => {
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
-    if (type === "text") {
+    if (type === "text" || type==="number") {
       setInputs((prevInputs) => ({
         ...prevInputs,
         [name]: value,
@@ -60,13 +65,12 @@ const Index = () => {
 
     if (name === "departmentId") {
       setSelectedDepartments(value);
+      setIsDoctorSelectDisabled(false);
     }
 
     if (name === "doctorId") {
       setSelectDoctors(value);
     }
-
-    console.log(inputs);
   };
 
   const handleSubmit = async (e, id) => {
@@ -108,7 +112,7 @@ const Index = () => {
           Super Admin / Doctor Rooms
         </Link>
         <div className="top-position-update">
-          <h1>Update Position</h1>
+          <h1>Update Room</h1>
         </div>
         <div className="bottom-position-update">
           <form method="POST" onSubmit={(e) => handleSubmit(e, data.id)}>
@@ -135,7 +139,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Number") ? exception : ""}
+                        {exception.includes("Number") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -146,7 +150,6 @@ const Index = () => {
                   Departments
                 </label>
                 <div className="col-sm-5">
-                    <p>Room's Department : {selectedDepartments}</p>
                   <select
                     id="depId"
                     className="form-control"
@@ -172,7 +175,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Department") ? exception : ""}
+                        {exception.includes("Department") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -183,14 +186,13 @@ const Index = () => {
                   Doctors
                 </label>
                 <div className="col-sm-5">
-                <p>Room's Doctor : {selectdoctors}</p>
                   <select
                     id="doctorId"
                     className="form-control"
                     onChange={handleChange}
                     name="doctorId"
                     value={selectdoctors}
-                    // disabled={isDoctorSelectDisabled}
+                    disabled={isDoctorSelectDisabled}
                   >
                     <option value="">Select Doctor: </option>
                     {doctors
@@ -208,7 +210,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Doctor") ? exception : ""}
+                        {exception.includes("Doctor") ? exception : ""}
                       </p>
                     </div>
                   )}

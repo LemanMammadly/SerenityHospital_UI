@@ -24,7 +24,7 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/DoctorRooms")
+      .get("https://localhost:7227/api/PatientRooms")
       .then((res) => {
         setData(res.data);
         setSearchResults(res.data);
@@ -47,7 +47,7 @@ const Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://localhost:7227/api/DoctorRooms/${id}`)
+          .delete(`https://localhost:7227/api/PatientRooms/${id}`)
           .then((res) => {
             window.location.reload();
           })
@@ -64,7 +64,7 @@ const Index = () => {
 
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/DoctorRooms/SoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/PatientRooms/SoftDelete/${id}`)
       .then((res) => {
         window.location.reload();
       })
@@ -79,7 +79,7 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/DoctorRooms/ReverteSoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/PatientRooms/RevertSoftDelete/${id}`)
       .then((res) => {
         window.location.reload();
       })
@@ -108,11 +108,11 @@ const Index = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   return (
-    <section className="all-docroom-superadmin">
-      <div className="container-docroom-superadmin">
-        <div className="top-docroom-superadmin d-flex justify-content-between align-items-center">
-          <div className="left-top-docroom-superadmin">
-            <h1>Doctor Rooms</h1>
+    <section className="all-patroom-superadmin">
+      <div className="container-patroom-superadmin">
+        <div className="top-patroom-superadmin d-flex justify-content-between align-items-center">
+          <div className="left-top-patroom-superadmin">
+            <h1>Patient Rooms</h1>
             <div className="left-menu-header">
               <i
                 onClick={respOpenMenu}
@@ -130,9 +130,9 @@ const Index = () => {
               </div>
             )}
           </div>
-          <div className="left-right-docroom-superadmin d-flex gap-3 align-items-center">
+          <div className="left-right-patroom-superadmin d-flex gap-3 align-items-center">
             <Link
-              to="/superadmin/doctorrooms/create"
+              to="/superadmin/patientrooms/create"
               style={{
                 textDecoration: "none",
                 backgroundColor: "#0B58CA",
@@ -155,16 +155,41 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div className="bottom-docroom-superadmin">
+        <div
+          style={{ overflowX: "scroll" }}
+          className="bottom-patroom-superadmin"
+        >
           <table class="table">
             <thead>
               <tr>
                 <th scope="col">Id</th>
+                <th scope="col">Image</th>
                 <th scope="col">Number</th>
-                <th scope="col">Room Status</th>
+                <th scope="col">Type</th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Room Status
+                </th>
+                <th scope="col">Capacity</th>
+                <th scope="col">Price</th>
                 <th scope="col">Department</th>
-                <th scope="col">Doctor</th>
-                <th scope="col">Is Deleted</th>
+                <th scope="col">Patients</th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Is Deleted
+                </th>
                 <th scope="col" colSpan={3}>
                   Options
                 </th>
@@ -174,23 +199,67 @@ const Index = () => {
               {searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
                   <th scope="row">{datas.id}</th>
+                  <td>
+                    <img
+                      src={datas.imageUrl}
+                      style={{ width: "30px" }}
+                      alt=""
+                    />
+                  </td>
                   <td>{datas.number}</td>
                   <td>
-                    {datas.doctorRoomStatus === 1
+                    {datas.type === 1
+                      ? "Single"
+                      : datas.type === 2
+                      ? "Double"
+                      : "MultiBed"}
+                  </td>
+                  <td>
+                    {datas.status === 1
                       ? "Available"
-                      : datas.doctorRoomStatus === 2
+                      : datas.status === 2
                       ? "Occupied"
                       : "Out Of Service"}
                   </td>
-                  <td>{datas && datas.department && datas.department.name}</td>
+                  <td>{datas.capacity}</td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {datas.price} manat
+                  </td>
                   <td>
-                    {datas.doctor && datas.doctor.name}{" "}
-                    {datas.doctor && datas.doctor.surname}
+                    <Link
+                      style={{ textDecoration: "none", color: "#333" }}
+                      to="/superadmin/department"
+                    >
+                      {datas.departmentId}
+                    </Link>
+                  </td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    <div className="form-group">
+                      <select name="" id="" className="form-group">
+                        {datas.patients.map((pat) => (
+                          <option value="">
+                            {pat.name} {pat.surname}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </td>
                   <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                   <td>
                     <Link
-                      to={`/superadmin/doctorrooms/update/${datas.id}`}
+                      to={`/superadmin/patientrooms/update/${datas.id}`}
                       style={{
                         textDecoration: "none",
                         backgroundColor: "#0B58CA",

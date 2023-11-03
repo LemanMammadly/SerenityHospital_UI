@@ -17,6 +17,7 @@ const Index = () => {
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
 
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const nav = useNavigate();
 
@@ -67,6 +68,7 @@ const Index = () => {
     axios
       .post("https://localhost:7227/api/Departments", formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
     })
@@ -121,7 +123,7 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception.includes("name") ? exception : ""}</p>
+                      <p className="error-message">{exception &&  exception.includes("name") ? exception : ""}</p>
                     </div>
                   )}
                 </div>
@@ -149,7 +151,7 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception.includes("description") ? exception : ""}</p>
+                      <p className="error-message">{exception &&  exception.includes("description") ? exception : ""}</p>
                     </div>
                   )}
                 </div>
@@ -176,7 +178,7 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception.includes("iconUrl") ? exception : ""}</p>
+                      <p className="error-message">{exception &&  exception.includes("iconUrl") ? exception : ""}</p>
                     </div>
                   )}
                 </div>
@@ -210,7 +212,7 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception.includes("serviceId") ? exception : ""}</p>
+                      <p className="error-message">{exception && exception.includes("serviceId") ? exception : ""}</p>
                     </div>
                   )}
                 </div>

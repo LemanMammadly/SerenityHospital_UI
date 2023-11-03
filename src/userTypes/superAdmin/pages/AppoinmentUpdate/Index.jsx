@@ -4,25 +4,28 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { DatePicker } from "antd";
 
-
 const Index = () => {
   const { id } = useParams();
   const [inputs, setInputs] = useState({});
   const [data, setData] = useState({});
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
-  const [doctors, setDoctors] = useState([]);
-  const [selectdoctors, setSelectDoctors] = useState("");
   const [departmentsall, setDepartmentsall] = useState([]);
   const [selectedDepartments, setSelectedDepartments] = useState("");
   const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
+  const [doctors, setDoctors] = useState([]);
+  const [selectdoctors, setSelectDoctors] = useState("");
   const [patients, setPatients] = useState([]);
   const [selectPatients, setSelectPatients] = useState("");
   const [patientAsDoctor, setPatientAsDoctor] = useState([]);
   const [selectPatientAsDoctor, setSelectPatientAsDoctor] = useState("");
-  const [isDoctorAsPatientSelectDisabled, setIsDoctorAsPatientSelectDisabled] =useState(false);
+  const [isDoctorAsPatientSelectDisabled, setIsDoctorAsPatientSelectDisabled] =
+    useState(false);
 
   const nav = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -64,15 +67,19 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7227/api/Appoinments/${id}`)
+      .get(`https://localhost:7227/api/Appoinments/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setData(res.data);
         setInputs(res.data);
-        setSelectedDepartments(res.data.doctor.department.name);
-        setSelectDoctors(res.data.doctor.name);
-        setSelectPatients(res.data.patient && res.data.patient.name);
+        setSelectedDepartments(res.data.doctor.department.id);
+        setSelectDoctors(res.data.doctor.id);
+        setSelectPatients(res.data.patient ? res.data.patient.id : "");
         setSelectPatientAsDoctor(
-          res.data.appoinmentAsDoctor && res.data.appoinmentAsDoctor.name
+          res.data.appoinmentAsDoctor ? res.data.appoinmentAsDoctor.id : ""
         );
       })
       .catch((err) => console.log(err));
@@ -124,9 +131,12 @@ const Index = () => {
     formData.append("appoinmentDate", inputs.appoinmentDate);
     formData.append("duration", inputs.duration);
 
+    console.log(inputs);
+
     await axios
       .put(`https://localhost:7227/api/Appoinments/${id}`, formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -164,7 +174,6 @@ const Index = () => {
                   Departments
                 </label>
                 <div className="col-sm-5">
-                  <p>Appoinment's Department : <span>{selectedDepartments}</span></p>
                   <select
                     id="depId"
                     className="form-control"
@@ -190,7 +199,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Department") ? exception : ""}
+                        {exception && exception.includes("Department") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -201,7 +210,6 @@ const Index = () => {
                   Doctors
                 </label>
                 <div className="col-sm-5">
-                  <p>Appoinment's Doctor : <span>{selectdoctors}</span></p>  
                   <select
                     id="doctorId"
                     className="form-control"
@@ -226,7 +234,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Doctor") ? exception : ""}
+                        {exception && exception.includes("own") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -237,7 +245,6 @@ const Index = () => {
                   Patients
                 </label>
                 <div className="col-sm-5">
-                  <p>Appoinment's Patient : <span>{selectPatients}</span></p>
                   <select
                     id="patientId"
                     className="form-control"
@@ -260,7 +267,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Patient") ? exception : ""}
+                        {exception && exception.includes("PatientId") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -270,18 +277,17 @@ const Index = () => {
                 <label
                   htmlFor="appoinmentAsDoctorId"
                   className="col-sm-3 control-label"
-                  >
+                >
                   Doctor as Patient
                 </label>
                 <div className="col-sm-5">
-                  <p>Appoinment's Patient As Doctor : <span>{selectPatientAsDoctor}</span></p>
                   <select
                     id="appoinmentAsDoctorId"
                     className="form-control"
                     onChange={handleChange}
                     name="appoinmentAsDoctorId"
                     value={selectPatientAsDoctor}
-                    disabled={isDoctorAsPatientSelectDisabled || !selectPatientAsDoctor }
+                    disabled={isDoctorAsPatientSelectDisabled || !selectPatientAsDoctor}
                   >
                     <option value="">Select Doctor as Patient: </option>
                     {patientAsDoctor
@@ -299,7 +305,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Doctor") ? exception : ""}
+                        {exception && exception.includes("Department") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -329,7 +335,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("problem") ? exception : ""}
+                        {exception && exception.includes("name") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -360,7 +366,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Appoinment") ? exception : ""}
+                        {exception && exception.includes("Appoinment") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -388,7 +394,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("duration") ? exception : ""}
+                        {exception && exception.includes("duration") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -402,7 +408,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Conflict") ? exception : ""}
+                        {exception && exception.includes("Conflict") ? exception : ""}
                       </p>
                     </div>
                   )}

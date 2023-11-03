@@ -16,6 +16,8 @@ const Index = () => {
 
   const nav = useNavigate();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   $(".js-example-basic-single").select2();
 
   useEffect(() => {
@@ -74,6 +76,7 @@ const Index = () => {
     await axios
       .put(`https://localhost:7227/api/Departments/Put/${id}`, formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -127,7 +130,7 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception.includes("name") ? exception : ""}</p>
+                      <p className="error-message">{exception && exception.includes("name") ? exception : ""}</p>
                     </div>
                   )}
                 </div>
@@ -155,7 +158,7 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                   <p className="error-message">{exception.includes("description") ? exception : ""}</p>
+                   <p className="error-message">{exception &&  exception.includes("description") ? exception : ""}</p>
                     </div>
                   )}
                 </div>
@@ -209,7 +212,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("serviceId") ? exception : ""}
+                        {exception &&  exception.includes("serviceId") ? exception : ""}
                       </p>
                     </div>
                   )}

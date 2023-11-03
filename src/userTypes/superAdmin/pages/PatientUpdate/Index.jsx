@@ -15,9 +15,15 @@ const Index = () => {
 
   const nav = useNavigate();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     axios
-      .get(`https://localhost:7227/api/PatientAuths/${id}`)
+      .get(`https://localhost:7227/api/PatientAuths/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setData(res.data);
         setInputs(res.data);
@@ -87,6 +93,7 @@ const Index = () => {
         formData,
         {
           headers: {
+            Authorization: `Bearer ${user.token}`,
             "Content-Type": "multipart/form-data",
           },
         }

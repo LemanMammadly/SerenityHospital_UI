@@ -12,6 +12,7 @@ const Index = () => {
   const [errors, setErrors] = useState({}); 
 
   const nav = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
 
 
   const respOpenMenu = () => {
@@ -46,6 +47,7 @@ const Index = () => {
       try {
         await axios.put(`https://localhost:7227/api/Settings/Put/${id}`, formData, {
           headers: {
+            Authorization: `Bearer ${user.token}`,
             "Content-Type": "multipart/form-data",
           },
         });

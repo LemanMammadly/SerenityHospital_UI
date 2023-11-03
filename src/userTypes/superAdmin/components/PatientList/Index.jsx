@@ -15,6 +15,8 @@ const Index = () => {
   const [exception, setException] = useState("");
   const itemsPerPage = 10;
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const respOpenMenu = () => {
     const dashboardMenu = $(".dashboard-menu-header");
 
@@ -26,7 +28,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/PatientAuths")
+      .get("https://localhost:7227/api/PatientAuths", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setData(res.data);
         setSearchResults(res.data);
@@ -50,7 +56,11 @@ const Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://localhost:7227/api/PatientAuths/${id}`)
+          .delete(`https://localhost:7227/api/PatientAuths/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
           .then((res) => {
             console.log("Patient deleted successfully");
             window.location.reload();

@@ -16,6 +16,8 @@ const Index = () => {
   const [exception, setException] = useState("");
   const itemsPerPage = 10;
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const currentDate = new Date();
   const dates = format(currentDate, "yyyy-MM-dd");
   const time = format(currentDate, "HH:mm:ss");
@@ -35,7 +37,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7227/api/Appoinments`)
+      .get(`https://localhost:7227/api/Appoinments`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setData(res.data);
         setSearchResults(res.data);
@@ -60,7 +66,11 @@ const Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://localhost:7227/api/Appoinments/${id}`)
+          .delete(`https://localhost:7227/api/Appoinments/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
           .then((res) => {
             window.location.reload();
             console.log("Appoinment deleted successfully");
@@ -77,7 +87,12 @@ const Index = () => {
   };
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Appoinments/SoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/Appoinments/SoftDelete/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         window.location.reload();
         console.log("Appoinment deleted successfully");
@@ -95,7 +110,12 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Appoinments/ReverteSoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/Appoinments/ReverteSoftDelete/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         window.location.reload();
         console.log("Service reverted successfully");

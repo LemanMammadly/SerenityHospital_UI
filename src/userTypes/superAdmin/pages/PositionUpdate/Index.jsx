@@ -12,6 +12,8 @@ const Index = () => {
 
   const nav = useNavigate();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
 
   useEffect(() => {
     axios
@@ -44,6 +46,7 @@ const Index = () => {
     await axios
       .put(`https://localhost:7227/api/Positions/${id}`, formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -98,7 +101,7 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception.includes("name") ? exception : ""}</p>
+                      <p className="error-message">{exception && exception.includes("name") ? exception : ""}</p>
                     </div>
                   )}
                 </div>

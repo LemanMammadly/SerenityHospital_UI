@@ -18,6 +18,8 @@ const Index = () => {
   const [departments, setDepartments] = useState([]);
   const [selectDepartment, setSelectDepartment] = useState("");
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const nav = useNavigate();
 
   useEffect(() => {
@@ -125,6 +127,7 @@ const Index = () => {
         formData,
         {
           headers: {
+            Authorization: `Bearer ${user.token}`,
             "Content-Type": "multipart/form-data",
           },
         }

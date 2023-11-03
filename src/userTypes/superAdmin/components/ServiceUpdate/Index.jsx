@@ -18,6 +18,8 @@ const Index = () => {
 
   const nav = useNavigate();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   $(".js-example-basic-single").select2();
 
   useEffect(() => {
@@ -81,6 +83,7 @@ const Index = () => {
     await axios
       .put(`https://localhost:7227/api/Services/Put/${id}`, dataValue, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "application/json",
         },
       })

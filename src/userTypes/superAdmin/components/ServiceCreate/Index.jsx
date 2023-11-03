@@ -9,7 +9,7 @@ const Index = () => {
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
 
-
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const nav = useNavigate();
 
@@ -37,10 +37,12 @@ const Index = () => {
       maxPrice: inputs.maxp,
     };
 
-    axios
-      .post("https://localhost:7227/api/Services", dataValue)
-      nav("/superadmin")
-      .then((res) => console.log(res.data))
+    axios.post("https://localhost:7227/api/Services", dataValue, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
+      .then((res) =>   nav("/superadmin/service"))
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
           setErrorMessages(e.response.data.errors);

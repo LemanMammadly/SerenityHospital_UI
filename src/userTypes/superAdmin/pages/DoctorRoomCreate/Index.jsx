@@ -4,9 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Index = () => {
-  const [inputs, setInputs] = useState({
-    name: "",
-  });
+  const [inputs, setInputs] = useState({});
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
   const [departments, setDepartments] = useState([]);

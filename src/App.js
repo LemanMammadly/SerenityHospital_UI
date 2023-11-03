@@ -55,7 +55,10 @@ import SuperAdminPatientRemoveRole from "./userTypes/superAdmin/pages/PatientRem
 import SuperAdminPatientAddRoom from "./userTypes/superAdmin/pages/AddRoomPatient/Index.jsx";
 import SuperAdminDoctorRooms from "./userTypes/superAdmin/pages/DoctorRooms/Index.jsx";
 import SuperAdminDoctorRoomCreate from "./userTypes/superAdmin/pages/DoctorRoomCreate/Index.jsx";
-import SuperAdminDoctorRoomUpdate from "./userTypes/superAdmin/pages/DoctorRoomUpdate/Index.jsx"
+import SuperAdminDoctorRoomUpdate from "./userTypes/superAdmin/pages/DoctorRoomUpdate/Index.jsx";
+import SuperAdminPatientRoom from "./userTypes/superAdmin/pages/PatientRoom/Index.jsx";
+import SuperAdminPatientRoomCreate from "./userTypes/superAdmin/pages/PatientRoomCreate/Index.jsx";
+import SuperAdminPatientRoomUpdate from "./userTypes/superAdmin/pages/PatientRoomsUpdate/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -196,6 +199,18 @@ function App() {
             <Route
               path="/superadmin/doctorrooms/update/:id"
               element={<SuperAdminDoctorRoomUpdate />}
+            />
+            <Route
+              path="/superadmin/patientrooms"
+              element={<SuperAdminPatientRoom />}
+            />
+            <Route
+              path="/superadmin/patientrooms/create"
+              element={<SuperAdminPatientRoomCreate />}
+            />
+            <Route
+              path="/superadmin/patientrooms/update/:id"
+              element={<SuperAdminPatientRoomUpdate />}
             />
           </Route>
           <Route

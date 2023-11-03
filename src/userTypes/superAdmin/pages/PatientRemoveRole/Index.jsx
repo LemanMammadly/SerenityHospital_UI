@@ -10,6 +10,8 @@ const Index = () => {
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const nav = useNavigate();
 
   const handleChange = (e) => {
@@ -27,7 +29,11 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/Roles")
+      .get("https://localhost:7227/api/Roles", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((resp) => {
         setRole(resp.data);
       })
@@ -46,6 +52,7 @@ const Index = () => {
     axios
       .post("https://localhost:7227/api/PatientAuths/RemoveRole", formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })

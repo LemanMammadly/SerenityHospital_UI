@@ -28,6 +28,8 @@ const Index = () => {
   const [departments, setDepartments] = useState([]);
   const [selectDepartment, setSelectDepartment] = useState("");
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const nav = useNavigate();
 
   const handleChange = (e) => {
@@ -112,6 +114,7 @@ const Index = () => {
     axios
       .post("https://localhost:7227/api/DoctorAuths/Create", formData, {
         headers: {
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })

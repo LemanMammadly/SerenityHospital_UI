@@ -22,6 +22,8 @@ const Index = () => {
     document.body.style.overflow = "hidden";
   };
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     axios
       .get("https://localhost:7227/api/Positions")
@@ -47,7 +49,11 @@ const Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://localhost:7227/api/Positions/${id}`)
+          .delete(`https://localhost:7227/api/Positions/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
           .then((res) => {
             window.location.reload();
             console.log("Position deleted successfully");
@@ -65,7 +71,12 @@ const Index = () => {
 
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Positions/SoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/Positions/SoftDelete/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         window.location.reload();
         console.log("Position deleted successfully");
@@ -81,7 +92,12 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Positions/RevertSoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/Positions/RevertSoftDelete/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         window.location.reload();
         console.log("Position reverted successfully");

@@ -15,6 +15,8 @@ const Index = () => {
   const [exception, setException] = useState("");
   const itemsPerPage = 10;
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const respOpenMenu = () => {
     const dashboardMenu = $(".dashboard-menu-header");
 
@@ -49,7 +51,11 @@ const Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://localhost:7227/api/DoctorAuths/${id}`)
+          .delete(`https://localhost:7227/api/DoctorAuths/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
           .then((res) => {
             window.location.reload();
             console.log("Doctor deleted successfully");

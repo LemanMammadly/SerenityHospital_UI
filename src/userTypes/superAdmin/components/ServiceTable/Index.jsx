@@ -15,6 +15,8 @@ const Index = () => {
   const [exception, setException] = useState("");
   const itemsPerPage = 10;
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const respOpenMenu = () => {
     const dashboardMenu = $(".dashboard-menu-header");
 
@@ -35,7 +37,11 @@ const Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://localhost:7227/api/Services/Delete/${id}`)
+          .delete(`https://localhost:7227/api/Services/Delete/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
           .then((res) => {
             window.location.reload();
             console.log("Service deleted successfully");
@@ -52,10 +58,14 @@ const Index = () => {
   };
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Services/SoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/Services/SoftDelete/${id}` , {}, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         window.location.reload();
-        console.log("Service deleted successfully");
       })
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
@@ -68,7 +78,12 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Services/ReverteSoftDelete/${id}`)
+      .patch(`https://localhost:7227/api/Services/ReverteSoftDelete/${id}`,{}, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         window.location.reload();
         console.log("Service reverted successfully");
