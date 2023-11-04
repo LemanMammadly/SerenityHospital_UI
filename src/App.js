@@ -5,7 +5,6 @@ import Doctors from "./pages/Doctors/Index.jsx";
 import AboutUs from "./pages/AboutUs/Index.jsx";
 import Contact from "./pages/Contact/Index.jsx";
 import Login from "./pages/Login/Index.jsx";
-import Appoinment from "./pages/Appoinment/Index.jsx";
 import SuperAdminDashboard from "./Layouts/SuperAdminDashboard";
 import SuperAdminHome from "./userTypes/superAdmin/pages/Home/Index.jsx";
 import SuperAdminSettings from "./userTypes/superAdmin/pages/Settings/Index.jsx";
@@ -65,6 +64,7 @@ import SuperAdminNurseUpdate from "./userTypes/superAdmin/pages/NurseUpdate/Inde
 import SuperAdminNurseAddRole from "./userTypes/superAdmin/pages/NurseAddRole/Index.jsx";
 import SuperAdminNurseRemoveRole from "./userTypes/superAdmin/pages/NurseRemoveRole/Index.jsx";
 import SuperAdminPatientHistory from "./userTypes/superAdmin/pages/PatientHistory/Index.jsx"
+import Register from "../src/pages/Register/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -91,7 +91,7 @@ function App() {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/appoinment" element={<Appoinment />} />
+            <Route path="/register" element={<Register />} />
           </Route>
           <Route
             path="/superadmin"

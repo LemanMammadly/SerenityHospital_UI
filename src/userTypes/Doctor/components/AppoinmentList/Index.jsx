@@ -257,6 +257,8 @@ const Index = () => {
                         color:
                           datas.status === 1
                             ? "green"
+                            : datas.status === 2
+                            ? "#FCA12F"
                             : datas.status === 3
                             ? "#1C79FF"
                             : datas.status === 4
@@ -281,8 +283,13 @@ const Index = () => {
                         ></i>
                       ) : datas.status === 1 ? (
                         <i
-                          style={{ color: "#1677FF" }}
+                          style={{ color: "#008001" }}
                           class="fa-solid fa-user-check"
+                        ></i>
+                      ) : datas.status === 2 ? (
+                        <i
+                          style={{ color: "#FCA12F" }}
+                          class="fa-solid fa-hourglass-end"
                         ></i>
                       ) : null}
                     </td>
@@ -295,8 +302,13 @@ const Index = () => {
                         ></i>
                       ) : datas.status === 1 ? (
                         <i
-                          style={{ color: "#1677FF" }}
+                          style={{ color: "#008001" }}
                           class="fa-solid fa-user-check"
+                        ></i>
+                      ) : datas.status === 2 ? (
+                        <i
+                          style={{ color: "#FCA12F" }}
+                          class="fa-solid fa-hourglass-end"
                         ></i>
                       ) : null}
                     </td>

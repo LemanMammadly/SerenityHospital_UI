@@ -60,9 +60,6 @@ const Index = () => {
               <Link to="/doctors">Doctors</Link>
             </li>
             <li>
-              <Link to="/appoinment">Appoinment</Link>
-            </li>
-            <li>
               <Link to="/aboutus">About</Link>
             </li>
             <li>

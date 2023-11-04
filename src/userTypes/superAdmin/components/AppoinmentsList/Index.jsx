@@ -157,17 +157,6 @@ const Index = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const isAppoinmentPending = (appoinmentDate) => {
-    const now = new Date();
-    const appoinmentDateTime = new Date(appoinmentDate);
-
-    if (now < appoinmentDateTime) {
-      return 1;
-    } else {
-      return 2;
-    }
-  };
-
   return (
     <section className="all-app-admin">
       <div className="container-app-admin">
@@ -295,6 +284,8 @@ const Index = () => {
                         color:
                           datas.status === 1
                             ? "green"
+                            : datas.status === 2
+                            ? "#FCA12F"
                             : datas.status === 3
                             ? "#1C79FF"
                             : datas.status === 4
@@ -304,6 +295,8 @@ const Index = () => {
                     >
                       {datas.status === 1
                         ? "Approved"
+                        : datas.status === 2
+                        ? "Completed"
                         : datas.status === 3
                         ? "Pending"
                         : datas.status === 4

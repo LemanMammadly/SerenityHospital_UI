@@ -17,23 +17,31 @@ const Index = () => {
   useEffect(() => {
     axios
       .get(
-        `https://localhost:7227/api/PatientAuths/GetByName?userName=${user.username}`
+        `https://localhost:7227/api/PatientAuths/GetByName?userName=${user.username}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       )
       .then((res) => {
         setData(res.data);
         setAppoinmentsdate(
           res.data.appoinments &&
-            res.data.appoinments.map((app) => ({
-              start: new Date(app.appoinmentDate),
-              end: moment(app.appoinmentDate).add(app.duration, 'minutes').toDate(),
-              title: `${app.problemDesc} - ${app.doctor.name} ${app.doctor.surname}`,
-            }))
+            res.data.appoinments
+              .filter((app) => app.status === "Approved")
+              .map((app) => ({
+                start: new Date(app.appoinmentDate),
+                end: moment(app.appoinmentDate).add(app.duration, 'minutes').toDate(),
+                title: `${app.problemDesc} - ${app.doctor.name} ${app.doctor.surname}`,
+              }))
         );
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+  
 
   return (
     <div className="myCustomHeight p-4 all-calendar-div">

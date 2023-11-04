@@ -3,6 +3,8 @@ import "./Index.css";
 import bgLogin from "../../assets/imgs/bg-login.jpeg";
 import loginPage from "../../assets/imgs/loginPage.png";
 import axios from "axios";
+import { Button } from "antd";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const [inputs, setInputs] = useState({});
@@ -61,12 +63,12 @@ const Index = () => {
             window.location.href = "/superadmin";
             localStorage.setItem("user", JSON.stringify(res.data));
           } else if (
-            user && user.roles &&
+            (user && user.roles &&
             user.roles[0] &&
-            user.roles[0].includes("Patient")
+            user.roles[0].includes("Patient"))
           ) {
             window.location.href = "/patient";
-            localStorage.setItem("user", JSON.stringify(res.data));
+            localStorage.setItem("user", JSON.stringify(res && res.data));
           }
         }
       })
@@ -74,7 +76,7 @@ const Index = () => {
         if (e.response && e.response.data && e.response.data.errors) {
           setErrorMessages(e.response.data.errors);
         } else {
-          setException(e.response.data.message);
+          setException(e.response && e.response.data.message);
         }
       });
   };
@@ -149,9 +151,10 @@ const Index = () => {
                 </p>
               </div>
             )}
-            <button type="submit">Login</button>
+            <button style={{borderRadius:"5px"}} type="submit">Login</button>
           </form>
-          <p>Forgot Your Password?</p>
+          <p>Don't you have an account?</p>
+          <Link className="text-white" style={{textDecoration:"none",padding:"10px 20px",borderRadius:"5px",marginBottom:"15px",backgroundColor:"#2191BF"}} to="/register">Sign Up</Link>
         </div>
         <div className="right-login col-lg-6">
           <div className="img-div">

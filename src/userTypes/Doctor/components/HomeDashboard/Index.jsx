@@ -41,28 +41,6 @@ const Index = () => {
         console.log(err);
       });
   }, []);
-  
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://localhost:7227/api/DoctorAuths/GetByName?userName=${user.username}`
-  //     )
-  //     .then((res) => {
-  //       setData(res.data);
-  //       setAppoinmentsdate(
-  //         res.data.appoinments &&
-  //           res.data.appoinments.map((app) => ({
-  //             start: new Date(app.appoinmentDate),
-  //             end: moment(app.appoinmentDate).add(app.duration, 'minutes').toDate(),
-  //             title: `${app.problemDesc} - ${app.patient.name} ${app.patient.surname}`,
-  //           }))
-  //       );
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   return (
     <div className="myCustomHeight p-4 all-calendar-div">

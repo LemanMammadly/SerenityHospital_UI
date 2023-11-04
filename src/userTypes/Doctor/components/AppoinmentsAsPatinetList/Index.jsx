@@ -193,6 +193,8 @@ const Index = () => {
                         color:
                           datas.status === 1
                             ? "green"
+                            : datas.status === 2
+                            ? "#FCA12F"
                             : datas.status === 3
                             ? "#1C79FF"
                             : datas.status === 4
@@ -202,11 +204,11 @@ const Index = () => {
                     >
                       {datas.status === 1
                         ? "Approved"
+                        : datas.status === 2
+                        ? "Completed"
                         : datas.status === 3
                         ? "Pending"
-                        : datas.status === 4
-                        ? "Rejected"
-                        : "Unknown"}
+                        : "Rejected"}
                     </td>
                     <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                   </tr>

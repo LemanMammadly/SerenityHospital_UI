@@ -366,7 +366,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Appoinment") ? exception : ""}
+                        {exception && exception.includes("Exception") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -408,7 +408,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Conflict") ? exception : ""}
+                        {(exception && exception.includes("Conflict")) ||(exception &&  exception.includes("found")) || (exception && exception.includes("Approved")) || (exception && exception.includes("Rejected")) ? exception : ""}
                       </p>
                     </div>
                   )}
