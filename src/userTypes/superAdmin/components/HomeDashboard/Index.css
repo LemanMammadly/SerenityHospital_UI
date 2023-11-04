@@ -1,5 +1,5 @@
 .container-home-dashboard {
-  padding: 2rem;
+  padding: 3rem;
   background-color: #f1f4f8;
   height: 100vh;
 }
@@ -7,14 +7,13 @@
 .container-home-dashboard .all-home-dashboard h2 {
   font-size: 21px;
   color: #818da1;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .container-home-dashboard .boxes-dashboard {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-evenly;
   gap: 20px;
 }
 
@@ -22,7 +21,7 @@
   background-color: #fff;
   padding: 20px;
   width: 250px;
-  height: 130px;
+  height: 150px;
   display: flex;
   align-items: center;
   justify-content: space-between;

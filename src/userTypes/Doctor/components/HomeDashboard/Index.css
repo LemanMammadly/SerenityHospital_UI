@@ -1,82 +1,3 @@
-/* .all-doctor-home {
-  padding: 2rem;
-  background-color: #f1f4f8;
-  height: 100vh;
-}
-
-.all-doctor-home .doctor-dashboard-h1 {
-  font-size: 21px;
-  color: #818da1;
-  margin-bottom: 20px;
-}
-
-.all-doctor-home .doctor-datas-home .doctor-data-box {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-}
-
-.all-doctor-home .doctor-datas-home .doctor-data-box h5 {
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.all-doctor-home .doctor-datas-home .doctor-data-box span {
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.all-doctor-home .doctor-datas-home .doctor-data-box i {
-  font-size: 35px;
-  color: #3c5ee1;
-}
-
-.all-doctor-home .soon-appoinments-doctor-home {
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 10px;
-}
-
-.all-doctor-home .soon-appoinments-doctor-home .topleft-app-soon {
-  font-weight: 700;
-  font-size: 24px;
-  margin-bottom: 30px;
-}
-
-.all-doctor-home .soon-appoinments-doctor-home .topright-app-soon a{
-    text-decoration: none;
-}
-
-.all-doctor-home .soon-appoinments-doctor-home .appoinment-soon-box{
-    background-color: #F1F4F8;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.all-doctor-home .soon-appoinments-doctor-home .appoinment-soon-box .date-appsoon{
-    text-align: center;
-    color: #a098ae;
-    font-size: 14px;
-}
-
-.all-doctor-home .soon-appoinments-doctor-home .right-soon-appoinment-box{
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.all-doctor-home .react-calendar{
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    width: 80%;
-}
-
-
-.react-calendar__tile{
-  border: 1px solid #333;
-} */
-
 .all-calendar-div{
   background-color: #F1F4F8;
 }
@@ -92,4 +13,19 @@
 }
 .rbc-calendar {
   min-height: 100vh;
+}
+
+.all-calendar-div .top-notification{
+  position: relative;
+}
+
+.all-calendar-div .notif-red{
+  position: absolute;
+  top: 7px;
+  right: 14px;
+  width: 6px;
+  height: 6px;
+  background-color: red;
+  color: red;
+  border-radius: 50%;
 }

@@ -154,6 +154,10 @@ const Index = () => {
     setCurrentPage(page);
   };
 
+  const searchResultsCopy = [...searchResults];
+
+  searchResultsCopy.sort((a, b) => b.id - a.id);
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
@@ -219,12 +223,8 @@ const Index = () => {
               </tr>
             </thead>
             <tbody>
-              {searchResults
+              {searchResultsCopy
                 .slice(startIndex, endIndex)
-                .sort(
-                  (a, b) =>
-                    new Date(b.appoinmentDate) - new Date(a.appoinmentDate)
-                )
                 .map((datas, index) => (
                   <tr key={index}>
                     <th scope="row">{datas.id}</th>

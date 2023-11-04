@@ -92,11 +92,6 @@ const Index = () => {
               </Link>
             </li>
             <li>
-              <Link onClick={closeMenu} to="/apoinment">
-                Appoinment
-              </Link>
-            </li>
-            <li>
               <Link onClick={closeMenu} to="/aboutus">
                 About
               </Link>

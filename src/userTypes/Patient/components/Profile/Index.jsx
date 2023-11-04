@@ -10,7 +10,12 @@ const Index = () => {
   useEffect(() => {
     axios
       .get(
-        `https://localhost:7227/api/PatientAuths/GetByName?userName=${user.username}`
+        `https://localhost:7227/api/PatientAuths/GetByName?userName=${user.username}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       )
       .then((res) => {
         setData(res.data);
@@ -19,6 +24,8 @@ const Index = () => {
         console.log(err);
       });
   }, []);
+
+  console.log(data);
   return (
     <div className="all-pat-profile">
       <div className="all-pat-profile-container">
@@ -33,13 +40,12 @@ const Index = () => {
         <div className="bottom-pat-profile d-flex justify-content-between align-items-center">
           <div className="left-pat-doc-profile col-lg-3">
             <div className="left-image-pat-top">
-              <img className="img-fluid" src={data.imageUrl} alt="" />
+              <img className="img-fluid" src={data.imageUrl || ""} alt="" />
             </div>
             <div className="left-desc-pat-bottom text-center">
               <h3>
-                {data.name} {data.surname}
+                {data.name || ""} {data.surname || ""}
               </h3>
-              <p>{data.description}</p>
             </div>
           </div>
           <div className="right-bot-pat-profile col-lg-8">
@@ -47,31 +53,31 @@ const Index = () => {
               <tbody>
                 <tr>
                   <td>Name</td>
-                  <td>{data.name}</td>
+                  <td>{data.name || ""}</td>
                 </tr>
                 <tr>
                   <td>Surname</td>
-                  <td>{data.surname}</td>
+                  <td>{data.surname || ""}</td>
                 </tr>
                 <tr>
                   <td>Age</td>
-                  <td>{data.age}</td>
+                  <td>{data.age || ""}</td>
                 </tr>
                 <tr>
                   <td>Username</td>
-                  <td>{data.userName}</td>
+                  <td>{data.userName || ""}</td>
                 </tr>
                 <tr>
                   <td>Phone Number</td>
-                  <td>{data.phoneNumber && data.phoneNumber}</td>
+                  <td>{data.phoneNumber || ""}</td>
                 </tr>
                 <tr>
                   <td>Address</td>
-                  <td>{data.address && data.address}</td>
+                  <td>{data.address || ""}</td>
                 </tr>
                 <tr>
                   <td>Email</td>
-                  <td>{data.email}r</td>
+                  <td>{data.email || ""}</td>
                 </tr>
                 <tr>
                   <td>BloodType</td>
@@ -104,10 +110,6 @@ const Index = () => {
                       ? "Male"
                       : "Others"}
                   </td>
-                </tr>
-                <tr>
-                  <td>Patient Room</td>
-                  <td>{data.patientRoom ? data.patientRoom : "No Room"}</td>
                 </tr>
               </tbody>
             </table>

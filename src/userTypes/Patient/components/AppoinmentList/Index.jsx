@@ -25,6 +25,7 @@ const Index = () => {
     return format(parsedDate, "HH:mm dd-MM-yyyy");
   };
 
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const respOpenMenu = () => {
@@ -37,7 +38,11 @@ const Index = () => {
   useEffect(() => {
     axios
       .get(
-        `https://localhost:7227/api/PatientAuths/GetByName?userName=${user.username}`
+        `https://localhost:7227/api/PatientAuths/GetByName?userName=${user.username}`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       )
       .then((res) => {
         setData(res.data.appoinments);
@@ -60,6 +65,10 @@ const Index = () => {
     setSearchResults(filteredResults);
     setCurrentPage(1);
   };
+
+  const searchResultsCopy = [...searchResults];
+
+  searchResultsCopy.sort((a, b) => b.id - a.id);
 
   const changePage = (page) => {
     setCurrentPage(page);
@@ -150,12 +159,8 @@ const Index = () => {
               </tr>
             </thead>
             <tbody>
-              {searchResults
+              {searchResultsCopy
                 .slice(startIndex, endIndex)
-                .sort(
-                  (a, b) =>
-                    new Date(b.appoinmentDate) - new Date(a.appoinmentDate)
-                )
                 .map((datas, index) => (
                   <tr key={index}>
                     <th scope="row">{datas.id}</th>

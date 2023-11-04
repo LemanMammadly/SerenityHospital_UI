@@ -35,18 +35,20 @@ const Index = () => {
     const username = user.username;
   
   
+    console.log(data);
+
     useEffect(() => {
         axios
           .get(
-            `https://localhost:7227/api/PatientAuths/GetByName?userName=${username}`, {
+            `https://localhost:7227/api/PatientHistories/GetByName?username=${username}`, {
               headers: {
                 Authorization: `Bearer ${user.token}`,
               },
             }
           )
           .then((res) => {
-            setData(res.data.patientHistories);
-            setSearchResults(res.data.patientHistories);
+            setData(res.data);
+            setSearchResults(res.data);
           })
           .catch((err) => {
             console.log(err);
@@ -118,7 +120,7 @@ const Index = () => {
               </tr>
             </thead>
             <tbody>
-              {searchResults.slice(startIndex, endIndex).map((datas, index) => (
+              {searchResults && searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
                   <th scope="row">{datas.id}</th>
                   <td>{datas.date.substring(0,10)}</td>

@@ -64,6 +64,10 @@ const Index = () => {
     setCurrentPage(1);
   };
 
+  const searchResultsCopy = [...searchResults];
+
+  searchResultsCopy.sort((a, b) => b.id - a.id);
+
   const changePage = (page) => {
     setCurrentPage(page);
   };
@@ -71,16 +75,6 @@ const Index = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const isAppoinmentPending = (appoinmentDate) => {
-    const now = new Date();
-    const appoinmentDateTime = new Date(appoinmentDate);
-
-    if (now < appoinmentDateTime) {
-      return 1;
-    } else {
-      return 2;
-    }
-  };
 
   const ApproveAppoinment = (id) => {
     axios
@@ -104,7 +98,6 @@ const Index = () => {
       .catch((err) => console.log(err));
   };
 
-  console.log(data);
 
   const RejectAppoinment = (id) => {
     axios
@@ -189,13 +182,9 @@ const Index = () => {
               </tr>
             </thead>
             <tbody>
-              {searchResults
+              {searchResultsCopy
                 .filter((dat) => dat.status !== 4)
                 .slice(startIndex, endIndex)
-                .sort(
-                  (a, b) =>
-                    new Date(b.appoinmentDate) - new Date(a.appoinmentDate)
-                )
                 .map((datas, index) => (
                   <tr key={index}>
                     <th scope="row">{datas.id}</th>
