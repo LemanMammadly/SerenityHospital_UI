@@ -128,7 +128,7 @@ const Index = () => {
                 <td>
                 {datas.recipe.patient.name}  {datas.recipe.patient.surname}
                 </td>
-                <td>{datas.recipe.appoinment.problemDesc}</td>
+                <td>{datas.recipe && datas.recipe.appoinment && datas.recipe.appoinment.problemDesc}</td>
                 <td>
                   <Link
                     style={{

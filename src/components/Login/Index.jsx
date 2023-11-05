@@ -3,7 +3,6 @@ import "./Index.css";
 import bgLogin from "../../assets/imgs/bg-login.jpeg";
 import loginPage from "../../assets/imgs/loginPage.png";
 import axios from "axios";
-import { Button } from "antd";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -11,6 +10,7 @@ const Index = () => {
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
   const [selectUser, setSelectUser] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false); 
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -81,6 +81,10 @@ const Index = () => {
       });
   };
 
+  const showPassword = () => {
+    setPasswordVisible(!passwordVisible); 
+  };
+
   return (
     <section className="login-section">
       <div className="all-login col-lg-12">
@@ -134,12 +138,19 @@ const Index = () => {
                 </p>
               </div>
             )}
+            <div className="password-div d-flex align-items-center justify-content-between px-2">
             <input
-              type="password"
+              className="pass-input"
+              type={passwordVisible ? "text" : "password"}
               placeholder="Password"
               name="password"
               onChange={handleChange}
             />
+            <div className="icon-div-login">
+            <i
+             onClick={showPassword} class={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
+            </div>
+            </div>
             {errorMessages.Password ? (
               <div className="error-messages">
                 <p className="error-message">{errorMessages.Password}</p>
@@ -147,14 +158,14 @@ const Index = () => {
             ) : (
               <div className="error-messages">
                 <p className="error-message">
-                  {exception && exception.includes("password") ? exception : ""}
+                  {(exception && exception.includes("password")) || (exception && exception.includes("delete")) ? exception : ""}
                 </p>
               </div>
             )}
             <button style={{borderRadius:"5px"}} type="submit">Login</button>
           </form>
           <p>Don't you have an account?</p>
-          <Link className="text-white" style={{textDecoration:"none",padding:"10px 20px",borderRadius:"5px",marginBottom:"15px",backgroundColor:"#2191BF"}} to="/register">Sign Up</Link>
+          <Link className="text-white" style={{textDecoration:"none",padding:"10px 20px",borderRadius:"5px",marginBottom:"30px",backgroundColor:"#2191BF"}} to="/register">Sign Up</Link>
         </div>
         <div className="right-login col-lg-6">
           <div className="img-div">

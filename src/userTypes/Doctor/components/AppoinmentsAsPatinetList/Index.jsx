@@ -78,16 +78,6 @@ const Index = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const isAppoinmentPending = (appoinmentDate) => {
-    const now = new Date();
-    const appoinmentDateTime = new Date(appoinmentDate);
-
-    if (now < appoinmentDateTime) {
-      return 1;
-    } else {
-      return 2;
-    }
-  };
   return (
     <section className="all-app-doctor">
       <div className="container-app-doctor">

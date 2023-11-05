@@ -137,11 +137,11 @@ const Index = () => {
             <tbody>
               {searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
-                  <th scope="row">{datas.id}</th>
-                  <td>{datas.appoinment.id}</td>
+                  <th scope="row">{datas && datas.id}</th>
+                  <td>{datas.appoinment && datas.appoinment.id}</td>
                   <td>{datas.patient.name} {datas.patient.surname}</td>
                   <td>{datas.doctor.name} {datas.doctor.surname}</td>
-                  <td>{datas.appoinment.problemDesc}</td>
+                  <td>{datas.appoinment && datas.appoinment.problemDesc}</td>
                   <td>
                     <Link style={{textDecoration:"none",backgroundColor:"#14A2B8",color:"#fff",fontSize:"13px",padding:"7px",borderRadius:"5px"}}  onClick={() => handleShow(datas.recipeDesc)}>
                         View Recipe

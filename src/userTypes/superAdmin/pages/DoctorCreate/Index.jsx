@@ -526,7 +526,20 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <div className="add-btn-doctor">
+              <div className="add-btn-doctor d-flex flex-column">
+              {errorMessages.UserName ? (
+                    <div className="error-messages">
+                      <p className="error-message">{errorMessages.UserName}</p>
+                    </div>
+                  ) : (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {(exception && exception.includes("null")) || (exception && exception.includes("exist"))
+                          ? exception
+                          : ""}
+                      </p>
+                    </div>
+                  )}
                 <button type="submit">
                   Create <i className="fa-solid fa-check"></i>
                 </button>

@@ -45,10 +45,12 @@ const items = [
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
   const nav=useNavigate();
+  const [selectedKey, setSelectedKey] = useState("1"); 
 
 
 
 const ChangePage=(key)=>{
+  setSelectedKey(key);
   if(key==="1")
   {
     nav("/superadmin")
@@ -116,7 +118,7 @@ const ChangePage=(key)=>{
       <div className="mx-4 my-3" style={{fontWeight:"bold",color:"#808DA1"}}><i class="fa-solid fa-unlock"></i> Admin Dashboard</div>
       <Menu
         theme="light"
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={selectedKey}
         onClick={(e) => ChangePage(e.key)}
         mode="inline"
         items={items}

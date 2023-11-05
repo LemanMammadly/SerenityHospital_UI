@@ -679,7 +679,7 @@ const Index = () => {
             )}
             <input
               id="pass"
-              type="password"
+              type="text"
               className="form-control"
               defaultValue=""
               onChange={handleChange}

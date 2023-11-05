@@ -140,19 +140,19 @@ const Index = () => {
                               />
                               <h3>{details.name}</h3>
                               <hr />
-                              <div className="email-detail det-filter">
-                                Email: <span>{details.email}</span>
+                              <div style={{fontWeight:"bold"}} className="email-detail det-filter">
+                                Email: <span  style={{fontWeight:"400"}}>{details.email}</span>
                               </div>
-                              <div className="department-detail det-filter">
+                              <div style={{fontWeight:"bold"}} className="department-detail det-filter">
                                 Department:{" "}
-                                <span>{details.department.name}</span>
+                                <span style={{fontWeight:"400"}}>{details.department.name}</span>
                               </div>
-                              <div className="position-detail det-filter">
-                                Position: <span>{details.position.name}</span>
+                              <div style={{fontWeight:"bold"}} className="position-detail det-filter">
+                                Position: <span style={{fontWeight:"400"}}>{details.position.name}</span>
                               </div>
                               <div className="profile-desc-filter">
-                                <h5>Profile</h5>
-                                <p>
+                                <h5 style={{fontWeight:"bold"}}>Profile</h5>
+                                <p style={{fontWeight:"400"}}>
                                   {details.description}
                                 </p>
                               </div>

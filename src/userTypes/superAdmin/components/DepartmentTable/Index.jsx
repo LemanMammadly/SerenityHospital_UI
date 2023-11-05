@@ -203,7 +203,7 @@ const Index = () => {
                   <td>{datas.name}</td>
                   <td>{datas.description.slice(0, 10)}...</td>
                   <td>
-                    <img style={{ width: "50px" }} src={datas.iconUrl} alt="" />
+                    <img style={{ width: "30px" }} src={datas.iconUrl} alt="" />
                   </td>
                   <td>
                     <Link

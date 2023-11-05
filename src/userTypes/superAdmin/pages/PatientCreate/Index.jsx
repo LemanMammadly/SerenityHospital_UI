@@ -467,7 +467,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("exist")
+                        {(exception && exception.includes("exist")) ||(exception && exception.includes("null")) 
                           ? exception
                           : ""}
                       </p>

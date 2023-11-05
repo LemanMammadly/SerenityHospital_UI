@@ -37,8 +37,7 @@
 }
 
 .all-login .left-login form input:focus{
-    background-color: #fff;
-    color: #0D1428;
+    color: #fff;
 }
 
 .all-login .left-login button{
@@ -57,6 +56,20 @@
 
 .all-login .right-login .img-div{
     background-size: auto;
+}
+
+
+.all-login .password-div{
+    border: 1px solid #333;
+}
+
+.all-login .password-div i{
+    color: #636363;
+}
+
+.all-login .pass-input{
+    border: none !important;
+    background-color: #fff;
 }
 
 

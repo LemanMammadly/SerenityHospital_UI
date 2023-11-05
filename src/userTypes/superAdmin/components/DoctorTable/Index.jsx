@@ -38,6 +38,8 @@ const Index = () => {
       });
   }, []);
 
+  console.log(data);
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",

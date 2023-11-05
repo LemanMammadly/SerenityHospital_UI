@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Index.css"
-import doctorHeadImg from "../../assets/imgs/doctorHead.jpeg"
+import doctorHeadImg from "../../assets/imgs/hospital-top-image.webp"
 import { Link } from 'react-router-dom'
 
 const Index = () => {

@@ -4,7 +4,7 @@ import imageWelcome from "../../assets/imgs/welcomePage.png";
 
 const Index = () => {
   return (
-    <section>
+    <section className="py-4">
       <div className="container-welcome">
        <div className="all-welcome">
        <div className="left col-lg-6">
