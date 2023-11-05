@@ -58,7 +58,7 @@ const Index = () => {
     const seacrhChange = (key) => {
       setSearch(key);
       const filteredResults = data.filter((item) =>
-        item.recipe.doctor.name.toLowerCase().includes(key.toLowerCase())
+      item && item.recipe && item.recipe.doctor &&  item.recipe.doctor.name &&  item.recipe.doctor.name.toLowerCase().includes(key.toLowerCase())
       );
       setSearchResults(filteredResults);
       setCurrentPage(1);

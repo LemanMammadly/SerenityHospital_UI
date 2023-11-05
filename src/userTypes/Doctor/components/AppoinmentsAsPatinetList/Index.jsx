@@ -59,13 +59,14 @@ const Index = () => {
     setSearch(key);
     const filteredResults = data.filter(
       (item) =>
+        item &&
+        item.doctor &&
         item.doctor.name &&
         item.doctor.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
   };
-
 
   const searchResultsCopy = [...searchResults];
 

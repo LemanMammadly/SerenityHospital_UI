@@ -57,7 +57,7 @@ const Index = () => {
     setSearch(key);
     const filteredResults = data.filter(
       (item) =>
-        item.problemDesc &&
+      item && item.problemDesc &&
         item.problemDesc.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);

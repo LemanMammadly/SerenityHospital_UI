@@ -1,56 +1,56 @@
-import React, { useEffect, useState } from 'react'
-import "./Index.css"
-import { Button } from 'antd'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import $ from "jquery"
+import React, { useEffect, useState } from "react";
+import "./Index.css";
+import { Button } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import $ from "jquery";
 
 const Index = () => {
-    const [data, setData] = useState([]);
-    const [search, setSearch] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [errorMessages, setErrorMessages] = useState("");
-    const [exception, setException] = useState("");
-    const itemsPerPage = 10;
-  
-    const respOpenMenu = () => {
-      const dashboardMenu = $(".dashboard-menu-header");
-  
-      dashboardMenu.fadeIn("slow", () => {});
-      document.body.style.overflow = "hidden";
-    };
-  
-    const nav = useNavigate();
-  
-    useEffect(() => {
-      axios
-        .get("https://localhost:7227/api/DoctorAuths")
-        .then((res) => {
-          setData(res.data);
-          setSearchResults(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, []);
-  
-    const seacrhChange = (key) => {
-      setSearch(key);
-      const filteredResults = data.filter((item) =>
-        item.name.toLowerCase().includes(key.toLowerCase())
-      );
-      setSearchResults(filteredResults);
-      setCurrentPage(1);
-    };
-  
-    const changePage = (page) => {
-      setCurrentPage(page);
-    };
-  
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-  
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [errorMessages, setErrorMessages] = useState("");
+  const [exception, setException] = useState("");
+  const itemsPerPage = 10;
+
+  const respOpenMenu = () => {
+    const dashboardMenu = $(".dashboard-menu-header");
+
+    dashboardMenu.fadeIn("slow", () => {});
+    document.body.style.overflow = "hidden";
+  };
+
+  const nav = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("https://localhost:7227/api/DoctorAuths")
+      .then((res) => {
+        setData(res.data);
+        setSearchResults(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const seacrhChange = (key) => {
+    setSearch(key);
+    const filteredResults = data.filter(
+      (item) => item.name && item.name.toLowerCase().includes(key.toLowerCase())
+    );
+    setSearchResults(filteredResults);
+    setCurrentPage(1);
+  };
+
+  const changePage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
   return (
     <section className="all-doctor-pat">
       <div className="container-doctor-pat">
@@ -116,23 +116,26 @@ const Index = () => {
               </tr>
             </thead>
             <tbody>
-              {searchResults.slice(startIndex, endIndex).filter((doc)=>doc.isDeleted===false).map((datas, index) => (
-                <tr key={index}>
-                  <td>
-                    <img
-                      src={datas.imageUrl}
-                      style={{ width: "30px" }}
-                      alt=""
-                    />
-                  </td>
-                  <td>{datas.name}</td>
-                  <td>{datas.surname}</td>
-                  <td>{datas.gender === 2 ? "Male" : "Female"}</td>
-                  <td>{datas.email}</td>
-                  <td>{datas.position && datas.position.name}</td>
-                  <td>{datas.department && datas.department.name}</td>
-                </tr>
-              ))}
+              {searchResults
+                .slice(startIndex, endIndex)
+                .filter((doc) => doc.isDeleted === false)
+                .map((datas, index) => (
+                  <tr key={index}>
+                    <td>
+                      <img
+                        src={datas.imageUrl}
+                        style={{ width: "30px" }}
+                        alt=""
+                      />
+                    </td>
+                    <td>{datas.name}</td>
+                    <td>{datas.surname}</td>
+                    <td>{datas.gender === 2 ? "Male" : "Female"}</td>
+                    <td>{datas.email}</td>
+                    <td>{datas.position && datas.position.name}</td>
+                    <td>{datas.department && datas.department.name}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
           <div className="pagination my-3">
@@ -164,7 +167,7 @@ const Index = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

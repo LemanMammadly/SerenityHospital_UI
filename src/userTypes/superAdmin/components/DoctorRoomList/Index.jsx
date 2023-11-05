@@ -115,7 +115,7 @@ const Index = () => {
   const seacrhChange = (key) => {
     setSearch(key);
     const filteredResults = data.filter((item) =>
-      item.number.toString().includes(key)
+    item && item.number && item.number.toString().includes(key)
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);

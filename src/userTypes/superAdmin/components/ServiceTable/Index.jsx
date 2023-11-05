@@ -112,7 +112,7 @@ const Index = () => {
   const seacrhChange = (key) => {
     setSearch(key);
     const filteredResults = data.filter((item) =>
-      item.name.toLowerCase().includes(key.toLowerCase())
+    item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);

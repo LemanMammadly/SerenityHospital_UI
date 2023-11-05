@@ -155,7 +155,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Department") ? exception : ""}
+                        {exception && exception.includes("Department") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -191,7 +191,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Department") ? exception : ""}
+                        {exception && exception.includes("Department") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -220,7 +220,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("name") ? exception : ""}
+                        {exception && exception.includes("name") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -251,7 +251,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Appoinment") ? exception : ""}
+                        {exception && exception.includes("Appoinment") ? exception : ""}
                       </p>
                     </div>
                   )}
@@ -267,7 +267,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception.includes("Conflict") ? exception : ""}
+                        {exception && exception.includes("Conflict") ? exception : ""}
                       </p>
                     </div>
                   )}
