@@ -71,6 +71,8 @@ import Receptionist from "./Layouts/ReceptionDashboard.js"
 import HomeReceptionist from "./userTypes/Reception/pages/Home/Index.jsx"
 import AppoinmentsListReceptionist from "./userTypes/Reception/pages/AppoinmentList/Index.jsx"
 import AppoinmentsUpdateReceptionist from "./userTypes/Reception/pages/UpdateAppoinment/Index.jsx"
+import ProfiletReceptionist from "./userTypes/Reception/pages/Profile/Index.jsx"
+import ProfileUpdateReceptionist from "./userTypes/Reception/pages/UpdateProfile/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -332,6 +334,8 @@ function App() {
               <Route  index element={<HomeReceptionist/>}/>
               <Route  path="/receptionist/appoinments" element={<AppoinmentsListReceptionist/>}/>
               <Route  path="/receptionist/appoinments/update/:id" element={<AppoinmentsUpdateReceptionist/>}/>
+              <Route  path="/receptionist/profile" element={<ProfiletReceptionist/>}/>
+              <Route  path="/receptionist/profile/update" element={<ProfileUpdateReceptionist/>}/>
             </Route>
         </Routes>
       </BrowserRouter>

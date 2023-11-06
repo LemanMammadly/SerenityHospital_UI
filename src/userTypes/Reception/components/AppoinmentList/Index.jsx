@@ -201,6 +201,7 @@ const Index = () => {
             <thead>
               <tr>
                 <th scope="col">Id</th>
+                <th scope="col">Department</th>
                 <th scope="col">Doctor</th>
                 <th scope="col">Patient</th>
                 <th scope="col">Problem</th>
@@ -228,6 +229,15 @@ const Index = () => {
                 .map((datas, index) => (
                   <tr key={index}>
                     <th scope="row">{datas.id}</th>
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {datas.doctor && datas.doctor.department && datas.doctor.department.name}{" "}
+                    </td>
                     <td
                       style={{
                         whiteSpace: "nowrap",

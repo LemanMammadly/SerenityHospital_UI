@@ -127,7 +127,7 @@ const Index = () => {
                 <span style={{color:"#00C0EF"}}>Receptionist</span>
               </div>
               <div className="icon-div">
-                <i class="fa-solid fa-user-nurse"></i>
+              <i class="fa-solid fa-bell-concierge"></i>
               </div>
             </Link>
             <Link to="/superadmin/patientrooms" style={{textDecoration:"none"}} className="box-dashboard">

@@ -17,6 +17,8 @@ const Index = () => {
   const [selectedDepartments, setSelectedDepartments] = useState("");
   const [patientsAll, setPatientsAll] = useState([]);
   const [selectPatients, setSelectPatients] = useState([]);
+  const [patientsInSelectedDepartment, setPatientsInSelectedDepartment] =
+    useState([]);
 
   $(".js-example-basic-single").select2();
 
@@ -54,17 +56,40 @@ const Index = () => {
   }, [id]);
 
   useEffect(() => {
-    axios
-      .get(`https://localhost:7227/api/PatientAuths/`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((res) => {
-        setPatientsAll(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    if (selectedDepartments) {
+      axios
+        .get(`https://localhost:7227/api/Appoinments`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then((res) => {
+          const appointments = res.data;
+          console.log(appointments);
+
+          const patientsOrDoctors = appointments.map((appointment) => {
+            if (
+              appointment.doctor && appointment.doctor.department &&
+              appointment.doctor.department.id === selectedDepartments
+            ) {
+              if (appointment.patient) {
+                return `${appointment.patient && appointment.patient.id} 
+                 ${appointment.patient.name} ${appointment.patient.surname}`;
+              }
+            } else {
+              return null;
+            }
+          });
+
+          const filteredPatientsOrDoctors = patientsOrDoctors.filter(
+            (item) => item !== null
+          );
+
+          setPatientsAll(filteredPatientsOrDoctors);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [selectedDepartments]);
 
   const handleChange = (e) => {
     const { name, value, type, files, options } = e.target;
@@ -110,7 +135,6 @@ const Index = () => {
         .map((option) => option.value.toString());
       setSelectPatients(selectedPatient);
     }
-
   };
 
   const handleSubmit = async (e, id) => {
@@ -186,7 +210,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Number") ? exception : ""}
+                        {exception && exception.includes("Number")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -222,7 +248,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Department") ? exception : ""}
+                        {exception && exception.includes("Department")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -252,7 +280,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("type") ? exception : ""}
+                        {exception && exception.includes("type")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -282,7 +312,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("capacity") ? exception : ""}
+                        {exception && exception.includes("capacity")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -310,7 +342,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("price") ? exception : ""}
+                        {exception && exception.includes("price")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -391,8 +425,11 @@ const Index = () => {
                   >
                     <option value="">Select Patients: </option>
                     {patientsAll.map((pat) => (
-                      <option key={pat.id} value={pat.id}>
-                        {pat.name} {pat.surname} - {pat.phoneNumber}
+                      <option
+                        key={pat && pat.id}
+                        value={pat && pat.substring(0, 36)}
+                      >
+                        {pat && pat.substring(36)}
                       </option>
                     ))}
                   </select>
@@ -405,26 +442,29 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Other") ? exception : ""}
+                        {exception && exception.includes("Other")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
                 </div>
               </div>
               <div className="update-btn-position d-flex flex-column">
-              {errorMessages.Patientids ? (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {errorMessages.Patientids}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {(exception && exception.includes("Capacity")) || (exception && exception.includes("PatientRoomnot")) ? exception : ""}
-                      </p>
-                    </div>
-                  )}
+                {errorMessages.Patientids ? (
+                  <div className="error-messages">
+                    <p className="error-message">{errorMessages.Patientids}</p>
+                  </div>
+                ) : (
+                  <div className="error-messages">
+                    <p className="error-message">
+                      {(exception && exception.includes("Capacity")) ||
+                      (exception && exception.includes("PatientRoomnot"))
+                        ? exception
+                        : ""}
+                    </p>
+                  </div>
+                )}
                 <button type="submit">
                   Update <i className="fa-solid fa-check"></i>
                 </button>

@@ -201,6 +201,7 @@ const Index = () => {
             <thead>
               <tr>
                 <th scope="col">Id</th>
+                <th scope="col">Department</th>
                 <th scope="col">Doctor</th>
                 <th scope="col">Patient</th>
                 <th scope="col">Problem</th>
@@ -235,6 +236,15 @@ const Index = () => {
                         textOverflow: "ellipsis",
                       }}
                     >
+                      {datas.doctor && datas.doctor.department && datas.doctor.department.name }{" "}
+                    </td>
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
                       {datas.doctor && datas.doctor.name}{" "}
                       {datas.doctor && datas.doctor.surname}
                     </td>
@@ -248,9 +258,9 @@ const Index = () => {
                       {datas.patient && datas.patient.name}{" "}
                       {datas.patient && datas.patient.surname}{" "}
                       {datas.appoinmentAsDoctor &&
-                        datas.appoinmentAsDoctor.name}
+                        datas.appoinmentAsDoctor.name}{" "}
                       {datas.appoinmentAsDoctor &&
-                        datas.appoinmentAsDoctor.surname}
+                        datas.appoinmentAsDoctor.surname}{" "}
                     </td>
                     <td
                       style={{

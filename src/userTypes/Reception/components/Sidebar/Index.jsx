@@ -26,6 +26,7 @@ function getItem(label, key, icon, children) {
 const items = [
   getItem("Dashboard", "1", <PieChartOutlined />),
   getItem("Appoinments", "2", <ScheduleOutlined />),
+  getItem("Profile", "3", <UserOutlined />),
 ];
 
 const Index = () => {
@@ -40,6 +41,10 @@ const ChangePage=(key)=>{
   if(key==="2")
   {
     nav("/receptionist/appoinments")
+  }
+  if(key==="3")
+  {
+    nav("/receptionist/profile")
   }
 }
 
