@@ -35,7 +35,8 @@
 
 .containers-doctor .doctor-box .view-details .detail-btn{
     border: none;
-    padding: 10px 20px;
+    font-size: 13px;
+    padding: 5px 10px;
     border-radius: 5px;
     background-color: #0287BE;
     color: #fff;
@@ -60,6 +61,7 @@
     border-radius: 50%;
     margin-bottom: 20px;
     cursor: pointer;
+    width: 70%;
     transition: .5s;
     text-align: center;
 }
@@ -164,6 +166,16 @@
 
 .containers-doctor .doctor-detail .profile-desc p{
     font-size: 15px;
+}
+
+.containers-doctor .x-icon{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50%;
+    padding: 5px 7px;
 }
 
 

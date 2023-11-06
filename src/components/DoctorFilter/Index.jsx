@@ -36,7 +36,7 @@ const Index = () => {
     const openDoctorDetail = $(".doctor-detail-filter");
 
     openDoctorDetail.fadeIn("slow", () => {});
-    // document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
 
     axios
       .get(`https://localhost:7227/api/DoctorAuths/${id}`)
@@ -53,7 +53,7 @@ const Index = () => {
 
     openDoctorDetail.fadeOut("slow", () => {});
 
-    // document.body.style.overflow = "auto";
+    document.body.style.overflow = "auto";
   };
 
 
@@ -110,7 +110,7 @@ const Index = () => {
                     <div className="doctor-name-filter">
                       <span>{datas.department.name}</span>
                       <br />
-                      <Link to="/">{datas.name}</Link>
+                      <Link to="/">{datas.name} {datas.surname}</Link>
                     </div>
                     <hr />
                     <div className="doctor-social-filter">
@@ -131,7 +131,7 @@ const Index = () => {
                               <i
                                 onClick={closedoctorDetailFilter}
                                 style={{ cursor: "pointer" }}
-                                className="fa-solid fa-xmark"
+                                className="fa-solid fa-xmark x-icon"
                               ></i>
                               <img
                                 className="img-fluid"

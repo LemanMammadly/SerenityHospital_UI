@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import "./Index.css"
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, momentLocalizer } from "react-big-calendar";
-import "./Index.css"
 import axios from "axios";
 import moment from "moment";
 

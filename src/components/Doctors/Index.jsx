@@ -64,7 +64,7 @@ const Index = () => {
                 <div className="doctor-name">
                   <span>{datas.department.name}</span>
                   <br />
-                  <Link to="/">{datas.name}</Link>
+                  <Link to="/">{datas.name} {datas.surname}</Link>
                 </div>
                 <hr />
                 <div className="doctor-social">
@@ -81,7 +81,7 @@ const Index = () => {
                           <i
                             onClick={closedoctorDetail}
                             style={{ cursor: "pointer" }}
-                            className="fa-solid fa-xmark"
+                            className="fa-solid fa-xmark x-icon"
                           ></i>
                           <img
                             className="img-fluid"

@@ -5,7 +5,8 @@ import {
   FolderOpenOutlined,
   TeamOutlined,
   FileTextOutlined,
-  UserOutlined
+  UserOutlined,
+  CarryOutOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -27,8 +28,9 @@ const items = [
   getItem("Appoinments", "2", <ScheduleOutlined  />),
   getItem("Recipes", "3",<FileTextOutlined />),
   getItem("Doctors", "4", <TeamOutlined />),
-  getItem("History", "5", <FolderOpenOutlined />),
-  getItem("Profile", "6",<UserOutlined />),
+  getItem("Doctor Available", "5", <CarryOutOutlined />),
+  getItem("History", "6", <FolderOpenOutlined />),
+  getItem("Profile", "7",<UserOutlined />),
 ];
 
 const Index = () => {
@@ -54,12 +56,17 @@ const ChangePage=(key)=>{
   }
   if(key==="5")
   {
-    nav("/patient/history")
+    nav("/patient/doctoravailable")
   }
   if(key==="6")
   {
+    nav("/patient/history")
+  }
+  if(key==="7")
+  {
     nav("/patient/profile")
   }
+
 }
 
   const {

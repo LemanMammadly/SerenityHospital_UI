@@ -13,7 +13,7 @@ const Index = () => {
   const [selectdoctors, setSelectDoctors] = useState(null);
   const [departmentsall, setDepartmentsall] = useState([]);
   const [selectedDepartments, setSelectedDepartments] = useState("");
-  const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
+  // const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
 
   const nav = useNavigate();
 
@@ -71,7 +71,7 @@ const Index = () => {
 
     if (name === "departmentId") {
       setSelectedDepartments(value);
-      setIsDoctorSelectDisabled(false);
+      // setIsDoctorSelectDisabled(false);
     }
 
     if (name === "doctorId") {
@@ -199,7 +199,7 @@ const Index = () => {
                     onChange={handleChange}
                     name="doctorId"
                     value={selectdoctors}
-                    disabled={isDoctorSelectDisabled}
+                    // disabled={isDoctorSelectDisabled}
                   >
                     <option value="">Select Doctor: </option>
                     {doctors

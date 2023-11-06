@@ -228,7 +228,7 @@ const Index = () => {
                     {patient
                       .map((pat) => (
                         <option key={pat.id} value={pat.id}>
-                          {pat.name} {pat.userName} - {pat.phoneNumber}
+                          {pat.name} {pat.surname} - {pat.phoneNumber}
                         </option>
                       ))}
                   </select>
