@@ -42,7 +42,6 @@ const Index = () => {
       });
   }, []);
 
-
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -78,8 +77,9 @@ const Index = () => {
 
   const seacrhChange = (key) => {
     setSearch(key);
-    const filteredResults = data.filter((item) =>
-    item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
+    const filteredResults = data.filter(
+      (item) =>
+        item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
@@ -140,10 +140,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div
-          style={{ overflowX: "scroll" }}
-          className="bottom-pat-superadmin"
-        >
+        <div style={{ overflowX: "scroll" }} className="bottom-pat-superadmin">
           <table className="table">
             <thead>
               <tr>
@@ -205,7 +202,15 @@ const Index = () => {
                   </td>
                   <td>{datas.age}</td>
                   <td>{datas.email}</td>
-                  <td>{datas.address}</td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {datas.address}
+                  </td>
                   <td>{datas.phoneNumber}</td>
                   <td>{datas.gender === 2 ? "Male" : "Female"}</td>
                   <td>{datas.roles}</td>

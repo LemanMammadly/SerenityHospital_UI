@@ -12,7 +12,7 @@ const Index = () => {
     axios
       .get("https://localhost:7227/api/DoctorAuths")
       .then((resp) => {
-        setData(resp.data);
+        setData(resp.data.slice(0, 8)); 
       })
       .catch((error) => {
         console.log("error");
@@ -22,7 +22,7 @@ const Index = () => {
   const openDoctorDetail = (id) => {
     const openDoctorDetail = $(".doctor-detail");
     openDoctorDetail.fadeIn("slow", () => {});
-    document.body.style.overflow = "hidden";
+    // document.body.style.overflow = "hidden";
 
     axios
       .get(`https://localhost:7227/api/DoctorAuths/${id}`)
@@ -88,7 +88,7 @@ const Index = () => {
                             src={details.imageUrl}
                             alt=""
                           />
-                          <h3>{details.name}</h3>
+                          <h3>{details.name} {details.surname}</h3>
                           <hr />
                           <div style={{fontWeight:"bold"}} className="email-detail det">
                             Email: <span  style={{fontWeight:"400"}}>{details.email}</span>

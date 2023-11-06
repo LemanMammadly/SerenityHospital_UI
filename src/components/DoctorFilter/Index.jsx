@@ -36,7 +36,7 @@ const Index = () => {
     const openDoctorDetail = $(".doctor-detail-filter");
 
     openDoctorDetail.fadeIn("slow", () => {});
-    document.body.style.overflow = "hidden";
+    // document.body.style.overflow = "hidden";
 
     axios
       .get(`https://localhost:7227/api/DoctorAuths/${id}`)
@@ -53,7 +53,7 @@ const Index = () => {
 
     openDoctorDetail.fadeOut("slow", () => {});
 
-    document.body.style.overflow = "auto";
+    // document.body.style.overflow = "auto";
   };
 
 
@@ -138,7 +138,7 @@ const Index = () => {
                                 src={details.imageUrl}
                                 alt=""
                               />
-                              <h3>{details.name}</h3>
+                              <h3>{details.name} {details.surname}</h3>
                               <hr />
                               <div style={{fontWeight:"bold"}} className="email-detail det-filter">
                                 Email: <span  style={{fontWeight:"400"}}>{details.email}</span>

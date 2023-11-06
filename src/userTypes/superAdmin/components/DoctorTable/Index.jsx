@@ -73,10 +73,63 @@ const Index = () => {
     });
   };
 
+  const handleSoftDelete = (id) => {
+    axios
+      .patch(
+        `https://localhost:7227/api/DoctorAuths/SoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((e) => {
+        if (e.response && e.response.data && e.response.data.errors) {
+          console.log(e.response.data.errors);
+          setErrorMessages(e.response.data.errors);
+        } else {
+          setException(e.response.data.message);
+          console.log(e.response.data.errors);
+        }
+      });
+  };
+
+  const handleRevertDelete = (id) => {
+    axios
+      .patch(
+        `https://localhost:7227/api/DoctorAuths/ReverteSoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((e) => {
+        if (e.response && e.response.data && e.response.data.errors) {
+          console.log(e.response.data.errors);
+          setErrorMessages(e.response.data.errors);
+        } else {
+          setException(e.response.data.message);
+          console.log(e.response.data.errors);
+        }
+      });
+  };
+
   const seacrhChange = (key) => {
     setSearch(key);
-    const filteredResults = data.filter((item) =>
-      item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
+    const filteredResults = data.filter(
+      (item) =>
+        item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
@@ -176,7 +229,7 @@ const Index = () => {
                   End Date
                 </th>
                 <th scope="col">Roles</th>
-                <th scope="col" colSpan={5}>
+                <th scope="col" colSpan={6}>
                   Options
                 </th>
               </tr>
@@ -215,8 +268,24 @@ const Index = () => {
                       ? "Leave"
                       : "Other"}
                   </td>
-                  <td>{datas.position && datas.position.name}</td>
-                  <td>{datas.department && datas.department.name}</td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {datas.position && datas.position.name}
+                  </td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {datas.department && datas.department.name}
+                  </td>
                   <td
                     style={{
                       whiteSpace: "nowrap",
@@ -302,6 +371,23 @@ const Index = () => {
                     >
                       Edit
                     </Link>
+                  </td>
+                  <td>
+                    {datas.isDeleted === true ? (
+                      <Button
+                        onClick={() => handleRevertDelete(datas.id)}
+                        className="bg-secondary text-white"
+                      >
+                        Reverte
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => handleSoftDelete(datas.id)}
+                        className="bg-warning text-white"
+                      >
+                        Soft
+                      </Button>
+                    )}
                   </td>
                   <td>
                     <Button

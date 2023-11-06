@@ -58,12 +58,16 @@ const Index = () => {
   };
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Services/SoftDelete/${id}` , {}, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .patch(
+        `https://localhost:7227/api/Services/SoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         window.location.reload();
       })
@@ -78,12 +82,16 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Services/ReverteSoftDelete/${id}`,{}, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .patch(
+        `https://localhost:7227/api/Services/ReverteSoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         window.location.reload();
         console.log("Service reverted successfully");
@@ -111,8 +119,9 @@ const Index = () => {
 
   const seacrhChange = (key) => {
     setSearch(key);
-    const filteredResults = data.filter((item) =>
-    item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
+    const filteredResults = data.filter(
+      (item) =>
+        item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
@@ -180,11 +189,56 @@ const Index = () => {
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
-                <th scope="col">Service Begin</th>
-                <th scope="col">Service End</th>
-                <th scope="col">Min Price</th>
-                <th scope="col">Max Price</th>
-                <th scope="col">Is Deleted</th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Service Begin
+                </th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Service End
+                </th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Min Price
+                </th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Max Price
+                </th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Is Deleted
+                </th>
                 <th scope="col" colSpan={3}>
                   Options
                 </th>
@@ -194,8 +248,24 @@ const Index = () => {
               {searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
                   <th scope="row">{datas.id}</th>
-                  <td>{datas.name}</td>
-                  <td>{datas.description.slice(0, 10)}...</td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {datas.name}
+                  </td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {datas.description.slice(0, 10)}...
+                  </td>
                   <td>
                     {new Date(datas.serviceBeginning).toLocaleTimeString(
                       "en-US",

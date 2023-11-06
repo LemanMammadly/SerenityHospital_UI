@@ -14,6 +14,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
+import "./Index.css"
 
 const { Sider } = Layout;
 

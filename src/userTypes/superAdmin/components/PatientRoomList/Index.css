@@ -1,6 +1,6 @@
 .all-patroom-superadmin{
     background-color: #F1F4F8;
-    height: 100vh;
+    /* height: 100vh; */
 }
 .all-patroom-superadmin .container-patroom-superadmin{
     padding: 3rem;
@@ -13,7 +13,6 @@
 .all-patroom-superadmin .left-menu-header{
     display: none;
 }
-
 
 .all-patroom-superadmin .pagination{
     display: flex;

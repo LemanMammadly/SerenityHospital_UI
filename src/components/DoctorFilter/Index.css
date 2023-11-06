@@ -49,9 +49,9 @@
 
 .right-doctorFilter .doctors-boxes-filter{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-evenly; */
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 30px;
 }
 
 .right-doctorFilter .doctor-box-filter{
