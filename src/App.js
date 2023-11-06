@@ -67,12 +67,13 @@ import SuperAdminPatientHistory from "./userTypes/superAdmin/pages/PatientHistor
 import Register from "../src/pages/Register/Index.jsx";
 import DoctorAvailable from "./userTypes/Patient/pages/DoctorAvailable/Index.jsx";
 import SuperAdminDoctorAvailable from "./userTypes/superAdmin/pages/DoctorAvailable/Index.jsx";
-import Receptionist from "./Layouts/ReceptionDashboard.js"
-import HomeReceptionist from "./userTypes/Reception/pages/Home/Index.jsx"
-import AppoinmentsListReceptionist from "./userTypes/Reception/pages/AppoinmentList/Index.jsx"
-import AppoinmentsUpdateReceptionist from "./userTypes/Reception/pages/UpdateAppoinment/Index.jsx"
-import ProfiletReceptionist from "./userTypes/Reception/pages/Profile/Index.jsx"
-import ProfileUpdateReceptionist from "./userTypes/Reception/pages/UpdateProfile/Index.jsx"
+import Receptionist from "./Layouts/ReceptionDashboard.js";
+import HomeReceptionist from "./userTypes/Reception/pages/Home/Index.jsx";
+import AppoinmentsListReceptionist from "./userTypes/Reception/pages/AppoinmentList/Index.jsx";
+import AppoinmentsUpdateReceptionist from "./userTypes/Reception/pages/UpdateAppoinment/Index.jsx";
+import ProfiletReceptionist from "./userTypes/Reception/pages/Profile/Index.jsx";
+import ProfileUpdateReceptionist from "./userTypes/Reception/pages/UpdateProfile/Index.jsx";
+import DoctorBusyDoctor from "./userTypes/Doctor/pages/DoctorBusy/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -287,6 +288,10 @@ function App() {
               path="/doctor/profile/update"
               element={<ProfileUpdateDoctor />}
             />
+            <Route
+              path="/doctor/doctorbusy"
+              element={<DoctorBusyDoctor />}
+            />
           </Route>
           <Route
             path="/patient"
@@ -330,13 +335,25 @@ function App() {
                 <Navigate to="/login" />
               )
             }
-            >
-              <Route  index element={<HomeReceptionist/>}/>
-              <Route  path="/receptionist/appoinments" element={<AppoinmentsListReceptionist/>}/>
-              <Route  path="/receptionist/appoinments/update/:id" element={<AppoinmentsUpdateReceptionist/>}/>
-              <Route  path="/receptionist/profile" element={<ProfiletReceptionist/>}/>
-              <Route  path="/receptionist/profile/update" element={<ProfileUpdateReceptionist/>}/>
-            </Route>
+          >
+            <Route index element={<HomeReceptionist />} />
+            <Route
+              path="/receptionist/appoinments"
+              element={<AppoinmentsListReceptionist />}
+            />
+            <Route
+              path="/receptionist/appoinments/update/:id"
+              element={<AppoinmentsUpdateReceptionist />}
+            />
+            <Route
+              path="/receptionist/profile"
+              element={<ProfiletReceptionist />}
+            />
+            <Route
+              path="/receptionist/profile/update"
+              element={<ProfileUpdateReceptionist />}
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

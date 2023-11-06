@@ -5,7 +5,8 @@ import {
   SolutionOutlined,
   TeamOutlined,
   FileTextOutlined,
-  UserOutlined
+  UserOutlined,
+  CarryOutOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +27,7 @@ const items = [
   getItem("Dashboard", "1", <PieChartOutlined />),
   getItem("Appoinments", "2", <ScheduleOutlined  />),
   getItem("Appoinments As Patient", "3", <SolutionOutlined />),
+  getItem("Doctor Available", "7", <CarryOutOutlined />),
   getItem("Patients", "4", <TeamOutlined />),
   getItem("Recipes", "5",<FileTextOutlined />),
   getItem("Profile", "6",<UserOutlined />),
@@ -61,6 +63,10 @@ const ChangePage=(key)=>{
   else if(key==="6")
   {
     nav("/doctor/profile")
+  }
+  else if(key==="7")
+  {
+    nav("/doctor/doctorbusy")
   }
 }
 
