@@ -91,7 +91,7 @@ const Index = () => {
       <div className="container-nurse-superadmin">
         <div className="top-nurse-superadmin d-flex justify-content-between align-items-center">
           <div className="left-top-nurse-superadmin">
-            <h1>Nurses</h1>
+            <h1>Receptionist</h1>
             <div className="left-menu-header">
               <i
                 onClick={respOpenMenu}
@@ -169,7 +169,6 @@ const Index = () => {
                   End Work
                 </th>
                 <th scope="col">Status</th>
-                <th scope="col">Department</th>
                 <th scope="col">Roles</th>
                 <th scope="col" colSpan={5}>
                   Options
@@ -227,8 +226,6 @@ const Index = () => {
                       ? "Leave"
                       : "Other"}
                   </td>
-                  <td>{datas.department && datas.department.name}</td>
-
                   <td>{datas.roles}</td>
                   <td>
                     <Button

@@ -17,6 +17,8 @@ const Index = () => {
     endpoint = "PatientAuths";
   } else if (user &&  user.roles && user.roles[0] === "Doctor") {
     endpoint = "DoctorAuths";
+  } else if (user &&  user.roles && user.roles[0] === "Receptionist") {
+    endpoint = "NurseAuths";
   }
 
 

@@ -41,7 +41,7 @@ const items = [
   getItem("Patients", "8",<UsergroupAddOutlined />),
   getItem("Doctor Rooms", "9",<SelectOutlined />),
   getItem("Patient Rooms", "10",<UserSwitchOutlined />),
-  getItem("Nurse", "11",<TeamOutlined />),
+  getItem("Receptionist", "11",<TeamOutlined />),
   getItem("Patient History", "12",<HistoryOutlined />),
 ];
 

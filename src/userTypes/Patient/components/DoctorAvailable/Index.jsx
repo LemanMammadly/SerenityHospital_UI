@@ -145,7 +145,7 @@ const Index = () => {
 
   const handleChooseButtonClick = (e) => {
     e.preventDefault();
-
+  
     if (selectedDoctorId) {
       axios
         .get(`https://localhost:7227/api/DoctorAuths/${selectedDoctorId}`, {
@@ -155,17 +155,19 @@ const Index = () => {
         })
         .then((res) => {
           const doctorAppointments = res.data && res.data.appoinments;
-
-          const selectedDoctorAppointments = doctorAppointments.map((app) => ({
-            start: new Date(app.appoinmentDate),
-            end: moment(app.appoinmentDate)
-              .add(app.duration, "minutes")
-              .toDate(),
-            title: `${moment(app.appoinmentDate).format("YYYY-MM-DD HH:mm")} - ${moment(app.appoinmentDate)
-              .add(app.duration, "minutes")
-              .format("HH:mm")}`,
-          }));
-
+  
+          const selectedDoctorAppointments = doctorAppointments
+            .filter((app) => ![ 3, 4].includes(app.status))
+            .map((app) => ({
+              start: new Date(app.appoinmentDate),
+              end: moment(app.appoinmentDate)
+                .add(app.duration, "minutes")
+                .toDate(),
+              title: `${moment(app.appoinmentDate).format("YYYY-MM-DD HH:mm")} - ${moment(app.appoinmentDate)
+                .add(app.duration, "minutes")
+                .format("HH:mm")}`,
+            }));
+  
           setSelectedDoctorAppointments(selectedDoctorAppointments);
         })
         .catch((err) => {
@@ -173,6 +175,7 @@ const Index = () => {
         });
     }
   };
+
 
   return (
     <section>

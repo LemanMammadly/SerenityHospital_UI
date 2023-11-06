@@ -10,7 +10,7 @@ const Index = () => {
 
   const[doctorCount,setDoctorCount]=useState("")
   const[patientCount,setPatientCount]=useState("")
-  const[nurseCount,setNurseCount]=useState("")
+  const[receptionCount,setReceptionCount]=useState("")
   const[patientRoom,setpatientRoomt]=useState("")
   const[doctorRoom,setDoctorRoomt]=useState("")
   const[departmentCount,setDepartmentCount]=useState("")
@@ -42,7 +42,7 @@ const Index = () => {
 
   useEffect(()=>{
     axios.get("https://localhost:7227/api/NurseAuths/Count")
-    .then((resp)=>setNurseCount(resp.data))
+    .then((resp)=>setReceptionCount(resp.data))
     .catch((err)=>console.log(err));
   },[])
 
@@ -123,8 +123,8 @@ const Index = () => {
             </Link>
             <Link to="/superadmin/nurse"  style={{textDecoration:"none"}} className="box-dashboard">
               <div className="text-div-dashboard">
-                <h3 style={{color:"#00C0EF"}}>{nurseCount}</h3>
-                <span style={{color:"#00C0EF"}}>Nurse</span>
+                <h3 style={{color:"#00C0EF"}}>{receptionCount}</h3>
+                <span style={{color:"#00C0EF"}}>Receptionist</span>
               </div>
               <div className="icon-div">
                 <i class="fa-solid fa-user-nurse"></i>

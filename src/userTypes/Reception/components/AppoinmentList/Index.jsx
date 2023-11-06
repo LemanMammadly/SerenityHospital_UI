@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
-import $ from "jquery";
-import axios from "axios";
-import { Link } from "react-router-dom";
 import { Button } from "antd";
 import { format } from "date-fns";
+import axios from "axios";
+import $ from "jquery";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Index = () => {
   const [data, setData] = useState([]);
@@ -14,6 +15,8 @@ const Index = () => {
   const [errorMessages, setErrorMessages] = useState("");
   const [exception, setException] = useState("");
   const itemsPerPage = 10;
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const currentDate = new Date();
   const dates = format(currentDate, "yyyy-MM-dd");
@@ -25,8 +28,6 @@ const Index = () => {
     return format(parsedDate, "HH:mm dd-MM-yyyy");
   };
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const respOpenMenu = () => {
     const dashboardMenu = $(".dashboard-menu-header");
 
@@ -36,97 +37,135 @@ const Index = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `https://localhost:7227/api/Appoinments/GetByUsername?userName=${user.username}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      )
+      .get(`https://localhost:7227/api/Appoinments`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
-        const filteredData = res.data.filter((appointment) => !appointment.isDeleted);
-        setData(filteredData);
-        setSearchResults(filteredData);
+        setData(res.data);
+        setSearchResults(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+  console.log(data);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`https://localhost:7227/api/Appoinments/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
+          .then((res) => {
+            window.location.reload();
+            console.log("Appoinment deleted successfully");
+          })
+          .catch((e) => {
+            if (e.response && e.response.data && e.response.data.errors) {
+              setErrorMessages(e.response.data.errors);
+            } else {
+              setException(e.response.data.message);
+            }
+          });
+      }
+    });
+  };
+  const handleSoftDelete = (id) => {
+    axios
+      .patch(
+        `https://localhost:7227/api/Appoinments/SoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        window.location.reload();
+        console.log("Appoinment deleted successfully");
+      })
+      .catch((e) => {
+        if (e.response && e.response.data && e.response.data.errors) {
+          console.log(e.response.data.errors);
+          setErrorMessages(e.response.data.errors);
+        } else {
+          setException(e.response.data.message);
+          console.log(e.response.data.errors);
+        }
+      });
+  };
+
+  const handleRevertDelete = (id) => {
+    axios
+      .patch(
+        `https://localhost:7227/api/Appoinments/ReverteSoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        window.location.reload();
+        console.log("Service reverted successfully");
+      })
+      .catch((e) => {
+        if (e.response && e.response.data && e.response.data.errors) {
+          console.log(e.response.data.errors);
+          setErrorMessages(e.response.data.errors);
+        } else {
+          setException(e.response.data.message);
+          console.log(e.response.data.errors);
+        }
+      });
+  };
+
   const seacrhChange = (key) => {
     setSearch(key);
     const filteredResults = data.filter(
       (item) =>
-      item && item.problemDesc &&
-        item.problemDesc.toLowerCase().includes(key.toLowerCase())
+        item.doctor && item.doctor.name &&
+        item.doctor.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
+  };
+
+  const changePage = (page) => {
+    setCurrentPage(page);
   };
 
   const searchResultsCopy = [...searchResults];
 
   searchResultsCopy.sort((a, b) => b.id - a.id);
 
-  const changePage = (page) => {
-    setCurrentPage(page);
-  };
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-
-  const ApproveAppoinment = (id) => {
-    axios
-      .post(
-        `https://localhost:7227/api/Appoinments/AcceptAppoinment?id=${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        const updatedData = data.map((item) =>
-          item.id === id ? { ...item, status: 1 } : item
-        );
-        window.location.reload();
-        setData(updatedData);
-      })
-      .catch((err) => console.log(err));
-  };
-
-
-  const RejectAppoinment = (id) => {
-    axios
-      .post(
-        `https://localhost:7227/api/Appoinments/RejectAppoinment?id=${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        const updatedData = data.map((item) =>
-          item.id === id ? { ...item, status: 4 } : item
-        );
-        window.location.reload();
-        setData(updatedData);
-      })
-      .catch((err) => console.log(err));
-  };
-
   return (
-    <section className="all-app-doctor">
-      <div className="container-app-doctor">
-        <div className="top-app-doctor d-flex justify-content-between align-items-center">
-          <div className="left-top-app-doctor">
+    <section className="all-app-admin">
+      <div className="container-app-admin">
+        <div className="top-app-admin d-flex justify-content-between align-items-center">
+          <div className="left-top-app-admin">
             <h1>Appoinments</h1>
             <div className="left-menu-header">
               <i
@@ -145,7 +184,7 @@ const Index = () => {
               </div>
             )}
           </div>
-          <div className="left-right-app-doctor d-flex gap-3 align-items-center">
+          <div className="left-right-app-admin d-flex gap-3 align-items-center">
             <div className="search-input">
               <input
                 className="form form-control w-100"
@@ -157,19 +196,17 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div className="bottom-app-doctor" style={{ overflowX: "scroll" }}>
+        <div className="bottom-app-admin" style={{ overflowX: "scroll" }}>
           <table class="table">
             <thead>
               <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Patient</th>
                 <th scope="col">Doctor</th>
+                <th scope="col">Patient</th>
                 <th scope="col">Problem</th>
                 <th scope="col">Date</th>
                 <th scope="col">Duration</th>
                 <th scope="col">Status</th>
-                <th scope="col">Approved</th>
-                <th scope="col">Rejected</th>
                 <th
                   style={{
                     whiteSpace: "nowrap",
@@ -180,11 +217,13 @@ const Index = () => {
                 >
                   Is Deleted
                 </th>
+                <th scope="col" colSpan={3}>
+                  Options
+                </th>
               </tr>
             </thead>
             <tbody>
               {searchResultsCopy
-                .filter((dat) => dat.status !== 4)
                 .slice(startIndex, endIndex)
                 .map((datas, index) => (
                   <tr key={index}>
@@ -196,14 +235,8 @@ const Index = () => {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {datas.patient && datas.patient.name
-                        ? datas.patient.name
-                        : datas.appoinmentAsDoctor &&
-                          datas.appoinmentAsDoctor.name}{" "}
-                      {datas.patient && datas.patient.surname
-                        ? datas.patient.surname
-                        : datas.appoinmentAsDoctor &&
-                          datas.appoinmentAsDoctor.surname}
+                      {datas.doctor && datas.doctor.name}{" "}
+                      {datas.doctor && datas.doctor.surname}
                     </td>
                     <td
                       style={{
@@ -212,8 +245,12 @@ const Index = () => {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {datas.doctor && datas.doctor.name}{" "}
-                      {datas.doctor && datas.doctor.surname}
+                      {datas.patient && datas.patient.name}{" "}
+                      {datas.patient && datas.patient.surname}{" "}
+                      {datas.appoinmentAsDoctor &&
+                        datas.appoinmentAsDoctor.name}{" "}
+                      {datas.appoinmentAsDoctor &&
+                        datas.appoinmentAsDoctor.surname}{" "}
                     </td>
                     <td
                       style={{
@@ -262,48 +299,52 @@ const Index = () => {
                         ? "Completed"
                         : datas.status === 3
                         ? "Pending"
-                        : "Rejected"}
+                        : datas.status === 4
+                        ? "Rejected"
+                        : "Unknown"}
                     </td>
-                    <td style={{ textAlign: "center" }}>
-                      {datas.status === 3 ? (
-                        <i
-                          onClick={() => ApproveAppoinment(datas.id)}
-                          style={{ color: "green", cursor: "pointer" }}
-                          class="fa-solid fa-check"
-                        ></i>
-                      ) : datas.status === 1 ? (
-                        <i
-                          style={{ color: "#008001" }}
-                          class="fa-solid fa-user-check"
-                        ></i>
-                      ) : datas.status === 2 ? (
-                        <i
-                          style={{ color: "#FCA12F" }}
-                          class="fa-solid fa-hourglass-end"
-                        ></i>
-                      ) : null}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {datas.status === 3 ? (
-                        <i
-                          onClick={() => RejectAppoinment(datas.id)}
-                          style={{ color: "red", cursor: "pointer" }}
-                          class="fa-solid fa-x"
-                        ></i>
-                      ) : datas.status === 1 ? (
-                        <i
-                          style={{ color: "#008001" }}
-                          class="fa-solid fa-user-check"
-                        ></i>
-                      ) : datas.status === 2 ? (
-                        <i
-                          style={{ color: "#FCA12F" }}
-                          class="fa-solid fa-hourglass-end"
-                        ></i>
-                      ) : null}
-                    </td>
-
                     <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
+                    <td>
+                      <Link
+                        to={`/receptionist/appoinments/update/${datas.id}`}
+                        style={{
+                          textDecoration: "none",
+                          backgroundColor: "#0B58CA",
+                          color: "#fff",
+                          padding: "5px",
+                          fontSize: "13px",
+                          borderRadius: "5px",
+                        }}
+                        className="bg-success text-white"
+                      >
+                        Edit
+                      </Link>
+                    </td>
+                    <td>
+                      {datas.isDeleted === true ? (
+                        <Button
+                          onClick={() => handleRevertDelete(datas.id)}
+                          className="bg-secondary text-white"
+                        >
+                          Reverte
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => handleSoftDelete(datas.id)}
+                          className="bg-warning text-white"
+                        >
+                          Soft
+                        </Button>
+                      )}
+                    </td>
+                    <td>
+                      <Button
+                        onClick={() => handleDelete(datas.id)}
+                        className="bg-danger text-white"
+                      >
+                        Delete
+                      </Button>
+                    </td>
                   </tr>
                 ))}
             </tbody>

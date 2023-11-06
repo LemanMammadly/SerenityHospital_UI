@@ -83,6 +83,9 @@ const Index = () => {
         const approvedAppointments = res.data.filter((app) => app.status === 1);
         const pendingAppointments = res.data.filter((app) => app.status === 3);
 
+        const nonDeletedAppointments = pendingAppointments.filter((app) => !app.isDeleted);
+
+
         setData(res.data);
         setAppoinmentsdate(
           approvedAppointments.map((app) => ({
@@ -102,7 +105,7 @@ const Index = () => {
                 : "Unknown"),
           }))
         );
-        setPendingAppointments(pendingAppointments);
+        setPendingAppointments(nonDeletedAppointments);
         console.log(pendingAppointments);
       })
       .catch((err) => {

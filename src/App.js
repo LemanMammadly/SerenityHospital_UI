@@ -66,7 +66,11 @@ import SuperAdminNurseRemoveRole from "./userTypes/superAdmin/pages/NurseRemoveR
 import SuperAdminPatientHistory from "./userTypes/superAdmin/pages/PatientHistory/Index.jsx";
 import Register from "../src/pages/Register/Index.jsx";
 import DoctorAvailable from "./userTypes/Patient/pages/DoctorAvailable/Index.jsx";
-import SuperAdminDoctorAvailable from "./userTypes/superAdmin/pages/DoctorAvailable/Index.jsx"
+import SuperAdminDoctorAvailable from "./userTypes/superAdmin/pages/DoctorAvailable/Index.jsx";
+import Receptionist from "./Layouts/ReceptionDashboard.js"
+import HomeReceptionist from "./userTypes/Reception/pages/Home/Index.jsx"
+import AppoinmentsListReceptionist from "./userTypes/Reception/pages/AppoinmentList/Index.jsx"
+import AppoinmentsUpdateReceptionist from "./userTypes/Reception/pages/UpdateAppoinment/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -314,6 +318,21 @@ function App() {
               element={<PatientProfileUpdate />}
             />
           </Route>
+
+          <Route
+            path="/receptionist"
+            element={
+              user && user.roles && user.roles[0] === "Receptionist" ? (
+                <Receptionist />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+            >
+              <Route  index element={<HomeReceptionist/>}/>
+              <Route  path="/receptionist/appoinments" element={<AppoinmentsListReceptionist/>}/>
+              <Route  path="/receptionist/appoinments/update/:id" element={<AppoinmentsUpdateReceptionist/>}/>
+            </Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -10,7 +10,7 @@ const Index = () => {
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
   const [selectUser, setSelectUser] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false); 
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -44,6 +44,8 @@ const Index = () => {
       endpoint = "PatientAuths";
     } else if (selectUser === "doctor") {
       endpoint = "DoctorAuths";
+    } else if (selectUser === "receptionist") {
+      endpoint = "NurseAuths";
     }
 
     axios
@@ -56,18 +58,37 @@ const Index = () => {
         if (res.status === 200) {
           const user = res.data;
           console.log(user);
-          if (user && user.roles && user.roles[0] && user.roles[0].includes("Doctor")) {
+          if (
+            user &&
+            user.roles &&
+            user.roles[0] &&
+            user.roles[0].includes("Doctor")
+          ) {
             window.location.href = "/doctor";
             localStorage.setItem("user", JSON.stringify(res.data));
-          } else if (user && user.roles && user.roles[0] && user.roles[0].includes("Admin")) {
+          } else if (
+            user &&
+            user.roles &&
+            user.roles[0] &&
+            user.roles[0].includes("Admin")
+          ) {
             window.location.href = "/superadmin";
             localStorage.setItem("user", JSON.stringify(res.data));
           } else if (
-            (user && user.roles &&
+            user &&
+            user.roles &&
             user.roles[0] &&
-            user.roles[0].includes("Patient"))
+            user.roles[0].includes("Patient")
           ) {
             window.location.href = "/patient";
+            localStorage.setItem("user", JSON.stringify(res && res.data));
+          } else if (
+            user &&
+            user.roles &&
+            user.roles[0] &&
+            user.roles[0].includes("Receptionist")
+          ) {
+            window.location.href = "/receptionist";
             localStorage.setItem("user", JSON.stringify(res && res.data));
           }
         }
@@ -82,7 +103,7 @@ const Index = () => {
   };
 
   const showPassword = () => {
-    setPasswordVisible(!passwordVisible); 
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -117,6 +138,7 @@ const Index = () => {
                 <option value="admin">Admin</option>
                 <option value="doctor">Doctor</option>
                 <option value="patient">Patient</option>
+                <option value="receptionist">Receptionist</option>
               </select>
             </div>
           </div>
@@ -139,17 +161,21 @@ const Index = () => {
               </div>
             )}
             <div className="password-div d-flex align-items-center justify-content-between px-2">
-            <input
-              className="pass-input"
-              type={passwordVisible ? "text" : "password"}
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-            />
-            <div className="icon-div-login">
-            <i
-             onClick={showPassword} class={`fa-solid ${passwordVisible ? "fa-eye-slash" : "fa-eye"}`}></i>
-            </div>
+              <input
+                className="pass-input"
+                type={passwordVisible ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                onChange={handleChange}
+              />
+              <div className="icon-div-login">
+                <i
+                  onClick={showPassword}
+                  class={`fa-solid ${
+                    passwordVisible ? "fa-eye-slash" : "fa-eye"
+                  }`}
+                ></i>
+              </div>
             </div>
             {errorMessages.Password ? (
               <div className="error-messages">
@@ -158,14 +184,31 @@ const Index = () => {
             ) : (
               <div className="error-messages">
                 <p className="error-message">
-                  {(exception && exception.includes("password")) || (exception && exception.includes("delete")) ? exception : ""}
+                  {(exception && exception.includes("password")) ||
+                  (exception && exception.includes("delete"))
+                    ? exception
+                    : ""}
                 </p>
               </div>
             )}
-            <button style={{borderRadius:"5px"}} type="submit">Login</button>
+            <button style={{ borderRadius: "5px" }} type="submit">
+              Login
+            </button>
           </form>
           <p>Don't you have an account?</p>
-          <Link className="text-white" style={{textDecoration:"none",padding:"10px 20px",borderRadius:"5px",marginBottom:"30px",backgroundColor:"#2191BF"}} to="/register">Sign Up</Link>
+          <Link
+            className="text-white"
+            style={{
+              textDecoration: "none",
+              padding: "10px 20px",
+              borderRadius: "5px",
+              marginBottom: "30px",
+              backgroundColor: "#2191BF",
+            }}
+            to="/register"
+          >
+            Sign Up
+          </Link>
         </div>
         <div className="right-login col-lg-6">
           <div className="img-div">
