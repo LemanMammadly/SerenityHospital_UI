@@ -9,7 +9,8 @@ import {
   CarryOutOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./Index.css"
 
 const { Sider } = Layout;
 
@@ -36,6 +37,7 @@ const items = [
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
   const nav=useNavigate();
+  const location = useLocation();
 
 
 
@@ -88,6 +90,7 @@ const ChangePage=(key)=>{
       <Menu
         theme="light"
         defaultSelectedKeys={["1"]}
+        selectedKeys={[location.pathname]}
         onClick={(e) => ChangePage(e.key)}
         mode="inline"
         items={items}

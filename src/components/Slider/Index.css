@@ -46,15 +46,15 @@
     text-decoration: none;
     text-transform: uppercase;
     color: #fff;
-    padding: 20px;
-    background-color: #057bae;
+    padding: 14px;
+    background-color: #052C4B;
     border-radius: 5px;
     transition: .5s;
     margin: auto;
 }
 
 .appoinment:hover{
-    color:#057bae;
+    color: #052C4B;
     background-color: #fff;
 }
 

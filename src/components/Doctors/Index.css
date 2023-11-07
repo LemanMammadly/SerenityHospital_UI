@@ -23,6 +23,7 @@
     position: relative;
     margin-bottom: 80px;
     width: 23%;
+    text-align: center;
 }
 
 .containers-doctor .doctor-box .view-details{
@@ -38,14 +39,14 @@
     font-size: 13px;
     padding: 5px 10px;
     border-radius: 5px;
-    background-color: #0287BE;
+    background-color: #0e3d50;
     color: #fff;
     transition: .5s;
 }
 
 .containers-doctor .doctor-box .view-details .detail-btn:hover{
     background-color: #fff;
-    color: #0287BE;
+    color: #0e3d50;
 }
 
 .containers-doctor .doctors-boxes .doctor-box .img-div:hover  .view-details{
@@ -61,7 +62,7 @@
     border-radius: 50%;
     margin-bottom: 20px;
     cursor: pointer;
-    width: 70%;
+    width: 50%;
     transition: .5s;
     text-align: center;
 }
@@ -87,6 +88,8 @@
 
 .containers-doctor .doctor-box .doctor-social{
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
 }
 

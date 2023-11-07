@@ -12,12 +12,14 @@ const Index = () => {
     axios
       .get("https://localhost:7227/api/DoctorAuths")
       .then((resp) => {
-        setData(resp.data.slice(0, 8)); 
+        setData(resp.data.filter((app)=>app.position && app.position.name==="Professor doctor")); 
       })
       .catch((error) => {
         console.log("error");
       });
   }, []);
+
+  console.log(data);
 
   const openDoctorDetail = (id) => {
     const openDoctorDetail = $(".doctor-detail");
@@ -34,6 +36,7 @@ const Index = () => {
       });
   };
 
+
   const closedoctorDetail = () => {
     const openDoctorDetail = $(".doctor-detail");
 
@@ -46,7 +49,7 @@ const Index = () => {
     <section className="doctors-section">
       <div className="containers-doctor">
         <div className="all-doctors">
-          <h3>Our Awesome Doctors</h3>
+          <h3>Our Professor Doctors</h3>
           <div className="doctors-boxes">
             {data.map((datas, index) => (
               <div key={index} className="doctor-box">

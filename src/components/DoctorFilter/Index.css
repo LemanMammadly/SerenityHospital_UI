@@ -58,29 +58,30 @@
     position: relative;
     margin-bottom: 80px;
     width: 30%;
+    text-align: center;
 }
 
 .right-doctorFilter .doctor-box-filter .view-details-filter{
     display: none;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%,-50%);
 }
 
 .right-doctorFilter .doctor-box-filter .view-details-filter .detail-btn-filter{
     border: none;
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 10px;
     border-radius: 5px;
-    background-color: #0287BE;
+    background-color: #0e3d50;
     color: #fff;
     transition: .5s;
 }
 
 .right-doctorFilter .doctor-box-filter .view-details-filter .detail-btn-filter:hover{
     background-color: #fff;
-    color: #0287BE;
+    color: #0e3d50;
 }
 
 .right-doctorFilter .doctors-boxes-filter .doctor-box-filter .img-div-filter:hover  .view-details-filter{
@@ -97,7 +98,7 @@
     border-radius: 50%;
     margin-bottom: 20px;
     cursor: pointer;
-    width: 80%;
+    width: 60%;
     transition: .5s;
     text-align: center;
 }
@@ -123,6 +124,8 @@
 
 .right-doctorFilter  .doctors-boxes-filter .doctor-box-filter .doctor-social-filter{
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
 }
 

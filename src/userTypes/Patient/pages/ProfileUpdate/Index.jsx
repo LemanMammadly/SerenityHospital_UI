@@ -78,7 +78,7 @@ const Index = () => {
           setSelectGender(value);
         }
 
-        if (name === "bloodyType") {
+        if (name === "bloodType") {
             setSelectBloodType(value);
           }
       };
@@ -95,7 +95,7 @@ const Index = () => {
         formData.append("age", inputs.age);
         formData.append("gender", selectGender);
         formData.append("imageFile", inputs.imageFile);
-        formData.append("bloodType", inputs.bloodType);
+        formData.append("bloodType", selectBloodType);
         formData.append("address", inputs.address);
     
         await axios

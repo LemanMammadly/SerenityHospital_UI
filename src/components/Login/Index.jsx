@@ -149,17 +149,6 @@ const Index = () => {
               name="userName"
               onChange={handleChange}
             />
-            {errorMessages.Username ? (
-              <div className="error-messages">
-                <p className="error-message">{errorMessages.Username}</p>
-              </div>
-            ) : (
-              <div className="error-messages">
-                <p className="error-message">
-                  {exception && exception.includes("Username") ? exception : ""}
-                </p>
-              </div>
-            )}
             <div className="password-div d-flex align-items-center justify-content-between px-2">
               <input
                 className="pass-input"
