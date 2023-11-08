@@ -38,10 +38,10 @@ const Index = () => {
           (patient) =>
             patient.appoinments &&
             patient.appoinments.some(
-              (app) => app.doctor && app.doctor.userName === username
+              (app) => app.doctor && app.doctor.userName === username && app.status==="Approved"
             )
         );
-
+  
         setData(filteredPatients);
         setSearchResults(filteredPatients);
       })
@@ -49,6 +49,32 @@ const Index = () => {
         console.error(err);
       });
   }, [username]);
+  
+
+  // useEffect(() => {
+  //   axios
+  //     .get("https://localhost:7227/api/PatientAuths", {
+  //       headers: {
+  //         Authorization: `Bearer ${user.token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       const allPatients = res.data;
+  //       const filteredPatients = allPatients.filter(
+  //         (patient) =>
+  //           patient.appoinments &&
+  //           patient.appoinments.some(
+  //             (app) => app.doctor && app.doctor.userName === username
+  //           )
+  //       );
+
+  //       setData(filteredPatients);
+  //       setSearchResults(filteredPatients);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // }, [username]);
 
   const seacrhChange = (key) => {
     setSearch(key);
