@@ -283,7 +283,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception &&  exception.includes("Recipe") ? exception : ""}
+                        {(exception &&  exception.includes("Recipe"))  || (exception &&  exception.includes("Own"))  ? exception : ""}
                       </p>
                     </div>
                   )}

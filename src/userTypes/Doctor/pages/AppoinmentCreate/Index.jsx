@@ -242,19 +242,6 @@ const Index = () => {
                       })
                     }
                   />
-                  {errorMessages.AppoinmentDate ? (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {errorMessages.AppoinmentDate}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {exception && exception.includes("Appoinment") ? exception : ""}
-                      </p>
-                    </div>
-                  )}
                 </div>
               </div>
               <div className="add-btn-app d-flex flex-column">
@@ -267,7 +254,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Conflict") ? exception : ""}
+                        {(exception && exception.includes("busy") ) || (exception && exception.includes("past")) ? exception : ""}
                       </p>
                     </div>
                   )}

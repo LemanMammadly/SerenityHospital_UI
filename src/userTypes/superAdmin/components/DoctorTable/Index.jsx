@@ -53,7 +53,7 @@ const Index = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://localhost:7227/api/DoctorAuths/${id}`, {
+          .delete(`https://localhost:7227/api/DoctorAuths/Delete/${id}`, {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
