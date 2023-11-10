@@ -1,5 +1,4 @@
 import React from 'react'
-import "./Index.css"
 import SideBarReceptionist from "../../components/Sidebar/Index"
 import AppoinmentList from "../../components/AppoinmentList/Index"
 

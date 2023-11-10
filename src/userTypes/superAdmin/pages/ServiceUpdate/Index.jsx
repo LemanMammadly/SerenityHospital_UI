@@ -1,5 +1,4 @@
 import React from 'react'
-import "./Index.css"
 import ServiceUpdate from "../../components/ServiceUpdate/Index"
 
 const Index = () => {

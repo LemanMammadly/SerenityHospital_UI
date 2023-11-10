@@ -7,13 +7,13 @@ import { Button } from "antd";
 
 const Index = () => {
   const [data, setData] = useState([]);
+  const [doctorPatient, setDoctorPatient] = useState([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [errorMessages, setErrorMessages] = useState("");
   const [exception, setException] = useState("");
   const itemsPerPage = 10;
-
 
   const user = JSON.parse(localStorage.getItem("user"));
   const username = user.username;
@@ -38,10 +38,13 @@ const Index = () => {
           (patient) =>
             patient.appoinments &&
             patient.appoinments.some(
-              (app) => app.doctor && app.doctor.userName === username && app.status==="Approved"
+              (app) =>
+                app.doctor &&
+                app.doctor.userName === username &&
+                app.status === "Approved"
             )
         );
-  
+
         setData(filteredPatients);
         setSearchResults(filteredPatients);
       })
@@ -49,12 +52,36 @@ const Index = () => {
         console.error(err);
       });
   }, [username]);
-  
+
+  useEffect(() => {
+    axios
+      .get(`https://localhost:7227/api/Appoinments`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((res) => {
+        const appoinments = res.data;
+        const appoinmentFilter = appoinments.filter(
+          (app) => app.doctor.userName === username && app.status === 1
+        );
+        const appoinmentDoctor = appoinmentFilter.filter(
+          (app) => app.appoinmentAsDoctor !== null
+        );
+        setDoctorPatient(appoinmentDoctor);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  console.log(doctorPatient);
 
   const seacrhChange = (key) => {
     setSearch(key);
-    const filteredResults = data.filter((item) =>
-    item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
+    const filteredResults = data.filter(
+      (item) =>
+        item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
@@ -103,6 +130,7 @@ const Index = () => {
         </div>
         <div className="bottom-pat-doc">
           <table class="table">
+          <caption>Patients</caption>
             <thead>
               <tr>
                 <th scope="col">Name</th>
@@ -148,6 +176,38 @@ const Index = () => {
                       ? "ONegative"
                       : "Unknown"}
                   </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <table class="table">
+            <caption>Patients as Doctors</caption>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Age</th>
+                <th scope="col">Email</th>
+                <th scope="col">Blood Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {doctorPatient.map((datas, index) => (
+                <tr key={index}>
+                  <td>
+                    {datas.appoinmentAsDoctor && datas.appoinmentAsDoctor.name}
+                  </td>
+                  <td>
+                    {datas.appoinmentAsDoctor &&
+                      datas.appoinmentAsDoctor.surname}
+                  </td>
+                  <td>
+                    {datas.appoinmentAsDoctor && datas.appoinmentAsDoctor.age}
+                  </td>
+                  <td>
+                    {datas.appoinmentAsDoctor && datas.appoinmentAsDoctor.email}
+                  </td>
+                  <td>ABPositive</td>
                 </tr>
               ))}
             </tbody>

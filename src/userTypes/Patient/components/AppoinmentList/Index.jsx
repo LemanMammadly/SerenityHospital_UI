@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Index.css";
 import { format } from "date-fns";
 import axios from "axios";
 import $ from "jquery";

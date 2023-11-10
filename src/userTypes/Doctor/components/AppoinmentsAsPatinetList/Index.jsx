@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Index.css";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";

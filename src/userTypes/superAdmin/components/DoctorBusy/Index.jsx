@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Index.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "react-big-calendar/lib/css/react-big-calendar.css";

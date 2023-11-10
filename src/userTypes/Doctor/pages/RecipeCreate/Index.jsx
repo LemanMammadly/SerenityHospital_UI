@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./Index.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AppoinmentList from "../../components/AppoinmentList/Index";
 
 const Index = () => {
   const [inputs, setInputs] = useState({
-    recipeDesc:""
+    recipeDesc: "",
   });
   const [errorMessages, setErrorMessages] = useState([]);
   const [exception, setException] = useState("");
@@ -15,6 +15,7 @@ const Index = () => {
   const [selectedDoctor, setSelectedDoctor] = useState("");
   const [patient, setPatient] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState("");
+  const [allpatients, setAllpatients] = useState([]);
 
   const nav = useNavigate();
 
@@ -22,7 +23,7 @@ const Index = () => {
   const username = user.username;
 
   const handleChange = (e) => {
-    const { name, value, type ,} = e.target;
+    const { name, value, type } = e.target;
     const newValue = type === "checkbox" ? e.target.checked : value;
 
     setInputs((prev) => ({
@@ -56,11 +57,12 @@ const Index = () => {
         },
       })
       .then((res) => {
-        setAppoinments(res.data.filter(((app)=>app.doctor.userName===username)));
+        setAppoinments(
+          res.data.filter((app) => app.doctor.userName === username)
+        );
       })
       .catch((err) => console.log(err));
   }, []);
-
 
   useEffect(() => {
     axios
@@ -71,29 +73,49 @@ const Index = () => {
       .catch((err) => console.log(err));
   }, []);
 
-
+  //yoxlama
   useEffect(() => {
     axios
-      .get("https://localhost:7227/api/PatientAuths", {
+      .get(`https://localhost:7227/api/Appoinments`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       })
       .then((res) => {
-        const allPatients = res.data;
-        const filteredPatients = allPatients.filter(
-          (patient) =>
-            patient.appoinments &&
-            patient.appoinments.some(
-              (app) => app.doctor && app.doctor.userName === username
-            )
+        const appoinments = res.data;
+        const appoinmentFilter = appoinments.filter(
+          (app) => app.doctor.userName === username && (app.status === 1  || app.status === 2)
         );
-        setPatient(filteredPatients)
+        setAllpatients(appoinmentFilter);
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
       });
-  }, [username]);
+  }, []);
+  console.log(allpatients);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("https://localhost:7227/api/PatientAuths", {
+  //       headers: {
+  //         Authorization: `Bearer ${user.token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       const allPatients = res.data;
+  //       const filteredPatients = allPatients.filter(
+  //         (patient) =>
+  //           patient.appoinments &&
+  //           patient.appoinments.some(
+  //             (app) => app.doctor && app.doctor.userName === username
+  //           )
+  //       );
+  //       setPatient(filteredPatients)
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // }, [username]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,7 +129,7 @@ const Index = () => {
     axios
       .post("https://localhost:7227/api/Recipes", formData, {
         headers: {
-          "Authorization": `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -120,6 +142,8 @@ const Index = () => {
         }
       });
   };
+
+  
 
   return (
     <section>
@@ -170,7 +194,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception &&  exception.includes("AppoinmentId") ? exception : ""}
+                        {exception && exception.includes("AppoinmentId")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -191,7 +217,10 @@ const Index = () => {
                   >
                     <option value="">Select Doctor: </option>
                     {doctor
-                      .filter((data) => data.isDeleted === false && data.userName===username)
+                      .filter(
+                        (data) =>
+                          data.isDeleted === false && data.userName === username
+                      )
                       .map((doc) => (
                         <option key={doc.id} value={doc.id}>
                           {doc.userName}
@@ -205,7 +234,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception &&  exception.includes("DoctorId") ? exception : ""}
+                        {exception && exception.includes("DoctorId")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -225,12 +256,13 @@ const Index = () => {
                     value={selectedPatient}
                   >
                     <option value="">Select Patient: </option>
-                    {patient
-                      .map((pat) => (
-                        <option key={pat.id} value={pat.id}>
-                          {pat.name} {pat.surname} - {pat.phoneNumber}
-                        </option>
-                      ))}
+                    {allpatients.map((pat) => (
+                      <option key={pat.id} value={pat.appoinmentAsDoctor ? pat.appoinmentAsDoctor.id : pat.patient.id}>
+                        {pat.appoinmentAsDoctor
+                          ? `${pat.appoinmentAsDoctor && pat.appoinmentAsDoctor.name} ${pat.appoinmentAsDoctor && pat.appoinmentAsDoctor.surname}`
+                          : `${pat.patient && pat.patient.name} ${pat.patient && pat.patient.surname} - ${pat.patient && pat.patient.phoneNumber}`}
+                      </option>
+                    ))}
                   </select>
                   {errorMessages.DepartmentId ? (
                     <div className="error-messages">
@@ -241,7 +273,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception &&  exception.includes("Department") ? exception : ""}
+                        {exception && exception.includes("Department")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -264,29 +298,36 @@ const Index = () => {
                   />
                   {errorMessages.RecipeDesc ? (
                     <div className="error-messages">
-                      <p className="error-message">{errorMessages.RecipeDesc}</p>
+                      <p className="error-message">
+                        {errorMessages.RecipeDesc}
+                      </p>
                     </div>
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception &&  exception.includes("RecipeDesc") ? exception : ""}
+                        {exception && exception.includes("RecipeDesc")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
                 </div>
               </div>
               <div className="add-btn-position d-flex flex-column">
-              {errorMessages.RecipeDesc ? (
-                    <div className="error-messages">
-                      <p className="error-message">{errorMessages.RecipeDesc}</p>
-                    </div>
-                  ) : (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {(exception &&  exception.includes("Recipe"))  || (exception &&  exception.includes("Own"))  ? exception : ""}
-                      </p>
-                    </div>
-                  )}
+                {errorMessages.RecipeDesc ? (
+                  <div className="error-messages">
+                    <p className="error-message">{errorMessages.RecipeDesc}</p>
+                  </div>
+                ) : (
+                  <div className="error-messages">
+                    <p className="error-message">
+                      {(exception && exception.includes("Recipe")) ||
+                      (exception && exception.includes("Own"))
+                        ? exception
+                        : ""}
+                    </p>
+                  </div>
+                )}
                 <button type="submit">
                   Create <i className="fa-solid fa-check"></i>
                 </button>
@@ -295,6 +336,7 @@ const Index = () => {
           </form>
         </div>
       </div>
+      <AppoinmentList />
     </section>
   );
 };

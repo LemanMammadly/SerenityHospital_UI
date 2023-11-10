@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Index.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { DatePicker } from "antd";
@@ -26,16 +25,15 @@ const Index = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     const newValue = type === "checkbox" ? e.target.checked : value;
-  
+
     setInputs((prev) => ({
       ...prev,
       [name]: newValue,
     }));
-  
+
     setErrorMessages((prev) => ({
       ...prev,
       [name]: null,
@@ -199,7 +197,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Department") ? exception : ""}
+                        {exception && exception.includes("Department")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -234,7 +234,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("own") ? exception : ""}
+                        {exception && exception.includes("own")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -267,7 +269,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("PatientId") ? exception : ""}
+                        {exception && exception.includes("PatientId")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -287,7 +291,9 @@ const Index = () => {
                     onChange={handleChange}
                     name="appoinmentAsDoctorId"
                     value={selectPatientAsDoctor}
-                    disabled={isDoctorAsPatientSelectDisabled || !selectPatientAsDoctor}
+                    disabled={
+                      isDoctorAsPatientSelectDisabled || !selectPatientAsDoctor
+                    }
                   >
                     <option value="">Select Doctor as Patient: </option>
                     {patientAsDoctor
@@ -305,7 +311,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Department") ? exception : ""}
+                        {exception && exception.includes("Department")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -335,7 +343,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("name") ? exception : ""}
+                        {exception && exception.includes("name")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -366,7 +376,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Exception") ? exception : ""}
+                        {exception && exception.includes("Exception")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
@@ -394,24 +406,35 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("duration") ? exception : ""}
+                        {exception && exception.includes("duration")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}
                 </div>
               </div>
               <div className="update-btn-doctor d-flex flex-column">
-              {errorMessages.AppoinmentDate ? (
-                    <div className="error-messages">
-                      <p className="error-message">{errorMessages.AppoinmentDate}</p>
-                    </div>
-                  ) : (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {(exception && exception.includes("Conflict")) ||(exception &&  exception.includes("found")) || (exception && exception.includes("Approved")) || (exception && exception.includes("Rejected")) || (exception && exception.includes("past")) ? exception : ""}
-                      </p>
-                    </div>
-                  )}
+                {errorMessages.AppoinmentDate ? (
+                  <div className="error-messages">
+                    <p className="error-message">
+                      {errorMessages.AppoinmentDate}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="error-messages">
+                    <p className="error-message">
+                      {(exception && exception.includes("Conflict")) ||
+                      (exception && exception.includes("found")) ||
+                      (exception && exception.includes("Approved")) ||
+                      (exception && exception.includes("Rejected")) ||
+                      (exception && exception.includes("past")) ||
+                      (exception && exception.includes("Durations"))
+                        ? exception
+                        : ""}
+                    </p>
+                  </div>
+                )}
                 <button type="submit">
                   Update <i className="fa-solid fa-check"></i>
                 </button>

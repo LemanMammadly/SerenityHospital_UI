@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import "./Index.css"
 import { Button } from 'antd'
 import { Modal } from "react-bootstrap";
 import axios from 'axios';

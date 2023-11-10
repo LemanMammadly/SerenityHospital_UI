@@ -1,5 +1,4 @@
 import React from 'react'
-import "./Index.css"
 import Profile from "../../components/Profile/Index"
 import SideBarReceptionist from "../../components/Sidebar/Index"
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import "./Index.css"
 import SideBarDoctor from "../../components/SideBar/Index";
 import AppoinmentList from "../../components/AppoinmentList/Index"
 

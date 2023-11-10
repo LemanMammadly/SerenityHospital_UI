@@ -110,7 +110,7 @@ const Index = () => {
                     <div className="doctor-name-filter">
                       <span>{datas.department.name}</span>
                       <br />
-                      <Link to="/">{datas.name} {datas.surname}</Link>
+                      <Link to="/">{datas.name}  {datas.surname}</Link>
                     </div>
                     <hr />
                     <div className="doctor-social-filter">

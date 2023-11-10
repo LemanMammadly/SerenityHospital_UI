@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Index.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -13,7 +12,6 @@ const Index = () => {
   const [selectdoctors, setSelectDoctors] = useState(null);
   const [departmentsall, setDepartmentsall] = useState([]);
   const [selectedDepartments, setSelectedDepartments] = useState("");
-  // const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
 
   const nav = useNavigate();
 

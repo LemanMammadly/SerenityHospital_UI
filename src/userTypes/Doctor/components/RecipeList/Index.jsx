@@ -8,6 +8,7 @@ import { Modal } from "react-bootstrap";
 
 const Index = () => {
   const [data, setData] = useState([]);
+  const [doctors, setAllDoctors] = useState([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,6 +56,17 @@ const Index = () => {
         console.log(err);
       });
   }, [username]);
+
+  useEffect(() => {
+    axios
+      .get("https://localhost:7227/api/DoctorAuths")
+      .then((res) => {
+        setAllDoctors(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const seacrhChange = (key) => {
     setSearch(key);
@@ -142,8 +154,19 @@ const Index = () => {
                   <th scope="row">{datas && datas.id}</th>
                   <td>{datas.appoinment && datas.appoinment.id}</td>
                   <td>
-                    {datas.patient.name} {datas.patient.surname}
+                    {datas.patient
+                      ? `${datas.patient.name} ${datas.patient.surname}`
+                      : doctors.find(
+                          (doctor) =>
+                            doctor.id === datas.appoinment.appoinmentAsDoctorId
+                        )?.name +
+                        " " +
+                        doctors.find(
+                          (doctor) =>
+                            doctor.id === datas.appoinment.appoinmentAsDoctorId
+                        )?.surname}
                   </td>
+
                   <td>
                     {datas.doctor.name} {datas.doctor.surname}
                   </td>

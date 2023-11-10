@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import "./Index.css"
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 

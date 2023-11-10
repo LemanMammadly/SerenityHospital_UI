@@ -1,5 +1,4 @@
 import React from 'react'
-import "./Index.css"
 import SiderbarSuperAdmin from "../../components/Siderbar/Index"
 import ResponsiveMenu from "../../components/ResponsiveMenu/Index"
 import DoctorBusy from "../../components/DoctorBusy/Index"

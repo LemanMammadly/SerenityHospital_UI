@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Index.css";
 import { Link, useNavigate } from "react-router-dom";
 import "select2";
 import "select2/dist/css/select2.css";
