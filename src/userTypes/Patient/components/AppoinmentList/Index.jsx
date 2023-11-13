@@ -76,16 +76,6 @@ const Index = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const isAppoinmentPending = (appoinmentDate) => {
-    const now = new Date();
-    const appoinmentDateTime = new Date(appoinmentDate);
-
-    if (now < appoinmentDateTime) {
-      return 1;
-    } else {
-      return 2;
-    }
-  };
   return (
     <section className="all-app-doctor">
       <div className="container-app-doctor">
@@ -211,16 +201,24 @@ const Index = () => {
                     <td
                       style={{
                         color:
-                          datas.status === "Approved"
+                          datas.status === 1
                             ? "green"
-                            : datas.status === "Pending"
+                            : datas.status === 2
+                            ? "#FCA12F"
+                            : datas.status === 3
                             ? "#1C79FF"
-                            : datas.status === "Rejected"
+                            : datas.status === 4
                             ? "red"
                             : "black",
                       }}
                     >
-                      {datas.status}
+                      {datas.status === 1
+                        ? "Approved"
+                        : datas.status === 2
+                        ? "Completed"
+                        : datas.status === 3
+                        ? "Pending"
+                        : "Rejected"}
                     </td>
                     <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                   </tr>

@@ -54,6 +54,7 @@ const Index = () => {
       });
   }, []);
 
+
   const seacrhChange = (key) => {
     setSearch(key);
     const filteredResults = data.filter(
@@ -72,6 +73,8 @@ const Index = () => {
   const changePage = (page) => {
     setCurrentPage(page);
   };
+
+  console.log(searchResultsCopy);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;

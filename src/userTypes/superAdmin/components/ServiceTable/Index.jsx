@@ -3,7 +3,7 @@ import "./Index.css";
 import $ from "jquery";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Index = () => {
@@ -16,6 +16,8 @@ const Index = () => {
   const itemsPerPage = 10;
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const nav = useNavigate();
 
   const respOpenMenu = () => {
     const dashboardMenu = $(".dashboard-menu-header");
@@ -282,8 +284,10 @@ const Index = () => {
                   <td>{datas.maxPrice}</td>
                   <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                   <td>
-                    <Link
-                      to={`/superadmin/service/update/${datas.id}`}
+                    <Button
+                      onClick={() =>
+                        nav(`/superadmin/service/update/${datas.id}`)
+                      }
                       style={{
                         textDecoration: "none",
                         backgroundColor: "#0B58CA",
@@ -295,7 +299,7 @@ const Index = () => {
                       className="bg-success text-white"
                     >
                       Edit
-                    </Link>
+                    </Button>
                   </td>
                   <td>
                     {datas.isDeleted === true ? (

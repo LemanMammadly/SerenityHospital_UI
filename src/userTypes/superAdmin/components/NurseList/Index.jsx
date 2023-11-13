@@ -73,8 +73,9 @@ const Index = () => {
 
   const seacrhChange = (key) => {
     setSearch(key);
-    const filteredResults = data.filter((item) =>
-    item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
+    const filteredResults = data.filter(
+      (item) =>
+        item && item.name && item.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
@@ -141,7 +142,7 @@ const Index = () => {
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">Id</th>
+                {/* <th scope="col">Id</th> */}
                 <th scope="col">Name</th>
                 <th scope="col">Surname</th>
                 <th scope="col">Username</th>
@@ -178,7 +179,7 @@ const Index = () => {
             <tbody>
               {searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
-                  <th
+                  {/* <th
                     style={{
                       whiteSpace: "nowrap",
                       overflow: "hidden",
@@ -186,7 +187,7 @@ const Index = () => {
                     }}
                   >
                     {datas.id}
-                  </th>
+                  </th> */}
                   <td>{datas.name}</td>
                   <td>{datas.surname}</td>
                   <td>{datas.userName}</td>
@@ -262,8 +263,10 @@ const Index = () => {
                     </Button>
                   </td>
                   <td>
-                    <Link
-                      to={`/superadmin/nurse/update/${datas.id}`}
+                    <Button
+                      onClick={() =>
+                        nav(`/superadmin/nurse/update/${datas.id}`)
+                      }
                       style={{
                         textDecoration: "none",
                         backgroundColor: "#0B58CA",
@@ -272,10 +275,10 @@ const Index = () => {
                         fontSize: "13px",
                         borderRadius: "5px",
                       }}
-                      className="bg-success text-white "
+                      className="bg-success text-white"
                     >
                       Edit
-                    </Link>
+                    </Button>
                   </td>
                   <td>
                     <Button

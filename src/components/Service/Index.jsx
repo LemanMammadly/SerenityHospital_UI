@@ -28,7 +28,7 @@ const Index = () => {
               <div key={index} className="box col-lg-5">
                 <h3>{datas.name}</h3>
                 <p>
-                 {datas.description.slice(0,300)}..
+                 {datas.description.slice(0,200)}..
                 </p>
               </div>
             ))}

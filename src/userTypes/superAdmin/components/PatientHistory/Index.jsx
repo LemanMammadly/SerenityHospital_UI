@@ -122,10 +122,10 @@ const Index = () => {
                 <th scope="row">{datas.id}</th>
                 <td>{datas.date.substring(0,10)}</td>
                 <td>
-                 {datas.recipe.doctor.name}  {datas.recipe.doctor.surname}
+                 {datas.recipe.doctor && datas.recipe.doctor.name}  {datas.recipe.doctor && datas.recipe.doctor.surname}
                 </td>
                 <td>
-                {datas.recipe.patient.name}  {datas.recipe.patient.surname}
+                {datas.recipe.patient && datas.recipe.patient.name}  {datas.recipe.patient && datas.recipe.patient.surname}
                 </td>
                 <td>{datas.recipe && datas.recipe.appoinment && datas.recipe.appoinment.problemDesc}</td>
                 <td>

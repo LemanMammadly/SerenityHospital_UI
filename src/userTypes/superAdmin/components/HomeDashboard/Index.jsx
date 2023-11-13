@@ -93,7 +93,7 @@ const Index = () => {
       <div className="container-home-dashboard col-lg-12">
         <div className="all-home-dashboard">
           <div className="header-admin-dashboard">
-            <h2>Super Admin Dashboard</h2>
+            <h2>Admin Dashboard</h2>
             <div className="left-menu-header">
               <i
                 onClick={respOpenMenu}

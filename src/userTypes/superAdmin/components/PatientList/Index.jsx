@@ -144,7 +144,6 @@ const Index = () => {
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">Surname</th>
                 <th scope="col">Username</th>
@@ -173,15 +172,6 @@ const Index = () => {
             <tbody>
               {searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
-                  <td
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {datas.id}
-                  </td>
                   <td>{datas.name}</td>
                   <td
                     style={{
@@ -285,8 +275,10 @@ const Index = () => {
                   </td>
 
                   <td>
-                    <Link
-                      to={`/superadmin/patients/update/${datas.id}`}
+                    <Button
+                      onClick={() =>
+                        nav(`/superadmin/patients/update/${datas.id}`)
+                      }
                       style={{
                         textDecoration: "none",
                         backgroundColor: "#0B58CA",
@@ -298,7 +290,7 @@ const Index = () => {
                       className="bg-success text-white "
                     >
                       Edit
-                    </Link>
+                    </Button>
                   </td>
                   <td>
                     <Button

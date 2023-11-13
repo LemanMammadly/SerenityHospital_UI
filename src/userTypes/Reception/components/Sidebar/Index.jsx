@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import {
   ScheduleOutlined,
   PieChartOutlined,
-  FolderOpenOutlined,
-  TeamOutlined,
-  FileTextOutlined,
   UserOutlined,
-  CarryOutOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";

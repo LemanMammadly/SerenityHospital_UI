@@ -3,7 +3,7 @@ import { Button } from "antd";
 import { format } from "date-fns";
 import axios from "axios";
 import $ from "jquery";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Index = () => {
@@ -16,6 +16,8 @@ const Index = () => {
   const itemsPerPage = 10;
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const nav = useNavigate();
 
   const currentDate = new Date();
   const dates = format(currentDate, "yyyy-MM-dd");
@@ -314,8 +316,10 @@ const Index = () => {
                     </td>
                     <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                     <td>
-                      <Link
-                        to={`/receptionist/appoinments/update/${datas.id}`}
+                      <Button
+                       onClick={() =>
+                        nav(`/receptionist/appoinments/update/${datas.id}`)
+                      }
                         style={{
                           textDecoration: "none",
                           backgroundColor: "#0B58CA",
@@ -327,7 +331,7 @@ const Index = () => {
                         className="bg-success text-white"
                       >
                         Edit
-                      </Link>
+                      </Button>
                     </td>
                     <td>
                       {datas.isDeleted === true ? (

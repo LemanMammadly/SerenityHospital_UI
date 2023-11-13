@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
 import { Button } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import $ from "jquery";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -16,6 +16,8 @@ const Index = () => {
   const itemsPerPage = 10;
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const nav = useNavigate();
 
   const respOpenMenu = () => {
     const dashboardMenu = $(".dashboard-menu-header");
@@ -61,12 +63,16 @@ const Index = () => {
 
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Departments/SoftDelete/${id}`, {}, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .patch(
+        `https://localhost:7227/api/Departments/SoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         window.location.reload();
         console.log("Service deleted successfully");
@@ -84,12 +90,16 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/Departments/RevertSoftDelete/${id}`, {}, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .patch(
+        `https://localhost:7227/api/Departments/RevertSoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         window.location.reload();
         console.log("Service reverted successfully");
@@ -119,8 +129,8 @@ const Index = () => {
 
   const seacrhChange = (key) => {
     setSearch(key);
-    const filteredResults = data.filter((item) =>
-    item.name && item.name.toLowerCase().includes(key.toLowerCase())
+    const filteredResults = data.filter(
+      (item) => item.name && item.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
@@ -215,8 +225,10 @@ const Index = () => {
                   </td>
                   <td>{datas.isDeleted ? "Delete" : "Active"}</td>
                   <td>
-                    <Link
-                      to={`/superadmin/department/update/${datas.id}`}
+                    <Button
+                      onClick={() =>
+                        nav(`/superadmin/department/update/${datas.id}`)
+                      }
                       style={{
                         textDecoration: "none",
                         backgroundColor: "#0B58CA",
@@ -228,7 +240,7 @@ const Index = () => {
                       className="bg-success text-white"
                     >
                       Edit
-                    </Link>
+                    </Button>
                   </td>
                   <td>
                     {datas.isDeleted === true ? (

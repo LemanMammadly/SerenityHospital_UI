@@ -44,7 +44,7 @@ const Index = () => {
       .then((res) => {
         const recipes = res.data;
         const filteredRecipes = recipes.filter(
-          (rec) => rec.patient.userName === username
+          (rec) => rec.patient && rec.patient.userName === username
         );
         console.log(filteredRecipes);
         setData(filteredRecipes);
@@ -54,6 +54,7 @@ const Index = () => {
         console.log(err);
       });
   }, [username]);
+
 
   const seacrhChange = (key) => {
     setSearch(key);
@@ -67,6 +68,8 @@ const Index = () => {
   const changePage = (page) => {
     setCurrentPage(page);
   };
+
+  console.log(searchResults);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;

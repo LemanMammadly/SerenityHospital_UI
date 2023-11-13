@@ -41,7 +41,7 @@ const Index = () => {
               (app) =>
                 app.doctor &&
                 app.doctor.userName === username &&
-                app.status === "Approved"
+                (app.status === 1 || app.status===2)
             )
         );
 
@@ -63,7 +63,7 @@ const Index = () => {
       .then((res) => {
         const appoinments = res.data;
         const appoinmentFilter = appoinments.filter(
-          (app) => app.doctor.userName === username && app.status === 1
+          (app) => app.doctor.userName === username && (app.status === 1 || app.status===2)
         );
         const appoinmentDoctor = appoinmentFilter.filter(
           (app) => app.appoinmentAsDoctor !== null
@@ -74,8 +74,6 @@ const Index = () => {
         console.log(err);
       });
   }, []);
-
-  console.log(doctorPatient);
 
   const seacrhChange = (key) => {
     setSearch(key);

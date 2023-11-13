@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "antd";
 import $ from "jquery";
 import axios from "axios";
@@ -21,6 +21,8 @@ const Index = () => {
     dashboardMenu.fadeIn("slow", () => {});
     document.body.style.overflow = "hidden";
   };
+
+  const nav = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -74,12 +76,16 @@ const Index = () => {
 
   const handleSoftDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/PatientRooms/SoftDelete/${id}`, {}, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .patch(
+        `https://localhost:7227/api/PatientRooms/SoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         window.location.reload();
       })
@@ -94,12 +100,16 @@ const Index = () => {
 
   const handleRevertDelete = (id) => {
     axios
-      .patch(`https://localhost:7227/api/PatientRooms/RevertSoftDelete/${id}`, {}, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      })
+      .patch(
+        `https://localhost:7227/api/PatientRooms/RevertSoftDelete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         window.location.reload();
       })
@@ -114,8 +124,8 @@ const Index = () => {
 
   const seacrhChange = (key) => {
     setSearch(key);
-    const filteredResults = data.filter((item) =>
-    item && item.number && item.number.toString().includes(key)
+    const filteredResults = data.filter(
+      (item) => item && item.number && item.number.toString().includes(key)
     );
     setSearchResults(filteredResults);
     setCurrentPage(1);
@@ -278,8 +288,10 @@ const Index = () => {
                   </td>
                   <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                   <td>
-                    <Link
-                      to={`/superadmin/patientrooms/update/${datas.id}`}
+                    <Button
+                      onClick={() =>
+                        nav(`/superadmin/patientrooms/update/${datas.id}`)
+                      }
                       style={{
                         textDecoration: "none",
                         backgroundColor: "#0B58CA",
@@ -291,7 +303,7 @@ const Index = () => {
                       className="bg-success text-white"
                     >
                       Edit
-                    </Link>
+                    </Button>
                   </td>
                   <td>
                     {datas.isDeleted === true ? (

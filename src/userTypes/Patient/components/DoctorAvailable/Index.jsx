@@ -98,51 +98,6 @@ const Index = () => {
       });
   };
 
-  console.log(selectdoctors);
-
-  //     axios
-  //       .get(
-  //         `https://localhost:7227/api/DoctorAuths/${selectdoctors}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${user.token}`,
-  //           },
-  //         }
-  //       )
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         // const approvedAppointments = res.data.filter((app) => app.status === 1);
-  //         // const pendingAppointments = res.data.filter((app) => app.status === 3);
-
-  //         // setData(res.data);
-  //         // setAppoinmentsdate(
-  //         //   approvedAppointments.map((app) => ({
-  //         //     start: new Date(app.appoinmentDate),
-  //         //     end: moment(app.appoinmentDate)
-  //         //       .add(app.duration, "minutes")
-  //         //       .toDate(),
-  //         //     title:
-  //         //       app.problemDesc +
-  //         //       " - " +
-  //         //       (app.patient
-  //         //         ? app.patient.name + " " + app.patient.surname
-  //         //         : app.appoinmentAsDoctor
-  //         //         ? app.appoinmentAsDoctor.name +
-  //         //           " " +
-  //         //           app.appoinmentAsDoctor.surname
-  //         //         : "Unknown"),
-  //         //   }))
-  //         // );
-  //         // setPendingAppointments(pendingAppointments);
-  //         // console.log(pendingAppointments);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }, [selectdoctors]);
-
-  console.log(selectedDoctorId);
-
   const handleChooseButtonClick = (e) => {
     e.preventDefault();
   
