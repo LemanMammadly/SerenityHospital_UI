@@ -5,10 +5,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import "./Index.css"
 
 const { Sider } = Layout;
-
 
 function getItem(label, key, icon, children) {
   return {
@@ -20,29 +20,18 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem("Dashboard", "1", <PieChartOutlined />),
-  getItem("Appoinments", "2", <ScheduleOutlined />),
-  getItem("Profile", "3", <UserOutlined />),
+  getItem("Dashboard", "/receptionist", <PieChartOutlined />),
+  getItem("Appoinments", "/receptionist/appoinments", <ScheduleOutlined />),
+  getItem("Profile", "/receptionist/profile", <UserOutlined />),
 ];
 
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const nav=useNavigate();
+  const nav = useNavigate();
 
-const ChangePage=(key)=>{
-  if(key==="1")
-  {
-    nav("/receptionist")
-  }
-  if(key==="2")
-  {
-    nav("/receptionist/appoinments")
-  }
-  if(key==="3")
-  {
-    nav("/receptionist/profile")
-  }
-}
+  const handleMenuClick = (key) => {
+    nav(key);
+  };
 
   const {
     token: { colorBgContainer },
@@ -50,24 +39,41 @@ const ChangePage=(key)=>{
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-    <Sider
-      width={240}
-      style={{ backgroundColor: "#fff" }}
-      collapsible
-      collapsed={collapsed}
-      onCollapse={(value) => setCollapsed(value)}
-    >
-      <div style={{ backgroundColor: "#fff" }} className="demo-logo-vertical" />
-      <div className="mx-4 my-3" style={{fontWeight:"bold",color:"#808DA1"}}><i class="fa-solid fa-hospital-user"></i> Reception Dashboard</div>
-      <Menu
-        theme="light"
-        defaultSelectedKeys={["1"]}
-        onClick={(e) => ChangePage(e.key)}
-        mode="inline"
-        items={items}
-      />
-    </Sider>
-  </Layout>
+      <Sider
+        width={240}
+        style={{ backgroundColor: "#fff" }}
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
+        <div
+          style={{ backgroundColor: "#fff" }}
+          className="demo-logo-vertical"
+        />
+        <div
+          className="mx-4 my-3"
+          style={{ fontWeight: "bold", color: "#808DA1" }}
+        >
+          <i class="fa-solid fa-hospital-user"></i> Reception Dashboard
+        </div>
+        <Menu
+          selectedKeys={[window.location.pathname]}
+          mode="inline"
+          className="ant-menu-item.active"
+        >
+          {items.map((item) => (
+            <Menu.Item
+              className="menuItem"
+              key={item.key}
+              icon={item.icon}
+              onClick={() => handleMenuClick(item.key)}
+            >
+              <Link className="link-sidebar" to={item.key}>{item.label}</Link>
+            </Menu.Item>
+          ))}
+        </Menu>
+      </Sider>
+    </Layout>
   );
 };
 

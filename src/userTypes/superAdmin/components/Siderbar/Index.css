@@ -10,11 +10,3 @@
     cursor: pointer;
     transition: all 0.2s;
 }
-
-:where(.css-dev-only-do-not-override-xu9wm8).ant-menu-light .ant-menu-item-selected, :where(.css-dev-only-do-not-override-xu9wm8).ant-menu-light>.ant-menu .ant-menu-item-selected {
-    background-color: #e7e7e7;
-}
-
-:where(.css-dev-only-do-not-override-xu9wm8).ant-menu-light .ant-menu-item-selected, :where(.css-dev-only-do-not-override-xu9wm8).ant-menu-light>.ant-menu .ant-menu-item-selected {
-    color: #2764b8;
-}

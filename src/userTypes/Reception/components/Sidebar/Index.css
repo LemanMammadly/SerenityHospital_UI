@@ -10,3 +10,7 @@
     cursor: pointer;
     transition: all 0.2s;
 }
+
+.menuItem a{
+    text-decoration: none;
+}

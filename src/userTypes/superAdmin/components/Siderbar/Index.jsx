@@ -14,7 +14,7 @@ import {
   CarryOutOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Index.css"
 
 const { Sider } = Layout;
@@ -30,83 +30,28 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem("Dashboard", "1", <PieChartOutlined />),
-  getItem("Settings", "2", <SettingOutlined />),
-  getItem("Service", "3", <BuildOutlined />),
-  getItem("Department", "4", <ApartmentOutlined />),
-  getItem("Position", "5",<ApiOutlined />),
-  getItem("Doctor", "6",< TeamOutlined />),
-  getItem("Doctor Busy", "13", <CarryOutOutlined />),
-  getItem("Appoinments", "7",< ScheduleOutlined />),
-  getItem("Patients", "8",<UsergroupAddOutlined />),
-  getItem("Doctor Rooms", "9",<SelectOutlined />),
-  getItem("Patient Rooms", "10",<UserSwitchOutlined />),
-  getItem("Receptionist", "11",<TeamOutlined />),
-  getItem("Patient History", "12",<HistoryOutlined />),
+  getItem("Dashboard", "/superadmin", <PieChartOutlined />),
+  getItem("Settings", "/superadmin/settings", <SettingOutlined />),
+  getItem("Service", "/superadmin/service", <BuildOutlined />),
+  getItem("Department", "/superadmin/department", <ApartmentOutlined />),
+  getItem("Position", "/superadmin/position",<ApiOutlined />),
+  getItem("Doctor","/superadmin/doctor",< TeamOutlined />),
+  getItem("Doctor Busy", "/superadmin/doctoravailabe", <CarryOutOutlined />),
+  getItem("Appoinments", "/superadmin/appoinments" ,< ScheduleOutlined />),
+  getItem("Patients", "/superadmin/patients",<UsergroupAddOutlined />),
+  getItem("Doctor Rooms", "/superadmin/doctorrooms",<SelectOutlined />),
+  getItem("Patient Rooms", "/superadmin/patientrooms",<UserSwitchOutlined />),
+  getItem("Receptionist", "/superadmin/nurse",<TeamOutlined />),
+  getItem("Patient History", "/superadmin/patienthistory",<HistoryOutlined />),
 ];
 
 const Index = () => {
   const [collapsed, setCollapsed] = useState(false);
   const nav=useNavigate();
-  const [selectedKey, setSelectedKey] = useState("1"); 
-
-
-
-const ChangePage=(key)=>{
-  setSelectedKey(key);
-  if(key==="1")
-  {
-    nav("/superadmin")
-  }
-  else if(key==="2")
-  {
-    nav("/superadmin/settings")
-  }
-  else if(key==="3")
-  {
-    nav("/superadmin/service")
-  }
-  else if(key==="4")
-  {
-    nav("/superadmin/department")
-  }
-  else if(key ==="5")
-  {
-    nav("/superadmin/position")
-  }
-  else if(key ==="6")
-  {
-    nav("/superadmin/doctor")
-  }
-  else if(key ==="7")
-  {
-    nav("/superadmin/appoinments")
-  }
-  else if(key ==="8")
-  {
-    nav("/superadmin/patients")
-  }
-  else if(key ==="9")
-  {
-    nav("/superadmin/doctorrooms")
-  }
-  else if(key ==="10")
-  {
-    nav("/superadmin/patientrooms")
-  }
-  else if(key ==="11")
-  {
-    nav("/superadmin/nurse")
-  }
-  else if(key ==="12")
-  {
-    nav("/superadmin/patienthistory")
-  }
-  else if(key ==="13")
-  {
-    nav("/superadmin/doctoravailabe")
-  }
-}
+  
+  const handleMenuClick = (key) => {
+    nav(key);
+  };
 
   const {
     token: { colorBgContainer },
@@ -124,12 +69,21 @@ const ChangePage=(key)=>{
       <div style={{ backgroundColor: "#fff" }} className="demo-logo-vertical" />
       <div className="mx-4 my-3" style={{fontWeight:"bold",color:"#808DA1"}}><i class="fa-solid fa-unlock"></i> Admin Dashboard</div>
       <Menu
-        theme="light"
-        defaultSelectedKeys={selectedKey}
-        onClick={(e) => ChangePage(e.key)}
-        mode="inline"
-        items={items}
-      />
+          selectedKeys={[window.location.pathname]}
+          mode="inline"
+          className="ant-menu-item.active"
+        >
+          {items.map((item) => (
+            <Menu.Item
+              className="menuItem"
+              key={item.key}
+              icon={item.icon}
+              onClick={() => handleMenuClick(item.key)}
+            >
+              <Link className="link-sidebar" to={item.key}>{item.label}</Link>
+            </Menu.Item>
+          ))}
+        </Menu>
     </Sider>
   </Layout>
   );

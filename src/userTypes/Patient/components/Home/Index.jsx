@@ -29,7 +29,7 @@ const Index = () => {
         setAppoinmentsdate(
           res.data.appoinments &&
             res.data.appoinments
-              .filter((app) => app.status === "Approved")
+              .filter((app) => app.status === 1)
               .map((app) => ({
                 start: new Date(app.appoinmentDate),
                 end: moment(app.appoinmentDate).add(app.duration, 'minutes').toDate(),
