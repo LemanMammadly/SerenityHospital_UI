@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
-import { Link } from "react-router-dom";
-import $ from "jquery";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Index = () => {
   const [data, setData] = useState([]);
-  const [detail, setDetail] = useState([]);
+
+  const nav=useNavigate();
 
   useEffect(() => {
     axios
@@ -19,31 +21,10 @@ const Index = () => {
       });
   }, []);
 
-  console.log(data);
 
-  const openDoctorDetail = (id) => {
-    const openDoctorDetail = $(".doctor-detail");
-    openDoctorDetail.fadeIn("slow", () => {});
-    // document.body.style.overflow = "hidden";
-
-    axios
-      .get(`https://localhost:7227/api/DoctorAuths/${id}`)
-      .then((resp) => {
-        setDetail([resp.data]);
-      })
-      .catch((error) => {
-        console.log("error");
-      });
-  };
-
-
-  const closedoctorDetail = () => {
-    const openDoctorDetail = $(".doctor-detail");
-
-    openDoctorDetail.fadeOut("slow", () => {});
-
-    document.body.style.overflow = "auto";
-  };
+  useEffect(() => {
+    AOS.init();
+  }, [])
 
   return (
     <section className="doctors-section">
@@ -52,15 +33,18 @@ const Index = () => {
           <h3>Our Professor Doctors</h3>
           <div className="doctors-boxes">
             {data.map((datas, index) => (
-              <div key={index} className="doctor-box">
+              <div key={index} className="doctor-box" data-aos="fade-up"
+              data-aos-anchor-placement="bottom-bottom">
                 <div className="img-div">
                   <img className="img-fluid" src={datas.imageUrl} alt="" />
                   <div className="view-details">
                     <button
-                      onClick={() => openDoctorDetail(datas.id)}
+                    onClick={() =>
+                      nav(`/detail/${datas.id}`)
+                    }
                       className="detail-btn"
                     >
-                      View Details
+                      View Profile
                     </button>
                   </div>
                 </div>
@@ -76,43 +60,6 @@ const Index = () => {
                   <i class="fa-brands fa-google-plus-g icon"></i>
                   <i class="fa-brands fa-linkedin-in icon"></i>
                 </div>
-                {detail.map((details, index) => (
-                  <div key={index} style={{display:"block"}} className="modal-doctor-detail">
-                    <div className="doctor-detail">
-                      <div className="all-doc-detail">
-                        <div className="img-doc-detail">
-                          <i
-                            onClick={closedoctorDetail}
-                            style={{ cursor: "pointer" }}
-                            className="fa-solid fa-xmark x-icon"
-                          ></i>
-                          <img
-                            className="img-fluid"
-                            src={details.imageUrl}
-                            alt=""
-                          />
-                          <h3>{details.name} {details.surname}</h3>
-                          <hr />
-                          <div style={{fontWeight:"bold"}} className="email-detail det">
-                            Email: <span  style={{fontWeight:"400"}}>{details.email}</span>
-                          </div>
-                          <div  style={{fontWeight:"bold"}} className="department-detail det">
-                            Department: <span  style={{fontWeight:"400"}}>{details.department.name}</span>
-                          </div>
-                          <div  style={{fontWeight:"bold"}} className="position-detail det">
-                            Position: <span  style={{fontWeight:"400"}}>{details.position.name}</span>
-                          </div>
-                          <div className="profile-desc">
-                            <h5  style={{fontWeight:"bold"}}>Profile</h5>
-                            <p  style={{fontWeight:"400"}}>
-                              {details.description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
               </div>
             ))}
           </div>

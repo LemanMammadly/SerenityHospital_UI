@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Index.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Index = () => {
+
+  useEffect(() => {
+    AOS.init();
+  }, [])
+
   return (
     <section>
-      <div className="container-about">
+      <div className="container-about"  data-aos="zoom-in-up">
         <h3>ABOUT Serenity DIAGNOSTIC CENTER</h3>
         <p>
           Viam sumi mo id erit objectioni mo de necessario crediderim imo terra

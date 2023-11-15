@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
 import axios from "axios";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Index = () => {
   const [data, setData] = useState([]);
@@ -16,6 +18,10 @@ const Index = () => {
       });
   }, []);
 
+  useEffect(() => {
+    AOS.init();
+  }, [])
+
   return (
     <section>
       <div className="container-service">
@@ -25,7 +31,7 @@ const Index = () => {
           </div>
           <div className="boxes col-lg-12 row">
             {data.filter((datas) => datas.isDeleted === false).map((datas, index) => (
-              <div key={index} className="box col-lg-5">
+              <div key={index} className="box col-lg-5" data-aos="flip-up">
                 <h3>{datas.name}</h3>
                 <p>
                  {datas.description.slice(0,200)}..

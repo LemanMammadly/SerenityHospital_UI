@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
-import { Link } from "react-router-dom";
-import $ from "jquery";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { Button } from "antd";
 
 const Index = () => {
   const [data, setData] = useState([]);
-  const [detail, setDetail] = useState([]);
   const [department, setDepartment] = useState([]);
-  const [selectdepartment,setSelectpepartment]=useState(null);
+  const [selectdepartment, setSelectpepartment] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
+  const [searchTerm, setSearchTerm] = useState("");
+  const nav = useNavigate();
 
   useEffect(() => {
     axios
@@ -32,40 +37,56 @@ const Index = () => {
       });
   }, []);
 
-  const openDoctorDetailFilter = (id) => {
-    const openDoctorDetail = $(".doctor-detail-filter");
-
-    openDoctorDetail.fadeIn("slow", () => {});
-    document.body.style.overflow = "hidden";
-
-    axios
-      .get(`https://localhost:7227/api/DoctorAuths/${id}`)
-      .then((resp) => {
-        setDetail([resp.data]);
-      })
-      .catch((error) => {
-        console.log("error");
-      });
-  };
-
-  const closedoctorDetailFilter = () => {
-    const openDoctorDetail = $(".doctor-detail-filter");
-
-    openDoctorDetail.fadeOut("slow", () => {});
-
-    document.body.style.overflow = "auto";
-  };
-
-
-  const filterDoctorByDepartment=()=>{
-    if(selectdepartment)
-    {
-      const filteredDoctors=data.filter((doctor)=>doctor.department.name===selectdepartment);
+  const filterDoctorByDepartment = () => {
+    if (selectdepartment) {
+      const filteredDoctors = data.filter(
+        (doctor) => doctor.department.name === selectdepartment
+      );
       return filteredDoctors;
-    }else{
+    } else {
       return data;
     }
-  }
+  };
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filterDoctorByDepartment().slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const totalPages = Math.ceil(
+    filterDoctorByDepartment().length / itemsPerPage
+  );
+
+  const filterDoctorsByName = () => {
+    if (searchTerm) {
+      const filteredDoctors = currentItems.filter(
+        (doctor) =>
+          doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          doctor.surname.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      return filteredDoctors;
+    } else {
+      return currentItems;
+    }
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <section>
@@ -75,32 +96,48 @@ const Index = () => {
             <p>Doctors of</p>
             <ul>
               <li>
-                <Link to="#"
-                onClick={()=>setSelectpepartment(null)}
-                >All Departments</Link>
+                <Link to="#" onClick={() => setSelectpepartment(null)}>
+                  All Departments
+                </Link>
               </li>
               <hr className="doctorFilter-hr" />
-              {department.map((dep,index) => (
+              {department.map((dep, index) => (
                 <li key={index}>
-                  <Link to="#"
-                  onClick={()=>setSelectpepartment(dep.name)}
-                  >{dep.name}</Link>
+                  <Link to="#" onClick={() => setSelectpepartment(dep.name)}>
+                    {dep.name}
+                  </Link>
                   <hr className="doctorFilter-hr" />
                 </li>
-
               ))}
             </ul>
           </div>
           <div className="right-doctorFilter col-lg-9">
+            <div className="all-seacrh-div-input w-100">
+            <div className="seacrh-doctor-filter w-25">
+              <input
+                style={{backgroundColor:"#F3F6F7"}}
+                className="form-control shadow-none"
+                type="text"
+                placeholder="Search Doctor . . ."
+                value={searchTerm}
+                onChange={handleSearch}
+              />
+              <i style={{color:"gray",cursor:"pointer"}} class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            </div>
             <div className="all-filter-doctors p-4">
               <div className="doctors-boxes-filter">
-                {filterDoctorByDepartment().map((datas, index) => (
-                  <div key={index} className="doctor-box-filter">
+                {filterDoctorsByName().map((datas, index) => (
+                  <div
+                    key={index}
+                    className="doctor-box-filter"
+                    data-aos="zoom-in"
+                  >
                     <div className="img-div-filter">
                       <img className="img-fluid" src={datas.imageUrl} alt="" />
                       <div className="view-details-filter">
                         <button
-                          onClick={() => openDoctorDetailFilter(datas.id)}
+                          onClick={() => nav(`/detail/${datas.id}`)}
                           className="detail-btn-filter"
                         >
                           Profile
@@ -110,7 +147,9 @@ const Index = () => {
                     <div className="doctor-name-filter">
                       <span>{datas.department.name}</span>
                       <br />
-                      <Link to="/">{datas.name}  {datas.surname}</Link>
+                      <Link to="/">
+                        {datas.name}   {datas.surname}
+                      </Link>
                     </div>
                     <hr />
                     <div className="doctor-social-filter">
@@ -119,50 +158,19 @@ const Index = () => {
                       <i class="fa-brands fa-google-plus-g icon"></i>
                       <i class="fa-brands fa-linkedin-in icon"></i>
                     </div>
-                    {detail.map((details, index) => (
-                      <div
-                        key={index}
-                        style={{ display: "block" }}
-                        className="modal-doctor-detail-filter"
-                      >
-                        <div className="doctor-detail-filter">
-                          <div className="all-doc-detail-filter">
-                            <div className="img-doc-detail-filter">
-                              <i
-                                onClick={closedoctorDetailFilter}
-                                style={{ cursor: "pointer" }}
-                                className="fa-solid fa-xmark x-icon"
-                              ></i>
-                              <img
-                                className="img-fluid"
-                                src={details.imageUrl}
-                                alt=""
-                              />
-                              <h3>{details.name} {details.surname}</h3>
-                              <hr />
-                              <div style={{fontWeight:"bold"}} className="email-detail det-filter">
-                                Email: <span  style={{fontWeight:"400"}}>{details.email}</span>
-                              </div>
-                              <div style={{fontWeight:"bold"}} className="department-detail det-filter">
-                                Department:{" "}
-                                <span style={{fontWeight:"400"}}>{details.department.name}</span>
-                              </div>
-                              <div style={{fontWeight:"bold"}} className="position-detail det-filter">
-                                Position: <span style={{fontWeight:"400"}}>{details.position.name}</span>
-                              </div>
-                              <div className="profile-desc-filter">
-                                <h5 style={{fontWeight:"bold"}}>Profile</h5>
-                                <p style={{fontWeight:"400"}}>
-                                  {details.description}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
                   </div>
                 ))}
+              </div>
+              <div className="pagination d-flex align-items-center justify-content-center gap-3">
+                <Button onClick={handlePrevPage} disabled={currentPage === 1}>
+                  Prev
+                </Button>
+                <Button
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </Button>
               </div>
             </div>
           </div>

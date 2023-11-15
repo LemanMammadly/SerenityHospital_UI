@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./Index.css"
 import slider from '../../assets/imgs/slider-serenity.jpeg'
-import { Link, json } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Index = () => {
 
@@ -18,6 +20,10 @@ const Index = () => {
     }
   }
 
+  useEffect(() => {
+    AOS.init();
+  }, [])
+
   return (
     <section>
       <div className="img-div">
@@ -26,7 +32,9 @@ const Index = () => {
        <div className="text-div-text">
        <h2>The skill to heal, the spirit to care</h2>
         <p>Dedicated to providing multidisciplinary medical care and backed by state-of-the-art facilities</p>
+        <div className="appoinment-button d-flex align-items-center justify-content-center">
         <Link onClick={makeAnAppoinment} className='appoinment'>Make An Appoinment</Link>
+        </div>
        </div>
       </div>
       </div>

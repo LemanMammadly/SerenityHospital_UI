@@ -6,7 +6,7 @@ import Footer from "../components/Footer/Index.jsx"
 const Client = () => {
   return (
     <div>
-      <Header/>
+     <Header/>
         <div>
             <Outlet/>
         </div>

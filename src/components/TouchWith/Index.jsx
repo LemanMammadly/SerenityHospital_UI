@@ -25,7 +25,7 @@ const Index = () => {
                     <p>Get In Touch With Our Specialists</p>
                 </div>
                 <div className="right-all-touchWith">
-                    <Link  onClick={makeAnAppoinment}><i class="fa-regular fa-calendar-days"></i> Book An Appoinment</Link>
+                    <Link className='make-an-appoinment-btn'  onClick={makeAnAppoinment}><i class="fa-regular fa-calendar-days"></i> Book An Appoinment</Link>
                 </div>
             </div>
         </div>

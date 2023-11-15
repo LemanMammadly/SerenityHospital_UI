@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
 import axios from "axios";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Index = () => {
   const [data, setData] = useState([]);
@@ -16,6 +18,10 @@ const Index = () => {
       });
   }, []);
 
+  useEffect(() => {
+    AOS.init();
+  }, [])
+
   return (
     <section className="department-section">
       <div className="container-departments">
@@ -23,7 +29,7 @@ const Index = () => {
           <h3>Departments</h3>
           <div className="department-boxes">
             {data.map((datas,index) => (
-              <div key={index} className="dep-box col-lg-3">
+              <div key={index} className="dep-box col-lg-3" data-aos="zoom-in-up">
                 <img
                   src={datas.iconUrl}
                   alt="departmenticon"

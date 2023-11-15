@@ -29,7 +29,7 @@
 .containers-doctor .doctor-box .view-details{
     display: none;
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%,-50%);
 }
@@ -38,14 +38,14 @@
     border: none;
     font-size: 13px;
     padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #0e3d50;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
     color: #fff;
     transition: .5s;
 }
 
 .containers-doctor .doctor-box .view-details .detail-btn:hover{
-    background-color: #fff;
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     color: #0e3d50;
 }
 
@@ -113,16 +113,15 @@
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
-    background-color: #0287BE;
-    text-transform: uppercase;
+    background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
     color: #fff;
+    text-transform: uppercase;
     transition: .5s;
 }
 
 .containers-doctor .load-more-btn:hover{
-    background-color: #fff;
-    color: #0287BE;
-    border: 1px solid #0287BE;
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #0e3d50;
 }
 
 

@@ -5,6 +5,7 @@ import Doctors from "./pages/Doctors/Index.jsx";
 import AboutUs from "./pages/AboutUs/Index.jsx";
 import Contact from "./pages/Contact/Index.jsx";
 import Login from "./pages/Login/Index.jsx";
+import DoctorDetail from "./pages/DoctorDetail/Index.jsx"
 import SuperAdminDashboard from "./Layouts/SuperAdminDashboard";
 import SuperAdminHome from "./userTypes/superAdmin/pages/Home/Index.jsx";
 import SuperAdminSettings from "./userTypes/superAdmin/pages/Settings/Index.jsx";
@@ -74,6 +75,7 @@ import AppoinmentsUpdateReceptionist from "./userTypes/Reception/pages/UpdateApp
 import ProfiletReceptionist from "./userTypes/Reception/pages/Profile/Index.jsx";
 import ProfileUpdateReceptionist from "./userTypes/Reception/pages/UpdateProfile/Index.jsx";
 import DoctorBusyDoctor from "./userTypes/Doctor/pages/DoctorBusy/Index.jsx"
+import ScrollTop from "./components/ScrollTop/Index.jsx";
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -93,12 +95,14 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Routes>
+       <ScrollTop>
+       <Routes>
           <Route path="/" element={<Client />}>
             <Route index element={<Home />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/detail/:id" element={<DoctorDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Route>
@@ -355,6 +359,7 @@ function App() {
             />
           </Route>
         </Routes>
+       </ScrollTop>
       </BrowserRouter>
     </div>
   );
