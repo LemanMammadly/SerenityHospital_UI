@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
 import axios from "axios";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Index = () => {
   const [data, setData] = useState([]);
@@ -16,9 +18,14 @@ const Index = () => {
       });
   }, []);
 
+  useEffect(() => {
+    AOS.init();
+  }, [])
+
+
   return (
     <section>
-      <div className="container-contactPhone">
+      <div className="container-contactPhone" data-aos="zoom-in-up">
         <h4>Contact Us For Help</h4>
         <p>
           Please Call Us Or Complete The Form Below And We Will Get To You

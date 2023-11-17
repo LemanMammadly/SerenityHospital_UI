@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import "./Index.css"
 import slider from '../../assets/imgs/slider-serenity.jpeg'
 import { Link } from 'react-router-dom'
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 const Index = () => {
 
@@ -19,10 +17,6 @@ const Index = () => {
       window.location.href="/login";
     }
   }
-
-  useEffect(() => {
-    AOS.init();
-  }, [])
 
   return (
     <section>

@@ -2,6 +2,9 @@ import React, {useEffect, useState} from "react";
 import "./Index.css";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 const Index = () => {
   const [inputs, setInputs] = useState({});
@@ -78,9 +81,13 @@ const Index = () => {
       });
   };
 
+  useEffect(() => {
+    AOS.init();
+  }, [])
+
   return (
     <section>
-      <div className="container-contactSend">
+      <div className="container-contactSend"  data-aos="zoom-in-up">
         <form method="POST" onSubmit={(e) => handleSubmit(e)}>
           <div class="row">
             <div class="col-md-6">

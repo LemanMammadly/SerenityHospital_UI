@@ -11,10 +11,12 @@ import {
   SelectOutlined,
   UserSwitchOutlined,
   HistoryOutlined,
-  CarryOutOutlined
+  CarryOutOutlined,
+  MailOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Index.css"
 
 const { Sider } = Layout;
@@ -41,8 +43,9 @@ const items = [
   getItem("Patients", "/superadmin/patients",<UsergroupAddOutlined />),
   getItem("Doctor Rooms", "/superadmin/doctorrooms",<SelectOutlined />),
   getItem("Patient Rooms", "/superadmin/patientrooms",<UserSwitchOutlined />),
-  getItem("Receptionist", "/superadmin/nurse",<TeamOutlined />),
+  getItem("Receptionist", "/superadmin/nurse",<UserOutlined />),
   getItem("Patient History", "/superadmin/patienthistory",<HistoryOutlined />),
+  getItem("Messages", "/superadmin/messages",<MailOutlined />),
 ];
 
 const Index = () => {

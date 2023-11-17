@@ -14,7 +14,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
 }
 
 .container-home-dashboard .box-dashboard {
@@ -47,7 +47,7 @@
 }
 
 .container-home-dashboard .box-dashboard .icon-div i {
-  font-size: 38px;
+  font-size: 45px;
   color: #30364142;
 }
 
@@ -64,6 +64,24 @@
   align-items: center;
   justify-content: space-between;
 }
+
+
+
+.container-home-dashboard .top-notifcation-admin{
+  position: relative;
+}
+
+.container-home-dashboard .notif-red-admin{
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
+  background-color: red;
+  color: red;
+  border-radius: 50%;
+}
+
 
 
 @media screen and (max-width: 992px) {

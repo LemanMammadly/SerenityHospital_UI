@@ -76,6 +76,7 @@ import ProfiletReceptionist from "./userTypes/Reception/pages/Profile/Index.jsx"
 import ProfileUpdateReceptionist from "./userTypes/Reception/pages/UpdateProfile/Index.jsx";
 import DoctorBusyDoctor from "./userTypes/Doctor/pages/DoctorBusy/Index.jsx"
 import ScrollTop from "./components/ScrollTop/Index.jsx";
+import SuperAdminMessages from "./userTypes/superAdmin/pages/Messages/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -255,6 +256,10 @@ function App() {
             <Route
               path="/superadmin/doctoravailabe"
               element={<SuperAdminDoctorAvailable />}
+            />
+            <Route
+              path="/superadmin/messages"
+              element={<SuperAdminMessages />}
             />
           </Route>
           <Route

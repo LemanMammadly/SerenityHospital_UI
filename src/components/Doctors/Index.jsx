@@ -51,7 +51,7 @@ const Index = () => {
                 <div className="doctor-name">
                   <span>{datas.department.name}</span>
                   <br />
-                  <Link to="/">{datas.name} {datas.surname}</Link>
+                  <Link to={`/detail/${datas.id}`}>{datas.name} {datas.surname}</Link>
                 </div>
                 <hr />
                 <div className="doctor-social">

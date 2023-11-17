@@ -118,7 +118,7 @@ const Index = () => {
                 style={{backgroundColor:"#F3F6F7"}}
                 className="form-control shadow-none"
                 type="text"
-                placeholder="Search Doctor . . ."
+                placeholder="Həkim Axtar . . ."
                 value={searchTerm}
                 onChange={handleSearch}
               />
@@ -147,8 +147,8 @@ const Index = () => {
                     <div className="doctor-name-filter">
                       <span>{datas.department.name}</span>
                       <br />
-                      <Link to="/">
-                        {datas.name}   {datas.surname}
+                      <Link to={`/detail/${datas.id}`}>
+                        {datas.name}  {datas.surname}
                       </Link>
                     </div>
                     <hr />
