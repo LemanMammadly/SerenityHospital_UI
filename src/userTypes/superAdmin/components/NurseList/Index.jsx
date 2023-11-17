@@ -142,13 +142,12 @@ const Index = () => {
           <table className="table">
             <thead>
               <tr>
-                {/* <th scope="col">Id</th> */}
+                <th scope="col">Image</th>
                 <th scope="col">Name</th>
                 <th scope="col">Surname</th>
                 <th scope="col">Username</th>
                 <th scope="col">Age</th>
                 <th scope="col">Email</th>
-                <th scope="col">Image</th>
                 <th
                   style={{
                     whiteSpace: "nowrap",
@@ -179,27 +178,23 @@ const Index = () => {
             <tbody>
               {searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
-                  {/* <th
-                    style={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {datas.id}
-                  </th> */}
+                  <td>
+                    <Link
+                      style={{ color: "#333", textDecoration: "none" }}
+                      to={`/superadmin/receptionprofile/${datas.userName}`}
+                    >
+                      <img
+                        src={datas.imageUrl}
+                        style={{ width: "30px" }}
+                        alt=""
+                      />
+                    </Link>
+                  </td>
                   <td>{datas.name}</td>
                   <td>{datas.surname}</td>
                   <td>{datas.userName}</td>
                   <td>{datas.age}</td>
                   <td>{datas.email}</td>
-                  <td>
-                    <img
-                      src={datas.imageUrl}
-                      style={{ width: "30px" }}
-                      alt=""
-                    />
-                  </td>
                   <td
                     style={{
                       whiteSpace: "nowrap",

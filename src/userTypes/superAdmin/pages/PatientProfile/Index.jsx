@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import { Link, useParams } from "react-router-dom";
 
 const Index = () => {
+  const { username } = useParams();
   const [data, setData] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     axios
       .get(
-        `https://localhost:7227/api/PatientAuths/GetByName?userName=${user.username}`,
+        `https://localhost:7227/api/PatientAuths/GetByName?userName=${username}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -28,12 +29,17 @@ const Index = () => {
   return (
     <div className="all-pat-profile">
       <div className="all-pat-profile-container">
+        <div className="back-to-patient">
+          <Link
+            style={{ color: "black", textDecoration: "none" }}
+            to="/superadmin/patients"
+          >
+            <i class="fa-regular fa-circle-left"></i> Admin / Patients
+          </Link>
+        </div>
         <div className="top-pat-profile d-flex justify-content-between align-items-center">
-          <div className="prof-text-div-pat">
+          <div className="prof-text-div-pat" style={{marginTop:"20px"}}>
             <h3>Profile</h3>
-          </div>
-          <div className="upt-prof-btn-pat">
-            <Link to={`/patient/profile/update`}>Update Profile</Link>
           </div>
         </div>
         <div className="bottom-pat-profile d-flex justify-content-between align-items-center">

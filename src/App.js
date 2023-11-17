@@ -5,7 +5,7 @@ import Doctors from "./pages/Doctors/Index.jsx";
 import AboutUs from "./pages/AboutUs/Index.jsx";
 import Contact from "./pages/Contact/Index.jsx";
 import Login from "./pages/Login/Index.jsx";
-import DoctorDetail from "./pages/DoctorDetail/Index.jsx"
+import DoctorDetail from "./pages/DoctorDetail/Index.jsx";
 import SuperAdminDashboard from "./Layouts/SuperAdminDashboard";
 import SuperAdminHome from "./userTypes/superAdmin/pages/Home/Index.jsx";
 import SuperAdminSettings from "./userTypes/superAdmin/pages/Settings/Index.jsx";
@@ -74,9 +74,12 @@ import AppoinmentsListReceptionist from "./userTypes/Reception/pages/AppoinmentL
 import AppoinmentsUpdateReceptionist from "./userTypes/Reception/pages/UpdateAppoinment/Index.jsx";
 import ProfiletReceptionist from "./userTypes/Reception/pages/Profile/Index.jsx";
 import ProfileUpdateReceptionist from "./userTypes/Reception/pages/UpdateProfile/Index.jsx";
-import DoctorBusyDoctor from "./userTypes/Doctor/pages/DoctorBusy/Index.jsx"
+import DoctorBusyDoctor from "./userTypes/Doctor/pages/DoctorBusy/Index.jsx";
 import ScrollTop from "./components/ScrollTop/Index.jsx";
-import SuperAdminMessages from "./userTypes/superAdmin/pages/Messages/Index.jsx"
+import SuperAdminMessages from "./userTypes/superAdmin/pages/Messages/Index.jsx";
+import SuperAdminDoctorProfile from "./userTypes/superAdmin/pages/DoctorProfile/Index.jsx";
+import SuperAdminPatientProfile from "./userTypes/superAdmin/pages/PatientProfile/Index.jsx";
+import SuperAdminReceptionProfile from "./userTypes/superAdmin/pages/ReceptionProfile/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -96,275 +99,290 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-       <ScrollTop>
-       <Routes>
-          <Route path="/" element={<Client />}>
-            <Route index element={<Home />} />
-            <Route path="/doctors" element={<Doctors />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/detail/:id" element={<DoctorDetail />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Route>
-          <Route
-            path="/superadmin"
-            element={
-              user && user.roles && user.roles[0] === "Admin" ? (
-                <SuperAdminDashboard />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          >
-            <Route index element={<SuperAdminHome />} />
+        <ScrollTop>
+          <Routes>
+            <Route path="/" element={<Client />}>
+              <Route index element={<Home />} />
+              <Route path="/doctors" element={<Doctors />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/detail/:id" element={<DoctorDetail />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Route>
             <Route
-              path="/superadmin/settings"
-              element={<SuperAdminSettings />}
-            />
-            <Route path="/superadmin/service" element={<SuperAdminService />} />
+              path="/superadmin"
+              element={
+                user && user.roles && user.roles[0] === "Admin" ? (
+                  <SuperAdminDashboard />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            >
+              <Route index element={<SuperAdminHome />} />
+              <Route
+                path="/superadmin/settings"
+                element={<SuperAdminSettings />}
+              />
+              <Route
+                path="/superadmin/service"
+                element={<SuperAdminService />}
+              />
+              <Route
+                path="/superadmin/service/create"
+                element={<ServiceAddSuperAdmin />}
+              />
+              <Route
+                path="/superadmin/service/update/:id"
+                element={<ServiceUpdateSuperAdmin />}
+              />
+              <Route
+                path="/superadmin/department"
+                element={<SuperAdminDepartment />}
+              />
+              <Route
+                path="/superadmin/department/create"
+                element={<DepartmentAddSuperAdmin />}
+              />
+              <Route
+                path="/superadmin/department/update/:id"
+                element={<DepartmentUpdateSuperAdmin />}
+              />
+              <Route
+                path="/superadmin/position"
+                element={<PositionPageSuperAdmin />}
+              />
+              <Route
+                path="/superadmin/position/create"
+                element={<PositionCreateSuperAdmin />}
+              />
+              <Route
+                path="/superadmin/position/update/:id"
+                element={<PositionUpdateSuperAdmin />}
+              />
+              <Route path="/superadmin/doctor" element={<SuperAdminDoctor />} />
+              <Route
+                path="/superadmin/doctor/create"
+                element={<SuperAdminDoctorCreate />}
+              />
+              <Route
+                path="/superadmin/doctor/addrole/:username"
+                element={<SuperAdminDoctorAddRole />}
+              />
+              <Route
+                path="/superadmin/doctor/removerole/:username"
+                element={<SuperAdminDoctorRemoveRole />}
+              />
+              <Route
+                path="/superadmin/doctor/addroom/:id"
+                element={<SuperAdminDoctorAddRoom />}
+              />
+              <Route
+                path="/superadmin/doctor/update/:id"
+                element={<SuperAdminDoctorUpdate />}
+              />
+              <Route
+                path="/superadmin/appoinments"
+                element={<SuperAdminAppoinments />}
+              />
+              <Route
+                path="/superadmin/appoinments/update/:id"
+                element={<SuperAdminUpdateAppoinments />}
+              />
+              <Route
+                path="/superadmin/patients"
+                element={<SuperAdminPatientList />}
+              />
+              <Route
+                path="/superadmin/patients/create"
+                element={<SuperAdminPatientCreate />}
+              />
+              <Route
+                path="/superadmin/patients/update/:id"
+                element={<SuperAdminPatientUpdate />}
+              />
+              <Route
+                path="/superadmin/patients/addrole/:username"
+                element={<SuperAdminPatientAddRole />}
+              />
+              <Route
+                path="/superadmin/patients/removerole/:username"
+                element={<SuperAdminPatientRemoveRole />}
+              />
+              <Route
+                path="/superadmin/patients/addroompatient/:id"
+                element={<SuperAdminPatientAddRoom />}
+              />
+              <Route
+                path="/superadmin/doctorrooms/"
+                element={<SuperAdminDoctorRooms />}
+              />
+              <Route
+                path="/superadmin/doctorrooms/create"
+                element={<SuperAdminDoctorRoomCreate />}
+              />
+              <Route
+                path="/superadmin/doctorrooms/update/:id"
+                element={<SuperAdminDoctorRoomUpdate />}
+              />
+              <Route
+                path="/superadmin/patientrooms"
+                element={<SuperAdminPatientRoom />}
+              />
+              <Route
+                path="/superadmin/patientrooms/create"
+                element={<SuperAdminPatientRoomCreate />}
+              />
+              <Route
+                path="/superadmin/patientrooms/update/:id"
+                element={<SuperAdminPatientRoomUpdate />}
+              />
+              <Route path="/superadmin/nurse" element={<SuperAdminNurse />} />
+              <Route
+                path="/superadmin/nurse/create"
+                element={<SuperAdminNurseCreate />}
+              />
+              <Route
+                path="/superadmin/nurse/update/:id"
+                element={<SuperAdminNurseUpdate />}
+              />
+              <Route
+                path="/superadmin/nurse/addrole/:username"
+                element={<SuperAdminNurseAddRole />}
+              />
+              <Route
+                path="/superadmin/nurse/removerole/:username"
+                element={<SuperAdminNurseRemoveRole />}
+              />
+              <Route
+                path="/superadmin/patienthistory"
+                element={<SuperAdminPatientHistory />}
+              />
+              <Route
+                path="/superadmin/doctoravailabe"
+                element={<SuperAdminDoctorAvailable />}
+              />
+              <Route
+                path="/superadmin/messages"
+                element={<SuperAdminMessages />}
+              />
+              <Route
+                path="/superadmin/doctorprofile/:username"
+                element={<SuperAdminDoctorProfile />}
+              />
+              <Route
+                path="/superadmin/patientprofile/:username"
+                element={<SuperAdminPatientProfile />}
+              />
+              <Route
+                path="/superadmin/receptionprofile/:username"
+                element={<SuperAdminReceptionProfile />}
+              />
+            </Route>
             <Route
-              path="/superadmin/service/create"
-              element={<ServiceAddSuperAdmin />}
-            />
+              path="/doctor"
+              element={
+                user && user.roles && user.roles[0] === "Doctor" ? (
+                  <DoctorDashboard />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            >
+              <Route index element={<DoctorHome />} />
+              <Route
+                path="/doctor/appoinments"
+                element={<DoctorAppoinments />}
+              />
+              <Route
+                path="/doctor/appoinments/create"
+                element={<DoctorAppoinmentCreate />}
+              />
+              <Route
+                path="/doctor/appoinmetsaspatient"
+                element={<DoctorAppoinmentAsPatient />}
+              />
+              <Route
+                path="/doctor/doctorspatient"
+                element={<DoctorsPatients />}
+              />
+              <Route path="/doctor/recipes" element={<Recipes />} />
+              <Route path="/doctor/recipes/create" element={<RecipeCreate />} />
+              <Route
+                path="/doctor/recipes/update/:id"
+                element={<RecipeUpdate />}
+              />
+              <Route path="/doctor/profile" element={<ProfileDoctor />} />
+              <Route
+                path="/doctor/profile/update"
+                element={<ProfileUpdateDoctor />}
+              />
+              <Route path="/doctor/doctorbusy" element={<DoctorBusyDoctor />} />
+            </Route>
             <Route
-              path="/superadmin/service/update/:id"
-              element={<ServiceUpdateSuperAdmin />}
-            />
-            <Route
-              path="/superadmin/department"
-              element={<SuperAdminDepartment />}
-            />
-            <Route
-              path="/superadmin/department/create"
-              element={<DepartmentAddSuperAdmin />}
-            />
-            <Route
-              path="/superadmin/department/update/:id"
-              element={<DepartmentUpdateSuperAdmin />}
-            />
-            <Route
-              path="/superadmin/position"
-              element={<PositionPageSuperAdmin />}
-            />
-            <Route
-              path="/superadmin/position/create"
-              element={<PositionCreateSuperAdmin />}
-            />
-            <Route
-              path="/superadmin/position/update/:id"
-              element={<PositionUpdateSuperAdmin />}
-            />
-            <Route path="/superadmin/doctor" element={<SuperAdminDoctor />} />
-            <Route
-              path="/superadmin/doctor/create"
-              element={<SuperAdminDoctorCreate />}
-            />
-            <Route
-              path="/superadmin/doctor/addrole/:username"
-              element={<SuperAdminDoctorAddRole />}
-            />
-            <Route
-              path="/superadmin/doctor/removerole/:username"
-              element={<SuperAdminDoctorRemoveRole />}
-            />
-            <Route
-              path="/superadmin/doctor/addroom/:id"
-              element={<SuperAdminDoctorAddRoom />}
-            />
-            <Route
-              path="/superadmin/doctor/update/:id"
-              element={<SuperAdminDoctorUpdate />}
-            />
-            <Route
-              path="/superadmin/appoinments"
-              element={<SuperAdminAppoinments />}
-            />
-            <Route
-              path="/superadmin/appoinments/update/:id"
-              element={<SuperAdminUpdateAppoinments />}
-            />
-            <Route
-              path="/superadmin/patients"
-              element={<SuperAdminPatientList />}
-            />
-            <Route
-              path="/superadmin/patients/create"
-              element={<SuperAdminPatientCreate />}
-            />
-            <Route
-              path="/superadmin/patients/update/:id"
-              element={<SuperAdminPatientUpdate />}
-            />
-            <Route
-              path="/superadmin/patients/addrole/:username"
-              element={<SuperAdminPatientAddRole />}
-            />
-            <Route
-              path="/superadmin/patients/removerole/:username"
-              element={<SuperAdminPatientRemoveRole />}
-            />
-            <Route
-              path="/superadmin/patients/addroompatient/:id"
-              element={<SuperAdminPatientAddRoom />}
-            />
-            <Route
-              path="/superadmin/doctorrooms/"
-              element={<SuperAdminDoctorRooms />}
-            />
-            <Route
-              path="/superadmin/doctorrooms/create"
-              element={<SuperAdminDoctorRoomCreate />}
-            />
-            <Route
-              path="/superadmin/doctorrooms/update/:id"
-              element={<SuperAdminDoctorRoomUpdate />}
-            />
-            <Route
-              path="/superadmin/patientrooms"
-              element={<SuperAdminPatientRoom />}
-            />
-            <Route
-              path="/superadmin/patientrooms/create"
-              element={<SuperAdminPatientRoomCreate />}
-            />
-            <Route
-              path="/superadmin/patientrooms/update/:id"
-              element={<SuperAdminPatientRoomUpdate />}
-            />
-            <Route path="/superadmin/nurse" element={<SuperAdminNurse />} />
-            <Route
-              path="/superadmin/nurse/create"
-              element={<SuperAdminNurseCreate />}
-            />
-            <Route
-              path="/superadmin/nurse/update/:id"
-              element={<SuperAdminNurseUpdate />}
-            />
-            <Route
-              path="/superadmin/nurse/addrole/:username"
-              element={<SuperAdminNurseAddRole />}
-            />
-            <Route
-              path="/superadmin/nurse/removerole/:username"
-              element={<SuperAdminNurseRemoveRole />}
-            />
-            <Route
-              path="/superadmin/patienthistory"
-              element={<SuperAdminPatientHistory />}
-            />
-            <Route
-              path="/superadmin/doctoravailabe"
-              element={<SuperAdminDoctorAvailable />}
-            />
-            <Route
-              path="/superadmin/messages"
-              element={<SuperAdminMessages />}
-            />
-          </Route>
-          <Route
-            path="/doctor"
-            element={
-              user && user.roles && user.roles[0] === "Doctor" ? (
-                <DoctorDashboard />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          >
-            <Route index element={<DoctorHome />} />
-            <Route path="/doctor/appoinments" element={<DoctorAppoinments />} />
-            <Route
-              path="/doctor/appoinments/create"
-              element={<DoctorAppoinmentCreate />}
-            />
-            <Route
-              path="/doctor/appoinmetsaspatient"
-              element={<DoctorAppoinmentAsPatient />}
-            />
-            <Route
-              path="/doctor/doctorspatient"
-              element={<DoctorsPatients />}
-            />
-            <Route path="/doctor/recipes" element={<Recipes />} />
-            <Route path="/doctor/recipes/create" element={<RecipeCreate />} />
-            <Route
-              path="/doctor/recipes/update/:id"
-              element={<RecipeUpdate />}
-            />
-            <Route path="/doctor/profile" element={<ProfileDoctor />} />
-            <Route
-              path="/doctor/profile/update"
-              element={<ProfileUpdateDoctor />}
-            />
-            <Route
-              path="/doctor/doctorbusy"
-              element={<DoctorBusyDoctor />}
-            />
-          </Route>
-          <Route
-            path="/patient"
-            element={
-              user && user.roles && user.roles[0] === "Patient" ? (
-                <PatientDashboard />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          >
-            <Route index element={<HomePatient />} />
-            <Route
-              path="/patient/appoinments"
-              element={<PatientAppoinments />}
-            />
-            <Route
-              path="/patient/appoinments/create"
-              element={<AppoinmentCreate />}
-            />
-            <Route path="/patient/recipes" element={<RecipeListPatient />} />
-            <Route path="/patient/doctors" element={<PatientDoctors />} />
-            <Route
-              path="/patient/doctoravailable"
-              element={<DoctorAvailable />}
-            />
-            <Route path="/patient/history" element={<PatientHistory />} />
-            <Route path="/patient/profile" element={<PatientProfile />} />
-            <Route
-              path="/patient/profile/update"
-              element={<PatientProfileUpdate />}
-            />
-          </Route>
+              path="/patient"
+              element={
+                user && user.roles && user.roles[0] === "Patient" ? (
+                  <PatientDashboard />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            >
+              <Route index element={<HomePatient />} />
+              <Route
+                path="/patient/appoinments"
+                element={<PatientAppoinments />}
+              />
+              <Route
+                path="/patient/appoinments/create"
+                element={<AppoinmentCreate />}
+              />
+              <Route path="/patient/recipes" element={<RecipeListPatient />} />
+              <Route path="/patient/doctors" element={<PatientDoctors />} />
+              <Route
+                path="/patient/doctoravailable"
+                element={<DoctorAvailable />}
+              />
+              <Route path="/patient/history" element={<PatientHistory />} />
+              <Route path="/patient/profile" element={<PatientProfile />} />
+              <Route
+                path="/patient/profile/update"
+                element={<PatientProfileUpdate />}
+              />
+            </Route>
 
-          <Route
-            path="/receptionist"
-            element={
-              user && user.roles && user.roles[0] === "Receptionist" ? (
-                <Receptionist />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          >
-            <Route index element={<HomeReceptionist />} />
             <Route
-              path="/receptionist/appoinments"
-              element={<AppoinmentsListReceptionist />}
-            />
-            <Route
-              path="/receptionist/appoinments/update/:id"
-              element={<AppoinmentsUpdateReceptionist />}
-            />
-            <Route
-              path="/receptionist/profile"
-              element={<ProfiletReceptionist />}
-            />
-            <Route
-              path="/receptionist/profile/update"
-              element={<ProfileUpdateReceptionist />}
-            />
-          </Route>
-        </Routes>
-       </ScrollTop>
+              path="/receptionist"
+              element={
+                user && user.roles && user.roles[0] === "Receptionist" ? (
+                  <Receptionist />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            >
+              <Route index element={<HomeReceptionist />} />
+              <Route
+                path="/receptionist/appoinments"
+                element={<AppoinmentsListReceptionist />}
+              />
+              <Route
+                path="/receptionist/appoinments/update/:id"
+                element={<AppoinmentsUpdateReceptionist />}
+              />
+              <Route
+                path="/receptionist/profile"
+                element={<ProfiletReceptionist />}
+              />
+              <Route
+                path="/receptionist/profile/update"
+                element={<ProfileUpdateReceptionist />}
+              />
+            </Route>
+          </Routes>
+        </ScrollTop>
       </BrowserRouter>
     </div>
   );

@@ -197,13 +197,13 @@ const Index = () => {
           <table className="table">
             <thead>
               <tr>
+                <th scope="col">Image</th>
                 <th scope="col">Name</th>
                 <th scope="col">Surname</th>
                 <th scope="col">Username</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Age</th>
                 <th scope="col">Email</th>
-                <th scope="col">Image</th>
                 <th scope="col">Status</th>
                 <th scope="col">Position</th>
                 <th scope="col">Department</th>
@@ -236,19 +236,32 @@ const Index = () => {
             <tbody>
               {searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
-                  <td>{datas.name}</td>
+                  <td>
+                    <Link
+                      style={{ color: "#333", textDecoration: "none" }}
+                      to={`/superadmin/doctorprofile/${datas.userName}`}
+                    >
+                      <img
+                        src={datas.imageUrl}
+                        style={{ width: "30px" }}
+                        alt=""
+                      />
+                    </Link>
+                  </td>
+                  <td
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {datas.name}
+                  </td>
                   <td>{datas.surname}</td>
                   <td>{datas.userName}</td>
                   <td>{datas.gender === 2 ? "Male" : "Female"}</td>
                   <td>{datas.age}</td>
                   <td>{datas.email}</td>
-                  <td>
-                    <img
-                      src={datas.imageUrl}
-                      style={{ width: "30px" }}
-                      alt=""
-                    />
-                  </td>
                   <td>
                     {datas.status === 1
                       ? "Active"
