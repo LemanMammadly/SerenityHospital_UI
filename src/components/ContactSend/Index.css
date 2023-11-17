@@ -15,6 +15,9 @@
     margin: auto;
 }
 
+.container-contactSend form input{
+    font-size: 15px;
+}
 
 .container-contactSend .sendBtn{
     color: #fff;
