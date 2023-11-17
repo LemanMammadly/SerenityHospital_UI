@@ -26,15 +26,46 @@ header .resp-icon{
 }
 
 header .right ul a{
+    position: relative;
     text-transform: uppercase;
     text-decoration: none;
     color: #333;
+    font-weight: bold;
     font-size: 15px;
     font-family: 'Lato', sans-serif;
 }
 
+header .right ul a::after{
+    content: "";
+    position: absolute;
+    background-color: #214869;
+    height: 2px;
+    width: 0;
+    right: 0;
+    bottom: -10px;
+    transition: .5s;
+}
+
 header .right ul a:hover{
     color: #0287BE;
+}
+
+header .right ul a:hover::after{
+    width: 70%;
+}
+
+header .right .active-link{
+    color:#0287BE;
+}
+
+header .right .active-link::after{
+    content: "";
+    position: absolute;
+    background-color:#0287BE;
+    height: 2px;
+    width: 70%;
+    right: 0;
+    bottom: -10px;
     transition: .5s;
 }
 

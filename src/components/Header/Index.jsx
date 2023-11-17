@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import $ from "jquery";
 import axios from "axios";
 
 const Index = () => {
   const [data, setData] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     axios
@@ -54,19 +55,19 @@ const Index = () => {
         <div className="right">
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" className={location.pathname === "/" ? "active-link" : ""}>Home</Link>
             </li>
             <li>
-              <Link to="/doctors">Doctors</Link>
+              <Link to="/doctors" className={location.pathname === "/doctors" ? "active-link" : ""}>Doctors</Link>
             </li>
             <li>
-              <Link to="/aboutus">About</Link>
+              <Link to="/aboutus" className={location.pathname === "/aboutus" ? "active-link" : ""}>About</Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/contact" className={location.pathname === "/contact" ? "active-link" : ""}>Contact</Link>
             </li>
             <li>
-              <Link to="/login">Login</Link>
+              <Link to="/login" className={location.pathname === "/login" ? "active-link" : ""}>Login</Link>
             </li>
           </ul>
         </div>
