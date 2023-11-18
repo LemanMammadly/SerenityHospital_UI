@@ -13,7 +13,6 @@ const Index = () => {
   const [selectedAppoinment, setSelectedAppoinment] = useState("");
   const [doctor, setDoctor] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
-  const [patient, setPatient] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState("");
   const [allpatients, setAllpatients] = useState([]);
 
@@ -73,7 +72,7 @@ const Index = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  //yoxlama
+  
   useEffect(() => {
     axios
       .get(`https://localhost:7227/api/Appoinments`, {
@@ -92,30 +91,6 @@ const Index = () => {
         console.log(err);
       });
   }, []);
-  console.log(allpatients);
-
-  // useEffect(() => {
-  //   axios
-  //     .get("https://localhost:7227/api/PatientAuths", {
-  //       headers: {
-  //         Authorization: `Bearer ${user.token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       const allPatients = res.data;
-  //       const filteredPatients = allPatients.filter(
-  //         (patient) =>
-  //           patient.appoinments &&
-  //           patient.appoinments.some(
-  //             (app) => app.doctor && app.doctor.userName === username
-  //           )
-  //       );
-  //       setPatient(filteredPatients)
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }, [username]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

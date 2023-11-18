@@ -30,7 +30,7 @@ const Index = () => {
     return format(parsedDate, "HH:mm dd-MM-yyyy");
   };
 
-    const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const respOpenMenu = () => {
     const dashboardMenu = $(".dashboard-menu-header");
@@ -125,12 +125,13 @@ const Index = () => {
       })
       .then((resp) => {
         const allMessage = resp.data;
-        const unreadMessages = allMessage.filter((mess) => mess.isRead === false);
+        const unreadMessages = allMessage.filter(
+          (mess) => mess.isRead === false
+        );
         setMessage(unreadMessages);
       })
       .catch((err) => console.log(err));
   }, []);
-  
 
   return (
     <section>
@@ -146,66 +147,74 @@ const Index = () => {
               ></i>
             </div>
             <div className="top-notifcation-admin text-end">
-              <i
-                onClick={handleShow}
-                className="notif-bell"
-                title="Message Notifications"
-                style={{
-                  backgroundColor: "#DFE9F2",
-                  padding: "8px",
-                  color: "#0860F3",
-                  borderRadius: "50%",
-                  fontSize: "17px",
-                  marginBottom: "10px",
-                  cursor: "pointer",
-                }}
-                class="fa-solid fa-bell"
-              ></i>
-              <span className={message.length>0 ? "notif-red-admin" : ""}></span>
+                <i
+                  onClick={handleShow}
+                  className="notif-bell"
+                  title="Message Notifications"
+                  style={{
+                    backgroundColor: "#DFE9F2",
+                    padding: "8px",
+                    color: "#0860F3",
+                    borderRadius: "50%",
+                    fontSize: "17px",
+                    marginBottom: "10px",
+                    cursor: "pointer",
+                  }}
+                  class="fa-solid fa-bell"
+                ></i>
+              <span
+                className={message.length > 0 ? "notif-red-admin" : ""}
+              ></span>
               {message &&
-          message.map((mess, index) => (
-            <Modal
-              key={index}
-              size="lg"
-              show={show}
-              onHide={handleClose}
-              aria-labelledby="example-modal-sizes-title-lg"
-            >
-              <Modal.Header closeButton>
-                <Modal.Title>Notifications</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <div className="all-notif-body d-flex gap-2 align-items-center justify-content-between">
-                  <div className="message-name">
-                    <i
-                      style={{ color: "#183A56" }}
-                      class="fa-solid fa-user mx-2"
-                    ></i>
-                    {mess.name}
-                  </div>
-                  <div className="email-notif">
-                    {mess.email}
-                  </div>
-                  <div className="notif-message">
-                    <i style={{color:"#015C4B"}} class="fa-regular fa-comments mx-2"></i>
-                    <Link to="/superadmin/messages" style={{color:"red"}}>Message</Link>
-                  </div>
-                  <div className="patient-date">
-                    <i
-                      style={{ color: "green" }}
-                      class="fa-regular fa-clock mx-2"
-                    ></i>
-                    {formatDateTime(mess.date)}
-                  </div>
-                </div>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          ))}
+                message.map((mess, index) => (
+                  <Modal
+                    key={index}
+                    size="lg"
+                    show={show}
+                    onHide={handleClose}
+                    aria-labelledby="example-modal-sizes-title-lg"
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Notifications</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <div className="all-notif-body d-flex gap-2 align-items-center justify-content-between">
+                        <div className="message-name">
+                          <i
+                            style={{ color: "#183A56" }}
+                            class="fa-solid fa-user mx-2"
+                          ></i>
+                          {mess.name}
+                        </div>
+                        <div className="email-notif">{mess.email}</div>
+                        <div className="notif-message">
+                          <i
+                            style={{ color: "#015C4B" }}
+                            class="fa-regular fa-comments mx-2"
+                          ></i>
+                          <Link
+                            to="/superadmin/messages"
+                            style={{ color: "red" }}
+                          >
+                            Message
+                          </Link>
+                        </div>
+                        <div className="patient-date">
+                          <i
+                            style={{ color: "green" }}
+                            class="fa-regular fa-clock mx-2"
+                          ></i>
+                          {formatDateTime(mess.date)}
+                        </div>
+                      </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Close
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                ))}
             </div>
           </div>
           <div className="boxes-dashboard">

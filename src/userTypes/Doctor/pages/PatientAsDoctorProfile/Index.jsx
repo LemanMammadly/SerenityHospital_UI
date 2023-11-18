@@ -1,51 +1,45 @@
 import React, { useEffect, useState } from "react";
-import "./Index.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Index = () => {
-    const [data,setData]=useState([])
-    const user = JSON.parse(localStorage.getItem("user"));
+  const {username}=useParams();
+  const [data, setData] = useState([]);
 
-
-    useEffect(() => {
-        axios
-          .get(
-            `https://localhost:7227/api/DoctorAuths/GetByName?userName=${user.username}`
-          )
-          .then((res) => {
-            setData(res.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }, []);
+  useEffect(() => {
+    axios
+      .get(
+        `https://localhost:7227/api/DoctorAuths/GetByName?userName=${username}`
+      )
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="all-doc-profile">
       <div className="all-doc-profile-container">
+        <div className="back-to-doctor">
+            <Link style={{color:"black",textDecoration:"none"}} to="/doctor/doctorspatient"><i class="fa-regular fa-circle-left"></i> Doctor / Patients</Link>
+        </div>
         <div className="top-doc-profile d-flex justify-content-between align-items-center">
-          <div className="prof-text-div-doctor">
-          <h3>Profile</h3>
-          </div>
-          <div className="upt-prof-btn-doctor">
-          <Link to={`/doctor/profile/update`}>Update Profile</Link>
+          <div className="prof-text-div-doctor" style={{marginTop:"20px"}}>
+            <h3>Profile</h3>
           </div>
         </div>
         <div className="bottom-doc-profile d-flex justify-content-between align-items-center">
           <div className="left-bot-doc-profile col-lg-3">
             <div className="left-image-doc-top">
-              <img
-                className="img-fluid"
-                src={data.imageUrl}
-                alt=""
-              />
+              <img className="img-fluid" src={data.imageUrl} alt="" />
             </div>
             <div className="left-desc-doc-bottom">
-              <h3>Dr. {data.name} {data.surname}</h3>
-              <p>
-                {data.description} 
-              </p>
+              <h3>
+                Dr. {data.name} {data.surname}
+              </h3>
+              <p>{data.description}</p>
             </div>
           </div>
           <div className="right-bot-doc-profile col-lg-8">
@@ -73,15 +67,17 @@ const Index = () => {
                 </tr>
                 <tr>
                   <td>Email</td>
-                  <td>{data.email}</td>
-                </tr>
-                <tr>
-                  <td>Salary</td>
-                  <td>{data.salary} manat</td>
+                  <td>{data.email}r</td>
                 </tr>
                 <tr>
                   <td>Gender</td>
-                  <td>{data.gender ===1 ? "Female" : data.gender===2 ? "Male" : "Others"}</td>
+                  <td>
+                    {data.gender === 1
+                      ? "Female"
+                      : data.gender === 2
+                      ? "Male"
+                      : "Others"}
+                  </td>
                 </tr>
                 <tr>
                   <td>Age</td>
@@ -89,7 +85,7 @@ const Index = () => {
                 </tr>
                 <tr>
                   <td>Start Date</td>
-                  <td>{data.startDate && data.startDate.substring(0,10)}</td>
+                  <td>{data.startDate && data.startDate.substring(0, 10)}</td>
                 </tr>
               </tbody>
             </table>

@@ -144,7 +144,8 @@ const Index = () => {
     setSearch(key);
     const filteredResults = data.filter(
       (item) =>
-        item.doctor && item.doctor.name &&
+        item.doctor &&
+        item.doctor.name &&
         item.doctor.name.toLowerCase().includes(key.toLowerCase())
     );
     setSearchResults(filteredResults);
@@ -237,7 +238,9 @@ const Index = () => {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {datas.doctor && datas.doctor.department && datas.doctor.department.name}{" "}
+                      {datas.doctor &&
+                        datas.doctor.department &&
+                        datas.doctor.department.name}{" "}
                     </td>
                     <td
                       style={{
@@ -246,8 +249,15 @@ const Index = () => {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {datas.doctor && datas.doctor.name}{" "}
-                      {datas.doctor && datas.doctor.surname}
+                      <Link
+                        style={{ color: "#333", textDecoration: "none" }}
+                        to={`/receptionist/doctorprofile/${
+                          datas.doctor && datas.doctor.userName
+                        }`}
+                      >
+                        {datas.doctor && datas.doctor.name}{" "}
+                        {datas.doctor && datas.doctor.surname}
+                      </Link>
                     </td>
                     <td
                       style={{
@@ -256,12 +266,26 @@ const Index = () => {
                         textOverflow: "ellipsis",
                       }}
                     >
-                      {datas.patient && datas.patient.name}{" "}
-                      {datas.patient && datas.patient.surname}{" "}
-                      {datas.appoinmentAsDoctor &&
-                        datas.appoinmentAsDoctor.name}{" "}
-                      {datas.appoinmentAsDoctor &&
-                        datas.appoinmentAsDoctor.surname}{" "}
+                      <Link
+                        style={{ color: "#333", textDecoration: "none" }}
+                        to={
+                          datas.patient
+                            ? `/receptionist/patientprofile/${
+                                datas.patient && datas.patient.userName
+                              }`
+                            : `/receptionist/doctorprofile/${
+                                datas.appoinmentAsDoctor &&
+                                datas.appoinmentAsDoctor.userName
+                              }`
+                        }
+                      >
+                        {datas.patient && datas.patient.name}{" "}
+                        {datas.patient && datas.patient.surname}{" "}
+                        {datas.appoinmentAsDoctor &&
+                          datas.appoinmentAsDoctor.name}{" "}
+                        {datas.appoinmentAsDoctor &&
+                          datas.appoinmentAsDoctor.surname}{" "}
+                      </Link>
                     </td>
                     <td
                       style={{
@@ -317,9 +341,9 @@ const Index = () => {
                     <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
                     <td>
                       <Button
-                       onClick={() =>
-                        nav(`/receptionist/appoinments/update/${datas.id}`)
-                      }
+                        onClick={() =>
+                          nav(`/receptionist/appoinments/update/${datas.id}`)
+                        }
                         style={{
                           textDecoration: "none",
                           backgroundColor: "#0B58CA",

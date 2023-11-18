@@ -41,7 +41,7 @@ const Index = () => {
               (app) =>
                 app.doctor &&
                 app.doctor.userName === username &&
-                (app.status === 1 || app.status===2)
+                (app.status === 1 || app.status === 2)
             )
         );
 
@@ -63,18 +63,32 @@ const Index = () => {
       .then((res) => {
         const appoinments = res.data;
         const appoinmentFilter = appoinments.filter(
-          (app) => app.doctor.userName === username && (app.status === 1 || app.status===2)
+          (app) =>
+            app.doctor.userName === username &&
+            (app.status === 1 || app.status === 2)
         );
-        const appoinmentDoctor = appoinmentFilter.filter(
-          (app) => app.appoinmentAsDoctor !== null
-        );
-        setDoctorPatient(appoinmentDoctor);
+  
+        const uniqueDoctorIds = new Set();
+        const uniqueDoctorPatient = [];
+  
+        appoinmentFilter.forEach((app) => {
+          if (app.appoinmentAsDoctor !== null) {
+            const doctorId = app.appoinmentAsDoctor.userName;
+  
+            if (!uniqueDoctorIds.has(doctorId)) {
+              uniqueDoctorIds.add(doctorId);
+              uniqueDoctorPatient.push(app);
+            }
+          }
+        });
+  
+        setDoctorPatient(uniqueDoctorPatient);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
+  
   const seacrhChange = (key) => {
     setSearch(key);
     const filteredResults = data.filter(
@@ -91,6 +105,7 @@ const Index = () => {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  
   return (
     <section className="all-pat-doc">
       <div className="container-pat-doc">
@@ -128,12 +143,12 @@ const Index = () => {
         </div>
         <div className="bottom-pat-doc">
           <table class="table">
-          <caption>Patients</caption>
+            <caption>Patients</caption>
             <thead>
               <tr>
+                <th scope="col">Image</th>
                 <th scope="col">Name</th>
                 <th scope="col">Surname</th>
-                <th scope="col">Image</th>
                 <th scope="col">Age</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
@@ -143,15 +158,17 @@ const Index = () => {
             <tbody>
               {searchResults.slice(startIndex, endIndex).map((datas, index) => (
                 <tr key={index}>
+                  <td>
+                    <Link to={`/doctor/patientprofile/${datas.userName}`}>
+                      <img
+                        src={datas.imageUrl}
+                        style={{ width: "30px" }}
+                        alt=""
+                      />
+                    </Link>
+                  </td>
                   <td>{datas.name}</td>
                   <td>{datas.surname}</td>
-                  <td>
-                    <img
-                      src={datas.imageUrl}
-                      style={{ width: "30px" }}
-                      alt=""
-                    />
-                  </td>
                   <td>{datas.age}</td>
                   <td>{datas.phoneNumber}</td>
                   <td>{datas.address}</td>
@@ -193,7 +210,12 @@ const Index = () => {
               {doctorPatient.map((datas, index) => (
                 <tr key={index}>
                   <td>
-                    {datas.appoinmentAsDoctor && datas.appoinmentAsDoctor.name}
+                    <Link style={{textDecoration:"none",color:"#333"}}
+                      to={`/doctor/patientasdoctorprofile/${datas.appoinmentAsDoctor && datas.appoinmentAsDoctor.userName}`}
+                    >
+                      {datas.appoinmentAsDoctor &&
+                        datas.appoinmentAsDoctor.name}
+                    </Link>
                   </td>
                   <td>
                     {datas.appoinmentAsDoctor &&

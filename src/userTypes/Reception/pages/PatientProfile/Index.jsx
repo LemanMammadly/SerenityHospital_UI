@@ -31,9 +31,9 @@ const Index = () => {
         <div className="back-to-patient">
           <Link
             style={{ color: "black", textDecoration: "none" }}
-            to="/superadmin/patients"
+            to="/receptionist/appoinments"
           >
-            <i class="fa-regular fa-circle-left"></i> Admin / Patients
+            <i class="fa-regular fa-circle-left"></i>  Reception / Appoinment List
           </Link>
         </div>
         <div className="top-pat-profile d-flex justify-content-between align-items-center">

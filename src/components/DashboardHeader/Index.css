@@ -42,6 +42,34 @@
     margin: 0px;
 }
 
+.all-header-dashboard .username-login{
+    cursor: pointer;
+    position: relative;
+}
+
+.all-header-dashboard .logout-link{
+    position: absolute;
+    top: 15px;
+    left: 0;
+    background-color: #002140;
+    visibility: hidden;
+    transition: .3s;
+    z-index: 33333;
+}
+.all-header-dashboard .username-login:hover .logout-link{
+    visibility: visible;
+}
+
+.all-header-dashboard .logout-link a{
+    transition: .3s;
+    border-radius: 5px;
+}
+
+.all-header-dashboard .logout-link a:hover{
+    background-color: #fff;
+    color: #333 !important;
+}
+
 @media screen and (max-width: 786px)
 {
     .all-header-dashboard .left-menu-header i{

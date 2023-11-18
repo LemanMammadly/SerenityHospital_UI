@@ -80,6 +80,11 @@ import SuperAdminMessages from "./userTypes/superAdmin/pages/Messages/Index.jsx"
 import SuperAdminDoctorProfile from "./userTypes/superAdmin/pages/DoctorProfile/Index.jsx";
 import SuperAdminPatientProfile from "./userTypes/superAdmin/pages/PatientProfile/Index.jsx";
 import SuperAdminReceptionProfile from "./userTypes/superAdmin/pages/ReceptionProfile/Index.jsx"
+import DoctorPatientProfile from "./userTypes/Doctor/pages/PatientProfile/Index.jsx"
+import DoctorPatientAsDoctorProfile from "./userTypes/Doctor/pages/PatientAsDoctorProfile/Index.jsx"
+import PatientDoctorProfile from "./userTypes/Patient/pages/DoctorProfile/Index.jsx"
+import ReceptionistDoctorProfile from "./userTypes/Reception/pages/DoctorProfile/Index.jsx"
+import ReceptionistPatientrProfile from "./userTypes/Reception/pages/PatientProfile/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -319,6 +324,8 @@ function App() {
                 element={<ProfileUpdateDoctor />}
               />
               <Route path="/doctor/doctorbusy" element={<DoctorBusyDoctor />} />
+              <Route path="/doctor/patientprofile/:username" element={<DoctorPatientProfile />} />
+              <Route path="/doctor/patientasdoctorprofile/:username" element={<DoctorPatientAsDoctorProfile />} />
             </Route>
             <Route
               path="/patient"
@@ -351,6 +358,7 @@ function App() {
                 path="/patient/profile/update"
                 element={<PatientProfileUpdate />}
               />
+              <Route path="/patient/doctorprofile/:username" element={<PatientDoctorProfile />} />
             </Route>
 
             <Route
@@ -379,6 +387,14 @@ function App() {
               <Route
                 path="/receptionist/profile/update"
                 element={<ProfileUpdateReceptionist />}
+              />
+               <Route
+                path="/receptionist/doctorprofile/:username"
+                element={<ReceptionistDoctorProfile />}
+              />
+               <Route
+                path="/receptionist/patientprofile/:username"
+                element={<ReceptionistPatientrProfile />}
               />
             </Route>
           </Routes>

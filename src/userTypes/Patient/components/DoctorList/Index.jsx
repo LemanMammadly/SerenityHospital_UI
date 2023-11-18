@@ -122,11 +122,16 @@ const Index = () => {
                 .map((datas, index) => (
                   <tr key={index}>
                     <td>
-                      <img
-                        src={datas.imageUrl}
-                        style={{ width: "30px" }}
-                        alt=""
-                      />
+                      <Link
+                        style={{ color: "#333", textDecoration: "none" }}
+                        to={`/patient/doctorprofile/${datas.userName}`}
+                      >
+                        <img
+                          src={datas.imageUrl}
+                          style={{ width: "30px" }}
+                          alt=""
+                        />
+                      </Link>
                     </td>
                     <td>{datas.name}</td>
                     <td>{datas.surname}</td>

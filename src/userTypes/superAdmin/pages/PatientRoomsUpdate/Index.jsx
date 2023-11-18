@@ -16,8 +16,6 @@ const Index = () => {
   const [selectedDepartments, setSelectedDepartments] = useState("");
   const [patientsAll, setPatientsAll] = useState([]);
   const [selectPatients, setSelectPatients] = useState([]);
-  const [patientsInSelectedDepartment, setPatientsInSelectedDepartment] =
-    useState([]);
 
   $(".js-example-basic-single").select2();
 

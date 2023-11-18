@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Index.css";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 
@@ -68,7 +67,7 @@ const Index = () => {
                 </tr>
                 <tr>
                   <td>Email</td>
-                  <td>{data.email}r</td>
+                  <td>{data.email}</td>
                 </tr>
                 <tr>
                   <td>Salary</td>
