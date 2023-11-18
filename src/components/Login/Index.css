@@ -7,7 +7,7 @@
 }
 
 .all-login .left-login{
-    background-color: #0D1428;
+    background-color: #272A37;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -29,14 +29,15 @@
 }
 
 .all-login .left-login form input{
-    background-color: #0D1428;
-    border: 1px solid rgba(128, 128, 128, 0.347);
+    background-color: #1e2029;
+    border: 1px solid transparent;
     padding: 20px 150px 20px 10px;
     color: #fff;
     outline: none;
+    border-radius: 10px;
 }
 
-.all-login .left-login form input:focus{
+.all-login .left-login form input::placeholder{
     color: #fff;
 }
 
@@ -60,16 +61,18 @@
 
 
 .all-login .password-div{
-    border: 1px solid #333;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background-color: #1e2029;
 }
 
 .all-login .password-div i{
-    color: #636363;
+    color: #fff;
+    margin-right: 15px;
 }
 
 .all-login .pass-input{
     border: none !important;
-    background-color: #fff;
 }
 
 

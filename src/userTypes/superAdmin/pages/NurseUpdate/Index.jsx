@@ -526,7 +526,7 @@ const Index = () => {
                   </div>
                 )}
                 <button type="submit">
-                  Create <i className="fa-solid fa-check"></i>
+                  Update <i className="fa-solid fa-check"></i>
                 </button>
               </div>
             </div>

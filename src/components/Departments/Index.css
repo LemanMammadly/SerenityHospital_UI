@@ -11,7 +11,7 @@
     text-align: center;
     font-weight: bold;
     margin-bottom: 60px;
-    color: #467480;
+    color: #0363B0;
 }
 
 .container-departments .department-boxes{
@@ -23,6 +23,7 @@
 }
 
 .container-departments .dep-box{
+    cursor: pointer;
     background-color: #fff;
     height: 200px;
     display: flex;
@@ -30,6 +31,14 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.container-departments .dep-box:hover{
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+
 }
 
 .container-departments .dep-box img{

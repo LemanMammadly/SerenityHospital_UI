@@ -19,7 +19,7 @@
 .all-service .service h2{
     text-align: center;
     margin-bottom: 50px;
-    color: #467481;
+    color: #0363B0;
     font-weight: bold;
 }
 
@@ -33,6 +33,8 @@
 .all-service .boxes .box h3{
     font-size: 18px;
     line-height: 26px;
+    font-weight: bold;
+    font-style:italic;
     color: #111;
 }
 
@@ -40,6 +42,7 @@
     font-size: 15px;
     line-height: 24px;
     color: #55595c;
+    font-style: italic;
     width: 96%;
 }
 

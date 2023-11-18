@@ -209,7 +209,7 @@ const Index = () => {
                             ? "#1C79FF"
                             : datas.status === 4
                             ? "red"
-                            : "black",
+                            : "black", fontWeight:"bold"
                       }}
                     >
                       {datas.status === 1

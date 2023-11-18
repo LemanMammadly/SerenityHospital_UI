@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Index.css";
-import bgLogin from "../../assets/imgs/bg-login.jpeg";
+import bgLogin from "../../assets/imgs/slider-serenity.jpeg";
 import loginPage from "../../assets/imgs/loginPage.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -134,7 +134,7 @@ const Index = () => {
                 name="user"
                 value={selectUser}
               >
-                <option value="">Select User:</option>
+                <option value="">Select User Type:</option>
                 <option value="admin">Admin</option>
                 <option value="doctor">Doctor</option>
                 <option value="patient">Patient</option>
@@ -147,9 +147,10 @@ const Index = () => {
               type="text"
               placeholder="Username"
               name="userName"
+              style={{marginBottom:"10px"}}
               onChange={handleChange}
             />
-            <div className="password-div d-flex align-items-center justify-content-between px-2">
+            <div tabIndex="0" className="password-div d-flex align-items-center justify-content-between">
               <input
                 className="pass-input"
                 type={passwordVisible ? "text" : "password"}
@@ -172,7 +173,7 @@ const Index = () => {
               </div>
             ) : (
               <div className="error-messages">
-                <p className="error-message">
+                <p style={{color:"#ff3333",fontWeight:"300"}} className="error-message">
                   {(exception && exception.includes("password")) ||
                   (exception && exception.includes("delete"))
                     ? exception
@@ -180,19 +181,19 @@ const Index = () => {
                 </p>
               </div>
             )}
-            <button style={{ borderRadius: "5px" }} type="submit">
+            <button style={{ borderRadius: "10px",backgroundColor:"#177DD4" }} type="submit">
               Login
             </button>
           </form>
-          <p>Don't you have an account?</p>
+          <p style={{color:"#fff"}}>Don't you have an account?</p>
           <Link
             className="text-white"
             style={{
               textDecoration: "none",
-              padding: "10px 20px",
-              borderRadius: "5px",
+              padding: "10px 70px",
+              borderRadius: "10px",
               marginBottom: "30px",
-              backgroundColor: "#2191BF",
+              backgroundColor: "#177DD4",
             }}
             to="/register"
           >

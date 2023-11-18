@@ -31,10 +31,10 @@ const Index = () => {
           </div>
           <div className="boxes col-lg-12 row">
             {data.filter((datas) => datas.isDeleted === false).map((datas, index) => (
-              <div key={index} className="box col-lg-5" data-aos="flip-up">
-                <h3>{datas.name}</h3>
-                <p>
-                 {datas.description.slice(0,200)}..
+              <div key={index} className="box col-lg-12" data-aos="flip-up">
+                <h3 className="text-start">{datas.name}</h3>
+                <p className="text-start w-100">
+                 {datas.description}
                 </p>
               </div>
             ))}

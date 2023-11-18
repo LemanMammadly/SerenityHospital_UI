@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Index.css"
-import slider from '../../assets/imgs/slider-serenity.jpeg'
+import slider from '../../assets/imgs/sliderrrupdated.jpeg'
 import { Link } from 'react-router-dom'
 
 const Index = () => {

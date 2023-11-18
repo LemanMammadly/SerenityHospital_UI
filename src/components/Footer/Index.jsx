@@ -36,13 +36,13 @@ const Index = () => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/">Doctors</Link>
+                <Link to="/doctors">Doctors</Link>
               </li>
               <li>
-                <Link to="/">Make An Appoinment</Link>
+                <Link to="/login">Make An Appoinment</Link>
               </li>
               <li>
-                <Link to="/">Login</Link>
+                <Link to="/login">Login</Link>
               </li>
             </ul>
           </div>
@@ -50,10 +50,10 @@ const Index = () => {
             <h3>Help and Support</h3>
             <ul>
               <li>
-                <Link to="/">Contact Us</Link>
+                <Link to="/contact">Contact Us</Link>
               </li>
               <li>
-                <Link to="/">About Us</Link>
+                <Link to="/aboutus">About Us</Link>
               </li>
               <li>
                 <Link to="/">Blog</Link>

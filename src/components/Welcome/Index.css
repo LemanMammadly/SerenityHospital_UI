@@ -7,8 +7,8 @@
 }
 
 .container-welcome{
-    padding: 1rem 7rem 0 7rem;
-    background-color: #FCFCFC;
+    padding: 0 7rem 0 7rem;
+    background-color: #fff;
 }
 
 .all-welcome{
@@ -18,16 +18,21 @@
 
 .left .img-div img{
     width: 80%;
+    border-top: 2px solid #0363B0;
 }
 
 .right{
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .right h3{
     margin-top: 20px;
     font-size: 24px;
-    color: #111;
+    color: #0363B0;
+    font-weight: bold;
 }
 
 .right p{

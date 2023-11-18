@@ -63,10 +63,11 @@ const Index = () => {
         .then((res) => {
           const appointments = res.data;
           console.log(appointments);
-
+  
           const patientsOrDoctors = appointments.map((appointment) => {
             if (
-              appointment.doctor && appointment.doctor.department &&
+              appointment.doctor &&
+              appointment.doctor.department &&
               appointment.doctor.department.id === selectedDepartments
             ) {
               if (appointment.patient) {
@@ -74,20 +75,20 @@ const Index = () => {
                  ${appointment.patient.name} ${appointment.patient.surname}`;
               }
             } else {
-              return null;
+              return undefined;
             }
           });
-
+  
           const filteredPatientsOrDoctors = patientsOrDoctors.filter(
-            (item) => item !== null
+            (item, index, array) => item !== undefined && array.indexOf(item) === index
           );
-
+  
           setPatientsAll(filteredPatientsOrDoctors);
         })
         .catch((err) => console.log(err));
     }
   }, [selectedDepartments]);
-
+  
   const handleChange = (e) => {
     const { name, value, type, files, options } = e.target;
 
@@ -164,6 +165,8 @@ const Index = () => {
         }
       });
   };
+
+  console.log(patientsAll);
 
   return (
     <section>

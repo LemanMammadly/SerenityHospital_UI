@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
 
 .touchWith-section{
-    background-color: #0287BE;
+    background-color:#0287BE;
 }
 
 .container-touchWith{
@@ -19,6 +19,7 @@
     font-size: 20px;
     color: #fff;
     line-height: 29px;
+    font-weight: bold;
 }
 
 
@@ -29,7 +30,7 @@
     background: transparent;
     border: none;
     position: relative;
-    color: #f0f0f0;
+    color: #333;
     cursor: pointer;
     z-index: 1;
     padding: 10px 20px;
@@ -56,7 +57,7 @@
     transform: translate(0%, 0%);
     width: 100%;
     height: 100%;
-    background:#2c363968;
+    background:#fff;
     border-radius: 10px;
   }
   
