@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { DatePicker } from "antd";
 
@@ -17,6 +17,26 @@ const Index = () => {
   const [selectdoctors, setSelectdoctors] = useState("");
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  console.log(queryParams.get('departmentId'));
+  console.log(queryParams.get('doctorId'));
+  console.log(queryParams.get('selectedDate'));
+
+  useEffect(() => {
+    const departmentIdFromQuery = queryParams.get('departmentId');
+    const doctorIdFromQuery = queryParams.get('doctorId');
+    
+    if (departmentIdFromQuery && doctorIdFromQuery) {
+      setSelectedDepartments(departmentIdFromQuery);
+      setSelectdoctors(doctorIdFromQuery);
+  
+    }
+  }, [queryParams]);
+  
+
+
 
   const nav = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -100,6 +120,8 @@ const Index = () => {
     setErrorMessages({});
   }, [inputs]);
 
+  
+
   return (
     <section>
       <div className="all-app-create">
@@ -115,7 +137,7 @@ const Index = () => {
           Patient / Appoinments
         </Link>
         <div className="top-app-create">
-          <h1>Add Appoinment</h1>
+          <h1>Create Appoinment</h1>
         </div>
         <div className="bottom-app-create">
           <form method="POST" onSubmit={(e) => handleSubmit(e)}>
@@ -169,7 +191,6 @@ const Index = () => {
                     className="form-control"
                     onChange={handleChange}
                     name="doctorId"
-                    required=""
                     value={selectdoctors}
                     disabled={isDoctorSelectDisabled}
                   >

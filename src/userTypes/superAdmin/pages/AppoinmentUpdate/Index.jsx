@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { DatePicker } from "antd";
+import moment from "moment";
 
 const Index = () => {
   const { id } = useParams();
@@ -350,6 +351,11 @@ const Index = () => {
                     name="appoinmentDate"
                     format="YYYY-MM-DD HH:mm:ss"
                     placeholder="Select Date and Time"
+                    value={
+                      inputs.appoinmentDate
+                        ? moment(inputs.appoinmentDate)
+                        : null
+                    }
                     onChange={(date, dateString) =>
                       handleChange({
                         target: { name: "appoinmentDate", value: dateString },

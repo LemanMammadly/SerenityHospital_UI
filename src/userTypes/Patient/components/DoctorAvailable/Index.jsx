@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Children, cloneElement, useEffect, useState } from "react";
 import "./Index.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -18,9 +18,11 @@ const Index = () => {
   const [departmentsall, setDepartmentsall] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [selectdoctors, setSelectdoctors] = useState("");
-  const [selectedDepartments, setSelectedDepartments] = useState([]);
+  const [selectedDepartments, setSelectedDepartments] = useState("");
   const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
-  const [selectedDoctorAppointments, setSelectedDoctorAppointments] = useState([]);
+  const [selectedDoctorAppointments, setSelectedDoctorAppointments] = useState(
+    []
+  );
   const [selectedDoctorId, setSelectedDoctorId] = useState("");
 
   const nav = useNavigate();
@@ -88,7 +90,8 @@ const Index = () => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => nav("/patient/appoinments"))
+      .then((res) => nav(`/patient/appoinments/create?departmentId=${selectedDepartments}&doctorId=${selectedDoctorId}`))
+
       .catch((e) => {
         if (e.response && e.response.data && e.response.data.errors) {
           setErrorMessages(e.response.data.errors);
@@ -100,7 +103,7 @@ const Index = () => {
 
   const handleChooseButtonClick = (e) => {
     e.preventDefault();
-  
+
     if (selectedDoctorId) {
       axios
         .get(`https://localhost:7227/api/DoctorAuths/${selectedDoctorId}`, {
@@ -110,21 +113,21 @@ const Index = () => {
         })
         .then((res) => {
           const doctorAppointments = res.data && res.data.appoinments;
-  
+
           const selectedDoctorAppointments = doctorAppointments
-            .filter((app) => ![ 3, 4].includes(app.status))
+            .filter((app) => ![3, 4].includes(app.status))
             .map((app) => ({
               start: new Date(app.appoinmentDate),
               end: moment(app.appoinmentDate)
                 .add(app.duration, "minutes")
                 .toDate(),
-                title: `${moment(app.appoinmentDate).format("HH:mm")} - ${moment(
-                  app.appoinmentDate
-                )
-                  .add(app.duration, "minutes")
-                  .format("HH:mm")}`,
+              title: `${moment(app.appoinmentDate).format("HH:mm")} - ${moment(
+                app.appoinmentDate
+              )
+                .add(app.duration, "minutes")
+                .format("HH:mm")}`,
             }));
-  
+
           setSelectedDoctorAppointments(selectedDoctorAppointments);
         })
         .catch((err) => {
@@ -133,6 +136,28 @@ const Index = () => {
     }
   };
 
+  const TouchCellWrapper = ({ children, value, onSelectSlot }) =>
+    cloneElement(Children.only(children), {
+      onTouchEnd: () => onSelectSlot({ action:nav("/patient/appoinments/create"), slots: [value] }),
+      style: {
+        className: `${children}`,
+        cursor:"pointer"
+      },
+    });
+
+  const onSelectSlot = ({ action, slots }) => {
+    if (!selectedDoctorId) {
+      return false;
+    }
+    if (action && slots && slots.length > 0) {
+      const selectedDate = slots[0];
+      
+      console.log("Selected Date:", selectedDate);
+  
+      nav(`/patient/appoinments/create?departmentId=${selectedDepartments}&doctorId=${selectedDoctorId}&selectedDate=${selectedDate}`);
+    }
+     return false;
+  };
 
   return (
     <section>
@@ -225,21 +250,35 @@ const Index = () => {
         <div className="myCustomHeight p-4 all-calendar-div">
           {selectedDoctorAppointments.length > 0 ? (
             <Calendar
+              components={{
+                dateCellWrapper: (props) => (
+                  <TouchCellWrapper {...props} onSelectSlot={onSelectSlot} />
+                ),
+              }}
               localizer={localizer}
               events={selectedDoctorAppointments}
               startAccessor="start"
               endAccessor="end"
               defaultView="month"
+              selectable
+              onSelectSlot={onSelectSlot}
             />
           ) : (
             <div className="not-appoinments">
               <p>Doctor's appointments are not available.</p>
               <Calendar
+                components={{
+                  dateCellWrapper: (props) => (
+                    <TouchCellWrapper {...props} onSelectSlot={onSelectSlot} />
+                  ),
+                }}
                 localizer={localizer}
                 events={selectedDoctorAppointments}
                 startAccessor="start"
                 endAccessor="end"
                 defaultView="month"
+                selectable
+                onSelectSlot={onSelectSlot}
               />
             </div>
           )}

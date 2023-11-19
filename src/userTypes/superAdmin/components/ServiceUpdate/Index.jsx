@@ -6,6 +6,7 @@ import "select2";
 import "select2/dist/css/select2.css";
 import axios from "axios";
 import $ from "jquery";
+import moment from "moment";
 
 const Index = () => {
   const { id } = useParams();
@@ -191,7 +192,11 @@ const Index = () => {
                     name="serviceBeginning"
                     format="YYYY-MM-DD HH:mm:ss"
                     placeholder="Select Date and Time"
-                    defaultValue={data.serviceBeginning}
+                    value={
+                      inputs.serviceBeginning
+                        ? moment(inputs.serviceBeginning)
+                        : null
+                    }
                     onChange={(date, dateString) =>
                       handleChange({
                         target: { name: "serviceBeginning", value: dateString },
@@ -221,7 +226,11 @@ const Index = () => {
                     name="serviceEnding"
                     format="YYYY-MM-DD HH:mm:ss"
                     placeholder="Select Date and Time"
-                    defaultValue={data.serviceEnding}
+                    value={
+                      inputs.serviceEnding
+                        ? moment(inputs.serviceEnding)
+                        : null
+                    }
                     onChange={(date, dateString) =>
                       handleChange({
                         target: { name: "serviceEnding", value: dateString },

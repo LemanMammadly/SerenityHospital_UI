@@ -3,6 +3,7 @@ import "./Index.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { DatePicker } from "antd";
+import moment from "moment";
 
 const Index = () => {
   const { id } = useParams();
@@ -461,6 +462,11 @@ const Index = () => {
                     showTime
                     format="YYYY-MM-DD HH:mm:ss"
                     placeholder="Select Date and Time"
+                    value={
+                      inputs.startDate
+                        ? moment(inputs.startDate)
+                        : null
+                    }
                     onChange={(date, dateString) =>
                       handleChange({
                         target: { name: "startDate", value: dateString },
