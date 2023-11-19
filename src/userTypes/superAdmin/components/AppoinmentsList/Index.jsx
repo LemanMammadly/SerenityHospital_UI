@@ -87,6 +87,8 @@ const Index = () => {
       }
     });
   };
+
+  
   const handleSoftDelete = (id) => {
     axios
       .patch(
