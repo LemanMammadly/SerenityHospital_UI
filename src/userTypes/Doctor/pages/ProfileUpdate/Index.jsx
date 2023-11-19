@@ -8,7 +8,6 @@ const Index = () => {
     name: "",
     surname: "",
     email: "",
-    userName: "",
     description: "",
     age: "",
   });
@@ -66,6 +65,13 @@ const Index = () => {
     if (name === "gender") {
       setSelectGender(value);
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
   };
 
   const handleSubmit = async (e, id) => {
@@ -75,7 +81,6 @@ const Index = () => {
     formData.append("name", inputs.name);
     formData.append("surname", inputs.surname);
     formData.append("email", inputs.email);
-    formData.append("userName", inputs.userName);
     formData.append("description", inputs.description);
     formData.append("age", inputs.age);
     formData.append("gender", selectGender);
@@ -98,6 +103,10 @@ const Index = () => {
       });
   };
 
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
   return (
     <section>
       <div className="all-doctor-update">
@@ -110,7 +119,7 @@ const Index = () => {
             className="fa-solid fa-chevron-left"
             style={{ marginRight: "10px" }}
           ></i>
-          Super Admin / Doctor
+          Doctor / Profile
         </Link>
         <div className="top-doctor-update">
           <h1>Update Doctor</h1>
@@ -197,34 +206,6 @@ const Index = () => {
                     <div className="error-messages">
                       <p className="error-message">
                         {exception &&  exception.includes("email") ? exception : ""}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="form-group d-flex align-items-center justify-content-center">
-                <label htmlFor="userName" className="col-sm-3 control-label">
-                  Username
-                </label>
-                <div className="col-sm-5">
-                  <input
-                    id="userName"
-                    type="text"
-                    className="form-control"
-                    defaultValue={data.userName}
-                    onChange={handleChange}
-                    name="userName"
-                    required=""
-                    placeholder="Username"
-                  />
-                  {errorMessages.Username ? (
-                    <div className="error-messages">
-                      <p className="error-message">{errorMessages.Username}</p>
-                    </div>
-                  ) : (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {exception &&  exception.includes("username") ? exception : ""}
                       </p>
                     </div>
                   )}

@@ -47,7 +47,7 @@ const Index = () => {
       setSelectdoctors(value);
     }
 
-    console.log(inputs);
+    setException("");
   };
 
   useEffect(() => {
@@ -104,11 +104,15 @@ const Index = () => {
       });
   };
 
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
   return (
     <section>
       <div className="all-app-create">
         <Link
-          to="/doctor/appoinments"
+          to="/doctor/appoinmetsaspatient"
           className="back-to-superadmin"
           style={{ textDecoration: "none", color: "#333" }}
         >

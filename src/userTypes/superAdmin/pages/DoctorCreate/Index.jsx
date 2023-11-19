@@ -66,8 +66,13 @@ const Index = () => {
     if (name === "departmentId") {
       setSelectDepartment(parseInt(value, 10));
     }
+    
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
 
-    console.log(inputs);
+    setException("");
   };
 
   useEffect(() => {
@@ -109,7 +114,6 @@ const Index = () => {
     formData.append("positionId", selectPosition);
     formData.append("departmentId", selectDepartment);
 
-    console.log(formData);
 
     axios
       .post("https://localhost:7227/api/DoctorAuths/Create", formData, {
@@ -127,6 +131,11 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
 
   return (
     <section>
@@ -170,7 +179,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("name")
+                        {exception && exception.includes("Name")
                           ? exception
                           : ""}
                       </p>
@@ -230,7 +239,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("email")
+                        {exception && exception.includes("Email")
                           ? exception
                           : ""}
                       </p>
@@ -260,7 +269,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("exist")
+                        {exception && exception.includes("Username")
                           ? exception
                           : ""}
                       </p>

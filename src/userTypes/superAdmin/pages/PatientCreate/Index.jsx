@@ -58,6 +58,13 @@ const Index = () => {
     if (name === "bloodType") {
       setSelectBloodType(value);
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
   };
 
   const handleSubmit = (e) => {
@@ -76,7 +83,6 @@ const Index = () => {
     formData.append("bloodType", selectBloodType);
     formData.append("imageFile", inputs.imageFile);
 
-    console.log(formData);
 
     axios
       .post("https://localhost:7227/api/PatientAuths/Create", formData, {
@@ -94,6 +100,11 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
   return (
     <section>
       <div className="all-pat-create">
@@ -136,7 +147,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("null")
+                        {exception && exception.includes("name")
                           ? exception
                           : ""}
                       </p>
@@ -166,7 +177,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("null")
+                        {exception && exception.includes("surname")
                           ? exception
                           : ""}
                       </p>

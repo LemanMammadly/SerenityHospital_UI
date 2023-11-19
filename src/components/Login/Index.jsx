@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Index.css";
 import bgLogin from "../../assets/imgs/slider-serenity.jpeg";
 import loginPage from "../../assets/imgs/loginPage.png";
@@ -22,11 +22,16 @@ const Index = () => {
       }));
     }
 
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
     if (name === "user") {
       setSelectUser(value);
     }
 
-    console.log(inputs);
+    setException("");
   };
 
   const handleSubmit = (e) => {
@@ -101,6 +106,10 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
 
   const showPassword = () => {
     setPasswordVisible(!passwordVisible);

@@ -46,6 +46,13 @@ const Index = () => {
     if (name === "patientId") {
       setSelectedPatient(value);
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
   };
 
   useEffect(() => {
@@ -119,6 +126,9 @@ const Index = () => {
   };
 
   
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
 
   return (
     <section>

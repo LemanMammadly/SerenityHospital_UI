@@ -82,6 +82,13 @@ const Index = () => {
     if (name === "departmentId") {
       setSelectDepartment(value);
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
   };
 
 
@@ -122,6 +129,10 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
 
   return (
     <section>

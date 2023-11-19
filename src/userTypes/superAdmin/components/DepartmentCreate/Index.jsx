@@ -49,12 +49,17 @@ const Index = () => {
       }));
     }
 
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
+
     if (name === "serviceId") {
       setSelectedServices(parseInt(value, 10));
     }
   };
-
-  console.log(inputs);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,6 +86,11 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
 
   return (
     <section>
@@ -178,7 +188,7 @@ const Index = () => {
                     </div>
                   ) : (
                     <div className="error-messages">
-                      <p className="error-message">{exception &&  exception.includes("iconUrl") ? exception : ""}</p>
+                      <p className="error-message">{exception &&  exception.includes("Icon") ? exception : ""}</p>
                     </div>
                   )}
                 </div>

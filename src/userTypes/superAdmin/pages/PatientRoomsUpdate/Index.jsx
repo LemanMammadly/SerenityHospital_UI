@@ -133,6 +133,13 @@ const Index = () => {
         .map((option) => option.value.toString());
       setSelectPatients(selectedPatient);
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
   };
 
   const handleSubmit = async (e, id) => {
@@ -166,7 +173,9 @@ const Index = () => {
       });
   };
 
-  console.log(patientsAll);
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
 
   return (
     <section>

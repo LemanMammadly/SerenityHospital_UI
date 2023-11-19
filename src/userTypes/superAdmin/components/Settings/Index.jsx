@@ -58,6 +58,7 @@ const Index = () => {
     } else {
       console.log("Errors:", errors);
     }
+    setErrors("");
   };
 
   const handleChange = (e) => {

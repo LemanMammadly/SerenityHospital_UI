@@ -147,6 +147,7 @@ const Index = () => {
               ></i>
             </div>
             <div className="top-notifcation-admin text-end">
+              <Link to={"/superadmin/messages"} style={{fontSize:"13px",fontWeight:"bold",color:"#0A5FF3",marginRight:"5px",textDecoration:"none"}}> Messages</Link>
                 <i
                   onClick={handleShow}
                   className="notif-bell"
@@ -160,11 +161,11 @@ const Index = () => {
                     marginBottom: "10px",
                     cursor: "pointer",
                   }}
-                  class="fa-solid fa-bell"
+                  class="fa-regular fa-envelope"
                 ></i>
               <span
-                className={message.length > 0 ? "notif-red-admin" : ""}
-              ></span>
+                className={message.length > 0 ? "notif-red-admin" : "notif-red-admin"}
+              ><p>{message.length}</p></span>
               {message &&
                 message.map((mess, index) => (
                   <Modal

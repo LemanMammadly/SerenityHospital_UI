@@ -25,6 +25,13 @@ const Index = () => {
     if (name === "departmentId") {
       setSelectDepartment(parseInt(value, 10));
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
   };
 
   useEffect(() => {
@@ -61,6 +68,11 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
   return (
     <section>
       <div className="all-position-create">
@@ -103,7 +115,9 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("Number") ? exception : ""}
+                        {exception && exception.includes("Number")
+                          ? exception
+                          : ""}
                       </p>
                     </div>
                   )}

@@ -32,7 +32,7 @@ const Index = () => {
         <div className="all-doctors">
           <h3>Our Professor Doctors</h3>
           <div className="doctors-boxes">
-            {data.map((datas, index) => (
+            {data.slice(0,8).map((datas, index) => (
               <div key={index} className="doctor-box" data-aos="fade-up"
               data-aos-anchor-placement="bottom-bottom">
                 <div className="img-div">

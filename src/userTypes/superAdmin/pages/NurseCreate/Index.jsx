@@ -72,8 +72,7 @@ const Index = () => {
     if (name === "departmentId") {
       setSelectDepartment(parseInt(value, 10));
     }
-
-    console.log(inputs);
+    setException("");
   };
 
   useEffect(() => {
@@ -123,6 +122,10 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
 
   return (
     <section>

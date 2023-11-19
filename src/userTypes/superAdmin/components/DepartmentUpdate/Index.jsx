@@ -62,6 +62,13 @@ const Index = () => {
     if (name === "serviceId") {
       setSelectedService(value);
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+  
+    setException("");
   };
 
   const handleSubmit = async (e, id) => {
@@ -89,6 +96,11 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
   return (
     <section>
       <div className="all-department-update">

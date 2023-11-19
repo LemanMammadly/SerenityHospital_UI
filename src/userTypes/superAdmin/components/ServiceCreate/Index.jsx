@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Index.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -23,6 +23,8 @@ const Index = () => {
       ...prev,
       [name]: null,
     }));
+
+    setException("");
   };
 
   const handleSubmit = (e) => {
@@ -51,6 +53,10 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
 
   return (
     <section>

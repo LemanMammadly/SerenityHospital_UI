@@ -117,9 +117,8 @@ const Index = () => {
                   end: moment(app.appoinmentDate)
                     .add(app.duration, "minutes")
                     .toDate(),
-                  title: `${moment(app.appoinmentDate).format("YYYY-MM-DD HH:mm")} - ${moment(app.appoinmentDate)
-                    .add(app.duration, "minutes")
-                    .format("HH:mm")}`,
+                    title: `${moment(app.appoinmentDate).format("HH:mm")} - ${moment(app.appoinmentDate).add(app.duration, "minutes").format("HH:mm")}`,
+
                 }));
       
               setSelectedDoctorAppointments(selectedDoctorAppointments);
@@ -142,9 +141,6 @@ const Index = () => {
               <form method="POST" onSubmit={(e) => handleSubmit(e)}>
                 <div className="panel-body d-flex flex-column gap-4">
                   <div className="form-group d-flex align-items-center justify-content-center">
-                    <label htmlFor="depId" className="col-sm-3 control-label">
-                      Departments
-                    </label>
                     <div className="col-sm-5">
                       <select
                         id="depId"
@@ -181,9 +177,6 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="form-group d-flex align-items-center justify-content-center">
-                    <label htmlFor="doctorId" className="col-sm-3 control-label">
-                      Doctors
-                    </label>
                     <div className="col-sm-5">
                       <select
                         id="doctorId"

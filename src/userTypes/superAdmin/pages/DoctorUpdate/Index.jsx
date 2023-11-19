@@ -99,9 +99,14 @@ const Index = () => {
     if (name === "departmentId") {
       setSelectDepartment(value);
     }
-  };
 
-  console.log(inputs);
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
+  };
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
@@ -141,6 +146,11 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
 
   return (
     <section>
@@ -586,7 +596,7 @@ const Index = () => {
                   ) : (
                     <div className="error-messages">
                       <p className="error-message">
-                        {exception && exception.includes("department")
+                        {(exception && exception.includes("department"))
                           ? exception
                           : ""}
                       </p>
@@ -594,7 +604,22 @@ const Index = () => {
                   )}
                 </div>
               </div>
-              <div className="update-btn-doctor">
+              <div className="update-btn-doctor d-flex flex-column">
+              {errorMessages.DepartmentId ? (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {errorMessages.DepartmentId}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="error-messages">
+                      <p className="error-message">
+                        {(exception && exception.includes("Appoinment"))
+                          ? exception
+                          : ""}
+                      </p>
+                    </div>
+                  )}
                 <button type="submit">
                   Update <i className="fa-solid fa-check"></i>
                 </button>

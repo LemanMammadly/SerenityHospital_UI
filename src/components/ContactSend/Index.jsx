@@ -20,6 +20,8 @@ const Index = () => {
       [name]: null,
     }));
   
+    setException("");
+
     if (
       type === "text" ||
       type === "tel" ||

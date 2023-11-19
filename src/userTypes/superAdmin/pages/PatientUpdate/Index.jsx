@@ -68,9 +68,15 @@ const Index = () => {
     if (name === "bloodType") {
       setSelectBloodType(value);
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
   };
 
-  console.log(inputs);
 
   const handleSubmit = async (e, id) => {
     e.preventDefault();
@@ -107,6 +113,11 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
   return (
     <section>
       <div className="all-pat-update">

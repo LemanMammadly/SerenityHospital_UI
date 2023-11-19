@@ -69,12 +69,18 @@ const Index = () => {
 
     if (name === "departmentId") {
       setSelectedDepartments(value);
-      // setIsDoctorSelectDisabled(false);
     }
 
     if (name === "doctorId") {
       setSelectDoctors(value);
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+  
+    setException("");
   };
 
   const handleSubmit = async (e, id) => {
@@ -101,6 +107,10 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
 
   return (
     <section>

@@ -29,7 +29,7 @@ const Index = () => {
           <h3>Departments</h3>
           <div className="department-boxes">
             {data.map((datas,index) => (
-              <div key={index} className="dep-box col-lg-3" data-aos="zoom-in-up">
+              <div key={index} className="dep-box col-lg-3"  data-aos="flip-up">
                 <img
                   src={datas.iconUrl}
                   alt="departmenticon"

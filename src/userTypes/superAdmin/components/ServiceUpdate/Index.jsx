@@ -63,6 +63,8 @@ const Index = () => {
   
       setSelectedDepartments(selectedDepartments);
     }
+
+    setException("");
   };
   
   const handleSubmit = async (e, id) => {
@@ -96,6 +98,10 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
   
   return (
     <section>

@@ -44,6 +44,13 @@ const Index = () => {
     if (name === "type") {
       setSelectType(parseInt(value, 10));
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+
+    setException("");
   };
 
   useEffect(() => {
@@ -84,6 +91,11 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
+
   return (
     <section>
       <div className="all-position-create">

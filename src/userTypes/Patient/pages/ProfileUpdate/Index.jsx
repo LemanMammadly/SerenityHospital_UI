@@ -8,7 +8,6 @@ const Index = () => {
         name: "",
         surname: "",
         email: "",
-        userName: "",
         description: "",
         age: "",
         address:"",
@@ -39,8 +38,6 @@ const Index = () => {
             console.log(err);
           });
       }, []);
-
-      console.log(data);
     
       const handleChange = (e) => {
         const { name, value, type, files } = e.target;
@@ -81,6 +78,12 @@ const Index = () => {
         if (name === "bloodType") {
             setSelectBloodType(value);
           }
+
+          setErrorMessages((prev) => ({
+            ...prev,
+            [name]: null,
+          }));
+          setException("");
       };
     
       const handleSubmit = async (e, id) => {
@@ -90,7 +93,6 @@ const Index = () => {
         formData.append("name", inputs.name);
         formData.append("surname", inputs.surname);
         formData.append("email", inputs.email);
-        formData.append("userName", inputs.userName);
         formData.append("phoneNumber", inputs.phoneNumber);
         formData.append("age", inputs.age);
         formData.append("gender", selectGender);
@@ -114,6 +116,11 @@ const Index = () => {
             }
           });
       };
+
+      useEffect(() => {
+        setErrorMessages({});
+      }, [inputs]);
+
   return (
     <section>
       <div className="all-pat-update">
@@ -126,7 +133,7 @@ const Index = () => {
             className="fa-solid fa-chevron-left"
             style={{ marginRight: "10px" }}
           ></i>
-          Super Admin / Patient
+          Patient / Profile
         </Link>
         <div className="top-pat-update">
           <h1>Update Profile</h1>
@@ -213,34 +220,6 @@ const Index = () => {
                     <div className="error-messages">
                       <p className="error-message">
                         {exception && exception.includes("email") ? exception : ""}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="form-group d-flex align-items-center justify-content-center">
-                <label htmlFor="userName" className="col-sm-3 control-label">
-                  Username
-                </label>
-                <div className="col-sm-5">
-                  <input
-                    id="userName"
-                    type="text"
-                    className="form-control"
-                    defaultValue={data.userName}
-                    onChange={handleChange}
-                    name="userName"
-                    required=""
-                    placeholder="Username"
-                  />
-                  {errorMessages.Username ? (
-                    <div className="error-messages">
-                      <p className="error-message">{errorMessages.Username}</p>
-                    </div>
-                  ) : (
-                    <div className="error-messages">
-                      <p className="error-message">
-                        {exception && exception.includes("username") ? exception : ""}
                       </p>
                     </div>
                   )}

@@ -35,6 +35,13 @@ const Index = () => {
         [name]: value,
       }));
     }
+
+    setErrorMessages((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
+  
+    setException("");
   };
 
   const handleSubmit = async (e, id) => {
@@ -59,6 +66,10 @@ const Index = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMessages({});
+  }, [inputs]);
 
   return (
     <section>
