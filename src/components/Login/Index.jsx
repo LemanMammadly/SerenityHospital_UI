@@ -129,12 +129,6 @@ const Index = () => {
             Serenity Hospital <br /> Management System
           </h2>
           <div className="form-group d-flex align-items-center justify-content-center w-100 mb-4">
-            <label
-              htmlFor="user"
-              className="col-sm-3 control-label text-white mx-5"
-            >
-              Login As:
-            </label>
             <div className="col-sm-5">
               <select
                 id="user"
@@ -156,10 +150,13 @@ const Index = () => {
               type="text"
               placeholder="Username"
               name="userName"
-              style={{marginBottom:"10px"}}
+              style={{ marginBottom: "10px" }}
               onChange={handleChange}
             />
-            <div tabIndex="0" className="password-div d-flex align-items-center justify-content-between">
+            <div
+              tabIndex="0"
+              className="password-div d-flex align-items-center justify-content-between"
+            >
               <input
                 className="pass-input"
                 type={passwordVisible ? "text" : "password"}
@@ -182,7 +179,10 @@ const Index = () => {
               </div>
             ) : (
               <div className="error-messages">
-                <p style={{color:"#ff3333",fontWeight:"300"}} className="error-message">
+                <p
+                  style={{ color: "#ff3333", fontWeight: "300" }}
+                  className="error-message"
+                >
                   {(exception && exception.includes("password")) ||
                   (exception && exception.includes("delete"))
                     ? exception
@@ -190,11 +190,14 @@ const Index = () => {
                 </p>
               </div>
             )}
-            <button style={{ borderRadius: "10px",backgroundColor:"#177DD4" }} type="submit">
+            <button
+              style={{ borderRadius: "10px", backgroundColor: "#177DD4" }}
+              type="submit"
+            >
               Login
             </button>
           </form>
-          <p style={{color:"#fff"}}>Don't you have an account?</p>
+          <p style={{ color: "#fff" }}>Don't you have an account?</p>
           <Link
             className="text-white"
             style={{
