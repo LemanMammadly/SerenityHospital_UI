@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import axios from "axios";
 import $ from "jquery";
+import Swal from "sweetalert2";
 
 const Index = () => {
   const [data, setData] = useState([]);
@@ -27,6 +28,39 @@ const Index = () => {
 
     dashboardMenu.fadeIn("slow", () => {});
     document.body.style.overflow = "hidden";
+  };
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`https://localhost:7227/api/Appoinments/${id}`, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
+          .then((res) => {
+            window.location.reload();
+            console.log("Appoinment deleted successfully");
+          })
+          .catch((e) => {
+            if (e.response && e.response.data && e.response.data.errors) {
+              setErrorMessages(e.response.data.errors);
+            } else {
+              setException(e.response.data.message);
+            }
+          });
+      }
+    });
   };
 
   useEffect(() => {
@@ -137,7 +171,19 @@ const Index = () => {
                 <th scope="col">Date</th>
                 <th scope="col">Duration</th>
                 <th scope="col">Status</th>
-                <th scope="col">Is Deleted</th>
+                <th
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  scope="col"
+                >
+                  Is Deleted
+                </th>
+                <th scope="col" colSpan={1}>
+                  Options
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -177,8 +223,24 @@ const Index = () => {
                     >
                       {datas.problemDesc}
                     </td>
-                    <td>{formatDateTime(datas.appoinmentDate)}</td>
-                    <td>{datas.duration} minute</td>
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {formatDateTime(datas.appoinmentDate)}
+                    </td>
+                    <td
+                      style={{
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {datas.duration} minute
+                    </td>
                     <td
                       style={{
                         color:
@@ -190,7 +252,8 @@ const Index = () => {
                             ? "#1C79FF"
                             : datas.status === 4
                             ? "red"
-                            : "black",fontWeight:"bold"
+                            : "black",
+                        fontWeight: "bold",
                       }}
                     >
                       {datas.status === 1
@@ -202,6 +265,14 @@ const Index = () => {
                         : "Rejected"}
                     </td>
                     <td>{datas.isDeleted === false ? "Active" : "Deleted"}</td>
+                    <td>
+                      <Button
+                        onClick={() => handleDelete(datas.id)}
+                        className="bg-danger text-white"
+                      >
+                        Delete
+                      </Button>
+                    </td>
                   </tr>
                 ))}
             </tbody>

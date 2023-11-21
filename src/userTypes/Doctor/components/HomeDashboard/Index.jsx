@@ -146,7 +146,7 @@ const Index = () => {
                 <Modal.Title>Notifications</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <div className="all-notif-body d-flex gap-2 align-items-center justify-content-between">
+                <div className="all-notif-body d-flex gap-2 align-items-center justify-content-between alert alert-primary">
                   <div className="patient-image">
                     <img
                       src={

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Index.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { DatePicker } from "antd";
 
@@ -18,6 +18,19 @@ const Index = () => {
   const [selectdoctors, setSelectdoctors] = useState("");
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [isDoctorSelectDisabled, setIsDoctorSelectDisabled] = useState(true);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  useEffect(() => {
+    const departmentIdFromQuery = queryParams.get('departmentId');
+    const doctorIdFromQuery = queryParams.get('doctorId');
+    
+    if (departmentIdFromQuery && doctorIdFromQuery) {
+      setSelectedDepartments(departmentIdFromQuery);
+      setSelectdoctors(doctorIdFromQuery);
+  
+    }
+  }, [queryParams]);
 
   const nav = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));

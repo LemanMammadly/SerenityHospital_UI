@@ -20,10 +20,6 @@ const Index = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
-  console.log(queryParams.get('departmentId'));
-  console.log(queryParams.get('doctorId'));
-  console.log(queryParams.get('selectedDate'));
-
   useEffect(() => {
     const departmentIdFromQuery = queryParams.get('departmentId');
     const doctorIdFromQuery = queryParams.get('doctorId');
@@ -34,9 +30,6 @@ const Index = () => {
   
     }
   }, [queryParams]);
-  
-
-
 
   const nav = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));

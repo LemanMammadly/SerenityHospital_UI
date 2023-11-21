@@ -159,6 +159,9 @@ const Index = () => {
      return false;
   };
 
+
+  console.log(selectedDoctorAppointments);
+
   return (
     <section>
       <div className="all-app-available">
@@ -263,10 +266,12 @@ const Index = () => {
               selectable
               onSelectSlot={onSelectSlot}
             />
-          ) : (
-            <div className="not-appoinments">
-              <p>Doctor's appointments are not available.</p>
-              <Calendar
+          )  : (
+            <div className="not-appointments">
+              {selectedDoctorAppointments.length===0 ? (
+               <div>
+                 <p>Doctor's appointments are not available.</p>
+                <Calendar
                 components={{
                   dateCellWrapper: (props) => (
                     <TouchCellWrapper {...props} onSelectSlot={onSelectSlot} />
@@ -280,6 +285,12 @@ const Index = () => {
                 selectable
                 onSelectSlot={onSelectSlot}
               />
+               </div>
+              ) : (
+                <div style={{height:"30vh"}}>
+                  <p className="alert alert-info">Please select a doctor to view appointments.</p>
+                </div>
+              )}
             </div>
           )}
         </div>
