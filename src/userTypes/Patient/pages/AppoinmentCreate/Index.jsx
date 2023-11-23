@@ -272,7 +272,8 @@ const Index = () => {
                     <p className="error-message">
                       {(exception && exception.includes("Invalid")) ||
                       (exception && exception.includes("busy")) ||
-                      (exception && exception.includes("past"))
+                      (exception && exception.includes("past")) ||
+                      (exception && exception.includes("Durations"))
                         ? exception
                         : ""}
                     </p>

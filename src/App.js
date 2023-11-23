@@ -85,6 +85,7 @@ import DoctorPatientAsDoctorProfile from "./userTypes/Doctor/pages/PatientAsDoct
 import PatientDoctorProfile from "./userTypes/Patient/pages/DoctorProfile/Index.jsx"
 import ReceptionistDoctorProfile from "./userTypes/Reception/pages/DoctorProfile/Index.jsx"
 import ReceptionistPatientrProfile from "./userTypes/Reception/pages/PatientProfile/Index.jsx"
+import PaymentPage from "./userTypes/Patient/pages/PaymentPge/Index.jsx"
 
 function App() {
   var user = JSON.parse(localStorage.getItem("user"));
@@ -359,6 +360,7 @@ function App() {
                 element={<PatientProfileUpdate />}
               />
               <Route path="/patient/doctorprofile/:username" element={<PatientDoctorProfile />} />
+              <Route path="/patient/payment" element={<PaymentPage />} />
             </Route>
 
             <Route
